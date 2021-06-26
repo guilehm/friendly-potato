@@ -58,7 +58,7 @@ type results struct {
 	RatingTop        int         `json:"rating_top"`
 	Ratings          []ratings   `json:"ratings"`
 	RatingsCount     int         `json:"ratings_count"`
-	ReviewsTextCount string      `json:"reviews_text_count"`
+	ReviewsTextCount int         `json:"reviews_text_count"`
 	Added            int         `json:"added"`
 	Metacritic       int         `json:"metacritic"`
 	Playtime         int         `json:"playtime"`

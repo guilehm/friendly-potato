@@ -76,6 +76,7 @@ func (r rawgService) SearchGame(query string) (SearchResponse, error) {
 
 	q := endpoint.Query()
 	q.Set("key", r.ApiKey)
+	q.Set("search", query)
 	endpoint.RawQuery = q.Encode()
 
 	fmt.Printf("%v\n", endpoint)

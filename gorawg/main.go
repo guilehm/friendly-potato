@@ -7,11 +7,13 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/gorilla/mux"
 )
 
 func search(w http.ResponseWriter, r *http.Request) {
 	rawg := services.RawgService()
-	resp, err := rawg.SearchGame("GTA")
+	resp, err := rawg.SearchGame("")
 
 	if err != nil {
 		fmt.Printf("ERROR: %v", err)
@@ -30,7 +32,9 @@ func hello(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	fmt.Println("hello from gorawg")
-	http.HandleFunc("/", hello)
-	http.HandleFunc("/search", search)
-	http.ListenAndServe(":"+os.Getenv("PORT"), nil)
+
+	r := mux.NewRouter()
+	r.StrictSlash(true).HandleFunc("/", hello)
+	r.StrictSlash(true).HandleFunc("/search", search)
+	http.ListenAndServe(":"+os.Getenv("PORT"), r)
 }

@@ -15,7 +15,7 @@ type rawgService struct {
 	ApiKey string
 }
 
-type searchResponse struct {
+type SearchResponse struct {
 	Count    int       `json:"count"`
 	Next     string    `json:"next"`
 	Previous string    `json:"previous"`
@@ -54,8 +54,9 @@ type results struct {
 	Released         string      `json:"released"`
 	Tba              bool        `json:"tba"`
 	BackgroundImage  string      `json:"background_image"`
-	Rating           int         `json:"rating"`
+	Rating           float64     `json:"rating"`
 	RatingTop        int         `json:"rating_top"`
+	Ratings          []ratings   `json:"ratings"`
 	RatingsCount     int         `json:"ratings_count"`
 	ReviewsTextCount string      `json:"reviews_text_count"`
 	Added            int         `json:"added"`
@@ -67,10 +68,10 @@ type results struct {
 	Platforms        []platforms `json:"platforms"`
 }
 
-func (r rawgService) SearchGame(query string) (searchResponse, error) {
+func (r rawgService) SearchGame(query string) (SearchResponse, error) {
 	endpoint, err := url.Parse(fmt.Sprintf("%v/%v", RAWG_API_URL, GAMES_ENDPOINT))
 	if err != nil {
-		return searchResponse{}, err
+		return SearchResponse{}, err
 	}
 
 	q := endpoint.Query()
@@ -80,9 +81,9 @@ func (r rawgService) SearchGame(query string) (searchResponse, error) {
 	fmt.Printf("%v\n", endpoint)
 	resp, err := http.Get(endpoint.String())
 	if err != nil {
-		return searchResponse{}, err
+		return SearchResponse{}, err
 	}
-	var jsonResponse searchResponse
+	var jsonResponse SearchResponse
 	err = json.NewDecoder(resp.Body).Decode(&jsonResponse)
 	return jsonResponse, err
 }

@@ -21,6 +21,13 @@ type searchResponse struct {
 	Previous string    `json:"previous"`
 	Results  []results `json:"results"`
 }
+
+type ratings struct {
+	Id      int     `json:"id"`
+	Title   string  `json:"title"`
+	Count   int     `json:"count"`
+	Percent float64 `json:"percent"`
+}
 type esrbRating struct {
 	ID   int    `json:"id"`
 	Slug string `json:"slug"`

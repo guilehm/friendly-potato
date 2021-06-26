@@ -1,0 +1,17 @@
+version: "3.8"
+
+
+services:
+  gorawg:
+    build: ./gorawg
+    image: gorawg
+    container_name: gorawg
+    command: go run main.go
+    volumes:
+      - ./gorawg:/go/src/gorawg
+    working_dir: /go/src/gorawg
+    environment:
+      PORT: 80
+      RAWG_API_KEY: your-api-key
+    ports:
+      - 8090:80

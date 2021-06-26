@@ -11,9 +11,10 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func search(w http.ResponseWriter, r *http.Request) {
+func games(w http.ResponseWriter, r *http.Request) {
 	rawg := services.RawgService()
-	resp, err := rawg.SearchGame("")
+	search := r.FormValue("search")
+	resp, err := rawg.SearchGame(search)
 
 	if err != nil {
 		fmt.Printf("ERROR: %v", err)
@@ -35,6 +36,6 @@ func main() {
 
 	r := mux.NewRouter()
 	r.StrictSlash(true).HandleFunc("/", hello)
-	r.StrictSlash(true).HandleFunc("/search", search)
+	r.StrictSlash(true).HandleFunc("/games/", games)
 	http.ListenAndServe(":"+os.Getenv("PORT"), r)
 }

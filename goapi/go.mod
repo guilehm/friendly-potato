@@ -1,4 +1,4 @@
-module gorawg
+module goapi
 
 go 1.16
 

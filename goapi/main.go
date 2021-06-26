@@ -3,7 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"gorawg/services"
+	"goapi/services"
+	"goapi/utils"
 	"net/http"
 	"os"
 	"time"
@@ -37,5 +38,5 @@ func main() {
 	r := mux.NewRouter()
 	r.StrictSlash(true).HandleFunc("/", hello)
 	r.StrictSlash(true).HandleFunc("/games/", games)
-	http.ListenAndServe(":"+os.Getenv("PORT"), r)
+	http.ListenAndServe(":"+os.Getenv("PORT"), utils.LogRequest(r))
 }

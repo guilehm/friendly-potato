@@ -76,9 +76,12 @@ func (r rawgService) SearchGame(queries url.Values) (SearchResponse, error) {
 
 	q := endpoint.Query()
 	q.Set("key", r.ApiKey)
-	q.Set("search", query)
+	for key, values := range queries {
+		for _, v := range values {
+			q.Set(key, v)
+		}
+	}
 	endpoint.RawQuery = q.Encode()
-
 	resp, err := http.Get(endpoint.String())
 	if err != nil {
 		return SearchResponse{}, err

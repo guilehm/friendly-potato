@@ -16,10 +16,10 @@ type rawgService struct {
 }
 
 type SearchResponse struct {
-	Count    int       `json:"count"`
-	Next     string    `json:"next"`
-	Previous string    `json:"previous"`
-	Results  []results `json:"results"`
+	Count int `json:"count"`
+	// Next     string    `json:"next"`
+	// Previous string    `json:"previous"`
+	Results []results `json:"results"`
 }
 
 type ratings struct {

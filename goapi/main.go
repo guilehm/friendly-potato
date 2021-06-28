@@ -19,11 +19,35 @@ func games(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Printf("ERROR: %v", err)
 	}
-	w.Header().Set("Content-Type", "application/json")
 	jsonResponse, err := json.Marshal(resp)
 	if err != nil {
 		fmt.Printf("ERROR: %v", err)
 	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonResponse)
+}
+
+func gamesDetail(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id := vars["id"]
+
+	rawg := services.RawgService()
+	intId, err := strconv.Atoi(id)
+	if err != nil {
+		fmt.Printf("Error: invalid ID")
+	}
+
+	resp, err := rawg.GetGameDetail(intId)
+	if err != nil {
+		fmt.Printf("ERROR: %v", err)
+	}
+
+	jsonResponse, err := json.Marshal(resp)
+	if err != nil {
+		fmt.Printf("ERROR: %v", err)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonResponse)
 }
 

@@ -242,9 +242,9 @@ func (r rawgService) SearchGame(queries url.Values) (SearchResponse, error) {
 	if err != nil {
 		return SearchResponse{}, err
 	}
-	var jsonResponse SearchResponse
-	err = json.NewDecoder(resp.Body).Decode(&jsonResponse)
-	return jsonResponse, err
+	var response SearchResponse
+	err = json.NewDecoder(resp.Body).Decode(&response)
+	return response, err
 }
 
 func RawgService() rawgService {

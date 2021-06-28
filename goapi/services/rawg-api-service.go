@@ -211,6 +211,19 @@ type results struct {
 	Platforms        []platforms `json:"platforms"`
 }
 
+func (r rawgService) GetGameDetail(gameId int) (GameStruct, error) {
+	endpoint := fmt.Sprintf(
+		"%v/%v/%v?key=%v", RAWG_API_URL, GAMES_ENDPOINT, gameId, r.ApiKey,
+	)
+	resp, err := http.Get(endpoint)
+	if err != nil {
+		return GameStruct{}, err
+	}
+	var jsonResponse GameStruct
+	err = json.NewDecoder(resp.Body).Decode(&jsonResponse)
+	return jsonResponse, err
+}
+
 func (r rawgService) SearchGame(queries url.Values) (SearchResponse, error) {
 	endpoint, err := url.Parse(fmt.Sprintf("%v/%v", RAWG_API_URL, GAMES_ENDPOINT))
 	if err != nil {

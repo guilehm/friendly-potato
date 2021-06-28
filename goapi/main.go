@@ -7,6 +7,7 @@ import (
 	"goapi/utils"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -61,5 +62,6 @@ func main() {
 	r := mux.NewRouter()
 	r.StrictSlash(true).HandleFunc("/", hello)
 	r.StrictSlash(true).HandleFunc("/games/", games)
+	r.StrictSlash(true).HandleFunc("/games/{id}/", gamesDetail)
 	http.ListenAndServe(":"+os.Getenv("PORT"), utils.LogRequest(r))
 }

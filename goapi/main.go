@@ -14,8 +14,7 @@ import (
 
 func games(w http.ResponseWriter, r *http.Request) {
 	rawg := services.RawgService()
-	search := r.FormValue("search")
-	resp, err := rawg.SearchGame(search)
+	resp, err := rawg.SearchGame(r.URL.Query())
 
 	if err != nil {
 		fmt.Printf("ERROR: %v", err)

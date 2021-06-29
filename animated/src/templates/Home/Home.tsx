@@ -1,5 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
+import Card from '../../components/Card/Card'
 import ApiService from '../../services/api-service'
 import { HomeContainer } from './Home.styles'
 
@@ -19,10 +20,9 @@ const Home = (): JSX.Element => {
   useEffect(() => {
     const fetchGameList = async () => {
 
+      const handleError = (error: AxiosError) => console.log(error)
       const handleSuccess = (response: AxiosResponse) =>
         setGameList(response.data.results)
-
-      const handleError = (error: AxiosError) => console.log(error)
 
       Api.getGameList()
         .then(handleSuccess)
@@ -33,7 +33,7 @@ const Home = (): JSX.Element => {
 
   return (
     <HomeContainer>
-      {gameList.map(game => <div key={game.slug}>{game.name}</div>)}
+      {gameList.map(game => <Card key={game.slug} title={game.name} />)}
     </HomeContainer>
   )
 }

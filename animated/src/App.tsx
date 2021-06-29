@@ -1,6 +1,9 @@
+import Home from './templates/Home'
+
+
 const App = (): JSX.Element => (
   <div className="App">
-    Hello World
+    <Home />
   </div>
 )
 

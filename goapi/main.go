@@ -24,6 +24,8 @@ func games(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Printf("ERROR: %v", err)
 	}
+
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonResponse)
 }
@@ -48,6 +50,7 @@ func gamesDetail(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("ERROR: %v", err)
 	}
 
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonResponse)
 }

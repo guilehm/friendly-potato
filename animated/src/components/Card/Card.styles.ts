@@ -2,6 +2,10 @@ import styled from 'styled-components'
 
 
 export const Section = styled.section`
+transition: ease-in-out 100ms;
+  &:hover {
+    transform: scale(1.05);
+  }
 `
 
 export const Title = styled.h2`

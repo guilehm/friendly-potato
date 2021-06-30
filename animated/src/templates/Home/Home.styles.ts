@@ -11,3 +11,9 @@ export const HomeSection = styled.section`
   grid-gap: 20px;
 
 `
+
+export const Title = styled.h1`
+text-align: center;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.4rem;
+`

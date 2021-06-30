@@ -33,7 +33,11 @@ const Home = (): JSX.Element => {
 
   return (
     <HomeContainer>
-      {gameList.map(game => <Card key={game.slug} title={game.name} />)}
+      {gameList.map(game =>
+        <Card
+          key={game.slug}
+          title={game.name}
+          image={game.background_image} />)}
     </HomeContainer>
   )
 }

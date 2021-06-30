@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 
 export const Section = styled.section`
-transition: ease-in-out 100ms;
+transition: ease 500ms;
   &:hover {
     transform: scale(1.05);
   }

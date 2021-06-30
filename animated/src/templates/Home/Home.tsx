@@ -2,7 +2,7 @@ import { AxiosError, AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 import Card from '../../components/Card/Card'
 import ApiService from '../../services/api-service'
-import { HomeContainer } from './Home.styles'
+import * as S from './Home.styles'
 
 
 type GameListResult = {
@@ -32,13 +32,15 @@ const Home = (): JSX.Element => {
   }, [])
 
   return (
-    <HomeContainer>
-      {gameList.map(game =>
-        <Card
-          key={game.slug}
-          title={game.name}
-          image={game.background_image} />)}
-    </HomeContainer>
+    <S.HomeContainer>
+      <S.HomeSection>
+        {gameList.map(game =>
+          <Card
+            key={game.slug}
+            title={game.name}
+            image={game.background_image} />)}
+      </S.HomeSection>
+    </S.HomeContainer>
   )
 }
 

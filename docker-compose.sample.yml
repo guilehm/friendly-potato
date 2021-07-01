@@ -13,6 +13,7 @@ services:
     environment:
       PORT: 80
       RAWG_API_KEY: your-api-key
+      MONGODB_URI: mongodb://potato-mongo:27017/potato
     ports:
       - 8090:80
 
@@ -28,3 +29,14 @@ services:
       PORT: 80
     ports:
       - 3000:80
+
+  mongo:
+    container_name: potato-mongo
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  mongodb-data:

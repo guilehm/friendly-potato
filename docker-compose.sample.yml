@@ -2,16 +2,29 @@ version: "3.8"
 
 
 services:
-  gorawg:
-    build: ./gorawg
-    image: gorawg
-    container_name: gorawg
+  goapi:
+    build: ./goapi
+    image: goapi
+    container_name: goapi
     command: go run main.go
     volumes:
-      - ./gorawg:/go/src/gorawg
-    working_dir: /go/src/gorawg
+      - ./goapi:/go/src/goapi
+    working_dir: /go/src/goapi
     environment:
       PORT: 80
       RAWG_API_KEY: your-api-key
     ports:
       - 8090:80
+
+  animated:
+    build: ./animated
+    image: animated
+    container_name: animated
+    command: yarn start
+    volumes:
+      - ./animated:/app/
+      - ./animated/node_modules:/app/node_modules
+    environment:
+      PORT: 80
+    ports:
+      - 3000:80

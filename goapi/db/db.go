@@ -2,12 +2,15 @@ package db
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"time"
 
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
+
+var MongoClient *mongo.Client = Connection()
 
 func Connection() *mongo.Client {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -16,5 +19,11 @@ func Connection() *mongo.Client {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println("Connected to MongoDB")
 	return client
+}
+
+func OpenCollection(databaseName, collectionName string) *mongo.Collection {
+	collection := MongoClient.Database(databaseName).Collection(collectionName)
+	return collection
 }

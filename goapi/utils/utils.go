@@ -8,6 +8,9 @@ import (
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var SECRET_KEY = os.Getenv("JWT_SECRET_KEY")
@@ -69,4 +72,25 @@ func GenerateTokens(email string, uid string) (signedToken string, signedRefresh
 	}
 
 	return token, refreshToken, err
+}
+
+func GetUpdatedTokens(
+	signedToken string, signedRefreshToken string, userId string,
+) (primitive.D, primitive.M, options.UpdateOptions) {
+
+	dateUpdated, _ := time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
+	updateObj := primitive.D{
+		bson.E{Key: "token", Value: signedToken},
+		bson.E{Key: "refresh_token", Value: signedRefreshToken},
+		bson.E{Key: "updated_at", Value: dateUpdated},
+	}
+
+	upsert := true
+	filter := bson.M{"id": userId}
+	opt := options.UpdateOptions{
+		Upsert: &upsert,
+	}
+
+	return updateObj, filter, opt
+
 }

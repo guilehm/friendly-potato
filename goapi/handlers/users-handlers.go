@@ -98,3 +98,25 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(response)
 }
+
+func Login(w http.ResponseWriter, r *http.Request) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	var userLogin models.UserLogin
+	if err := json.NewDecoder(r.Body).Decode(&userLogin); err != nil {
+		utils.HandleApiErrors(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	if err := userCollection.FindOne(
+		ctx, bson.M{"email": userLogin.Email},
+	).Decode(&userLogin); err != nil {
+		panic(err)
+	}
+
+	response, _ := json.Marshal(userLogin)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(response)
+}

@@ -64,6 +64,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 
 	if count > 0 {
 		utils.HandleApiErrors(w, http.StatusBadRequest, "Please choose another email")
+		return
 	}
 
 	password, err := HashPassword(*user.Password)
@@ -72,12 +73,27 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	user.ID = primitive.NewObjectID()
+	user.UserId = user.ID.Hex()
 	user.Password = &password
 	user.DateAdded, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
 	user.DateChanged, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
-	user.ID = primitive.NewObjectID()
-	user.UserId = user.ID.Hex()
 
-	jsonResponse, _ := json.Marshal(user)
-	w.Write(jsonResponse)
+	token, refresh, err := utils.GenerateTokens(*user.Email, user.UserId)
+	if err != nil {
+		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
+		return
+	}
+	user.Token = &token
+	user.RefreshToken = &refresh
+
+	result, err := userCollection.InsertOne(ctx, user)
+	if err != nil {
+		utils.HandleApiErrors(w, http.StatusInternalServerError, "Could not create user")
+		return
+	}
+
+	response, _ := json.Marshal(result)
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(response)
 }

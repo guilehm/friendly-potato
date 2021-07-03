@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"context"
 	"encoding/json"
 	"log"
 	"net/http"
@@ -10,6 +11,7 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
@@ -74,9 +76,14 @@ func GenerateTokens(email string, uid string) (signedToken string, signedRefresh
 	return token, refreshToken, err
 }
 
-func GetUpdatedTokens(
-	signedToken string, signedRefreshToken string, userId string,
-) (primitive.D, primitive.M, options.UpdateOptions) {
+func UpdateTokens(
+	signedToken string,
+	signedRefreshToken string,
+	userId string,
+	collection *mongo.Collection,
+) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 
 	dateUpdated, _ := time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
 	updateObj := primitive.D{
@@ -91,6 +98,19 @@ func GetUpdatedTokens(
 		Upsert: &upsert,
 	}
 
-	return updateObj, filter, opt
+	_, err := collection.UpdateOne(
+		ctx,
+		filter,
+		bson.D{
+			{Key: "$set", Value: updateObj},
+		},
+		&opt,
+	)
+	defer cancel()
+
+	if err != nil {
+		log.Panic(err)
+		return
+	}
 
 }

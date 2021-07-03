@@ -110,13 +110,15 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var user models.User
 	if err := userCollection.FindOne(
 		ctx, bson.M{"email": userLogin.Email},
-	).Decode(&userLogin); err != nil {
-		panic(err)
+	).Decode(&user); err != nil {
+		utils.HandleApiErrors(w, http.StatusBadRequest, err.Error())
+		return
 	}
 
-	response, _ := json.Marshal(userLogin)
+	response, _ := json.Marshal(user)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(response)
 }

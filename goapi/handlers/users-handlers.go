@@ -27,7 +27,7 @@ func HashPassword(password string) (string, error) {
 }
 
 func VerifyPassword(userPassword string, providedPassword string) (bool, string) {
-	err := bcrypt.CompareHashAndPassword([]byte(providedPassword), []byte(userPassword))
+	err := bcrypt.CompareHashAndPassword([]byte(userPassword), []byte(providedPassword))
 	ok := true
 	msg := ""
 
@@ -115,6 +115,12 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		ctx, bson.M{"email": userLogin.Email},
 	).Decode(&user); err != nil {
 		utils.HandleApiErrors(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	ok, msg := VerifyPassword(*user.Password, userLogin.Password)
+	if !ok {
+		utils.HandleApiErrors(w, http.StatusBadRequest, msg)
 		return
 	}
 

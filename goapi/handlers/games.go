@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"goapi/db"
 	"goapi/services"
 	"net/http"
 	"strconv"
@@ -21,6 +22,8 @@ func Games(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Printf("ERROR: %v", err)
 	}
+
+	db.OpenCollection("game-list")
 
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")

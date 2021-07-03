@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"goapi/db"
 	"log"
 
@@ -17,4 +18,17 @@ func HashPassword(password string) string {
 		log.Panic(err)
 	}
 	return string(bytes)
+}
+
+func VerifyPassword(userPassword string, providedPassword string) (bool, string) {
+	err := bcrypt.CompareHashAndPassword([]byte(providedPassword), []byte(userPassword))
+	ok := true
+	msg := ""
+
+	if err != nil {
+		ok = false
+		msg = fmt.Sprintf("password is incorrect")
+	}
+
+	return ok, msg
 }

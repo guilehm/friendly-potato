@@ -6,6 +6,11 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+type UserLogin struct {
+	Email    string `json:"email" validate:"email,required"`
+	Password string `json:"password" validate:"required"`
+}
+
 type User struct {
 	ID           primitive.ObjectID `bson:"_id"`
 	UserId       string             `bson:"id" json:"id"`

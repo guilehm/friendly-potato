@@ -1,25 +1,29 @@
 package handlers
 
 import (
+	"context"
 	"encoding/json"
 	"goapi/db"
 	"goapi/models"
-	"log"
+	"goapi/utils"
 	"net/http"
+	"time"
 
 	"github.com/go-playground/validator/v10"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 )
 
 var userCollection = db.OpenCollection("user")
 var validate = validator.New()
 
-func HashPassword(password string) string {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+func HashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 8)
 	if err != nil {
-		log.Panic(err)
+		return "", err
 	}
-	return string(bytes)
+	return string(bytes), nil
 }
 
 func VerifyPassword(userPassword string, providedPassword string) (bool, string) {
@@ -36,19 +40,43 @@ func VerifyPassword(userPassword string, providedPassword string) (bool, string)
 }
 
 func SignUp(w http.ResponseWriter, r *http.Request) {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
 	var user models.User
 	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
-		panic(err)
+		utils.HandleApiErrors(w, http.StatusBadRequest, err.Error())
+		return
 	}
 
 	if validationErr := validate.Struct(user); validationErr != nil {
-		jsonResponse, _ := json.Marshal(struct {
-			Error string `json:"error"`
-		}{validationErr.Error()})
-		w.WriteHeader(http.StatusBadRequest)
-		w.Write(jsonResponse)
+		utils.HandleApiErrors(w, http.StatusBadRequest, validationErr.Error())
 		return
 	}
+
+	count, err := userCollection.CountDocuments(ctx, bson.M{"email": user.Email})
+	defer cancel()
+	if err != nil {
+		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
+		return
+	}
+
+	if count > 0 {
+		utils.HandleApiErrors(w, http.StatusBadRequest, "Please choose another email")
+	}
+
+	password, err := HashPassword(*user.Password)
+	if err != nil {
+		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
+		return
+	}
+
+	user.Password = &password
+	user.DateAdded, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
+	user.DateChanged, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
+	user.ID = primitive.NewObjectID()
+	user.UserId = user.ID.Hex()
 
 	jsonResponse, _ := json.Marshal(user)
 	w.Write(jsonResponse)

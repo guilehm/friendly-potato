@@ -124,6 +124,13 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	token, refresh, err := utils.GenerateTokens(*user.Email, user.UserId)
+	if err != nil {
+		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
+		return
+	}
+	utils.UpdateTokens(token, refresh, user.UserId, userCollection)
+
 	response, _ := json.Marshal(user)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(response)

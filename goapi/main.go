@@ -16,6 +16,6 @@ func main() {
 	r := mux.NewRouter()
 	r.StrictSlash(true).HandleFunc("/games/", handlers.Games)
 	r.StrictSlash(true).HandleFunc("/games/{id}/", handlers.GamesDetail)
-	r.StrictSlash(true).HandleFunc("/users/", handlers.SignUp)
+	r.StrictSlash(true).HandleFunc("/users/", handlers.SignUp).Methods("POST")
 	http.ListenAndServe(":"+os.Getenv("PORT"), utils.LogRequest(r))
 }

@@ -6,11 +6,8 @@ export const Container = styled.div`
   height: 100vh;
 `
 
-export const Title = styled.h1`
-  font-family: 'Press Start 2P', cursive;
+export const Title = styled.h2`
 `
 
 export const Paragraph = styled.p`
-  font-family: 'Press Start 2P', cursive;
-
 `

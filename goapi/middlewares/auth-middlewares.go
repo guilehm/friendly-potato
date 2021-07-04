@@ -2,7 +2,6 @@ package middlewares
 
 import (
 	"context"
-	"fmt"
 	"goapi/utils"
 	"net/http"
 )
@@ -29,8 +28,6 @@ func Authentication(handler http.HandlerFunc) http.HandlerFunc {
 			utils.HandleApiErrors(w, http.StatusForbidden, "")
 			return
 		}
-
-		fmt.Printf("aqui: %v", claims)
 
 		ctx := r.Context()
 		ctx = context.WithValue(ctx, e, claims.Email)

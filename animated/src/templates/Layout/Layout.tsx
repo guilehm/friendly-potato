@@ -1,11 +1,13 @@
+import * as S from './Layout.styles'
+
 type LayoutProps = {
   children: JSX.Element
 }
 
 const Layout: React.FC<LayoutProps> = ({ children }): JSX.Element => (
-  <div>
+  <S.Container>
     {children}
-  </div>
+  </S.Container>
 )
 
 

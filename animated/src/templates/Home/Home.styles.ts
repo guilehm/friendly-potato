@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 export const HomeContainer = styled.div`
+  padding: 20px 0;
 `
 
 export const HomeSection = styled.section`
@@ -16,5 +17,5 @@ export const Title = styled.h1`
   text-align: center;
   font-family: 'Press Start 2P', cursive;
   font-size: 1.4rem;
-  margin: 10px 0;
+  margin-bottom: 10px;
 `

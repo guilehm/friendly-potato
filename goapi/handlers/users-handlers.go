@@ -131,7 +131,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 	utils.UpdateTokens(token, refresh, user.UserId, userCollection)
 
-	response, _ := json.Marshal(user)
+	response, _ := json.Marshal(struct {
+		Id      string `json:"id"`
+		Token   string `json:"token"`
+		Refresh string `json:"refresh_token"`
+	}{user.UserId, *user.Token, *user.RefreshToken})
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(response)
 }

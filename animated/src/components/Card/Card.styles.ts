@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 
 export const Section = styled.section`
-transition: ease 500ms;
+  transition: ease 500ms;
   &:hover {
     transform: scale(1.05);
   }
@@ -11,6 +11,7 @@ transition: ease 500ms;
 export const Title = styled.h2`
   font-family: 'Press Start 2P', cursive;
   font-size: 0.8rem;
+  margin: 5px 0;
 `
 
 export const Image = styled.img`

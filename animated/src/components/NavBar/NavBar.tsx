@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import Avatar from '../Avatar'
 import * as S from './NavBar.styles'
 
@@ -5,7 +6,9 @@ import * as S from './NavBar.styles'
 const NavBar = (): JSX.Element => (
   <S.Nav>
     <S.Container>
-      <Avatar />
+      <Link to="/login">
+        <Avatar />
+      </Link>
     </S.Container>
   </S.Nav>
 )

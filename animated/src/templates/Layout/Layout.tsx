@@ -1,5 +1,6 @@
 import * as S from './Layout.styles'
 
+
 type LayoutProps = {
   children: JSX.Element
 }

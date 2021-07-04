@@ -15,8 +15,9 @@ const (
 	u Uid   = "uid"
 )
 
-func Authentication(handler http.Handler) http.Handler {
+func Authentication(handler http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 		clientToken := r.Header.Get("token")
 		if clientToken == "" {
 			utils.HandleApiErrors(w, http.StatusUnauthorized, "")

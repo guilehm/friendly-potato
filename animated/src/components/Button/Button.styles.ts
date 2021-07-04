@@ -17,4 +17,5 @@ export const Button = styled.a<ButtonType>`
   white-space: nowrap;
   line-height: 1;
   margin: 2px;
+  cursor: pointer;
 `

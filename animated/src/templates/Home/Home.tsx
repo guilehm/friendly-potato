@@ -1,6 +1,8 @@
 import { AxiosError, AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
+import Avatar from '../../components/Avatar'
 import Card from '../../components/Card/Card'
+import NavBar from '../../components/NavBar'
 import ApiService from '../../services/api-service'
 import * as S from './Home.styles'
 
@@ -30,9 +32,9 @@ const Home = (): JSX.Element => {
     }
     fetchGameList()
   }, [])
-
   return (
     <S.HomeContainer>
+      <NavBar />
       <S.Title>game list</S.Title>
       <S.HomeSection>
         {gameList.map(game =>

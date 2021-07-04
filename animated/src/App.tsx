@@ -1,9 +1,12 @@
+import Layout from './templates/Layout'
 import Home from './templates/Home'
 
 
 const App = (): JSX.Element => (
   <div className="App">
-    <Home />
+    <Layout>
+      <Home />
+    </Layout>
   </div>
 )
 

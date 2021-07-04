@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"goapi/handlers"
+	"goapi/middlewares"
 	"goapi/utils"
 	"net/http"
 	"os"
@@ -14,7 +15,7 @@ func main() {
 	fmt.Println("hello from goapi")
 
 	r := mux.NewRouter()
-	r.StrictSlash(true).HandleFunc("/games/", handlers.Games)
+	r.StrictSlash(true).HandleFunc("/games/", middlewares.Authentication(handlers.Games))
 	r.StrictSlash(true).HandleFunc("/games/{id}/", handlers.GamesDetail)
 	r.StrictSlash(true).HandleFunc("/users/", handlers.SignUp).Methods("POST")
 	r.StrictSlash(true).HandleFunc("/users/login/", handlers.Login).Methods("POST")

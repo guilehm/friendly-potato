@@ -1,6 +1,5 @@
 import { AxiosError, AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
-import Avatar from '../../components/Avatar'
 import Card from '../../components/Card/Card'
 import NavBar from '../../components/NavBar'
 import ApiService from '../../services/api-service'

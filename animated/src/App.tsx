@@ -1,6 +1,6 @@
+import { createGlobalStyle } from 'styled-components'
 import Layout from './templates/Layout'
 import Home from './templates/Home'
-import { createGlobalStyle } from 'styled-components'
 import Login from './templates/Login'
 import {
   BrowserRouter as Router,

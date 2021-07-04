@@ -9,7 +9,6 @@ export const Section = styled.section`
 `
 
 export const Title = styled.h2`
-  font-family: 'Press Start 2P', cursive;
   font-size: 0.8rem;
   margin: 5px 0;
 `

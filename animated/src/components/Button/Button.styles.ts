@@ -6,7 +6,6 @@ type ButtonType = {
 }
 
 export const Button = styled.a<ButtonType>`
-  font-family: 'Press Start 2P', cursive;
   display: inline-block;
   font-size: .75rem;
   font-weight: 700;

@@ -15,7 +15,6 @@ export const HomeSection = styled.section`
 
 export const Title = styled.h1`
   text-align: center;
-  font-family: 'Press Start 2P', cursive;
   font-size: 1.4rem;
   margin-bottom: 10px;
 `

@@ -1,5 +1,10 @@
+import * as S from './Login.styles'
+
 const Login = (): JSX.Element => (
-  <div>Hello from Login</div>
+  <S.Container>
+    <S.Title>{'Let\'s sign you in'}</S.Title>
+    <S.Paragraph>Welcome back!</S.Paragraph>
+  </S.Container>
 )
 
 

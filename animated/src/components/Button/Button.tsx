@@ -2,11 +2,13 @@ import * as S from './Button.styles'
 
 type ButtonProps = {
   children: JSX.Element | string
+  color?: string
+  bgColor?: string
 }
 
 
-const Button: React.FC<ButtonProps> = ({ children }): JSX.Element => (
-  <S.Button>{children}</S.Button>
+const Button: React.FC<ButtonProps> = ({ children, color, bgColor }): JSX.Element => (
+  <S.Button color={color} bgColor={bgColor}>{children}</S.Button>
 )
 
 

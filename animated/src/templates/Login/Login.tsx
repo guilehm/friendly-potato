@@ -6,6 +6,7 @@ const Login = (): JSX.Element => (
   <S.Container>
     <S.Title>{'Let\'s sign you in'}</S.Title>
     <S.Paragraph>Welcome back!</S.Paragraph>
+    <Button color="black" bgColor="white">Register</Button>
     <Button>Sign In</Button>
   </S.Container>
 )

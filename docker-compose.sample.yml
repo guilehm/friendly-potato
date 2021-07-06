@@ -22,7 +22,7 @@ services:
     build: ./animated
     image: animated
     container_name: animated
-    command: yarn start
+    command: sh -c "yarn --dev && yarn start"
     volumes:
       - ./animated:/app/
       - ./animated/node_modules:/app/node_modules

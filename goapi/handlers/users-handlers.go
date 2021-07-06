@@ -3,6 +3,7 @@ package handlers
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"goapi/db"
 	"goapi/models"
 	"goapi/utils"
@@ -12,6 +13,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -114,7 +116,11 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	if err := userCollection.FindOne(
 		ctx, bson.M{"email": userLogin.Email},
 	).Decode(&user); err != nil {
-		utils.HandleApiErrors(w, http.StatusBadRequest, err.Error())
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			utils.HandleApiErrors(w, http.StatusBadRequest, err.Error())
+			return
+		}
+		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
 		return
 	}
 

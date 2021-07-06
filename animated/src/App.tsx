@@ -7,6 +7,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom'
+import { ChakraProvider } from '@chakra-ui/react'
 
 
 const GlobalStyle = createGlobalStyle`
@@ -21,21 +22,23 @@ const GlobalStyle = createGlobalStyle`
 const App = (): JSX.Element => (
   <div className="App">
     <GlobalStyle />
-    <Router>
-      <Switch>
+    <ChakraProvider>
+      <Router>
+        <Switch>
 
-        <Route path="/login">
-          <Login />
-        </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
 
-        <Route path="/">
-          <Layout>
-            <Home />
-          </Layout>
-        </Route>
+          <Route path="/">
+            <Layout>
+              <Home />
+            </Layout>
+          </Route>
 
-      </Switch>
-    </Router>
+        </Switch>
+      </Router>
+    </ChakraProvider>
   </div>
 )
 

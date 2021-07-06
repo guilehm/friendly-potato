@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from 'axios'
 
-const API_URL = process.env.API_URL || 'http://localhost:8090'
+const API_URL = process.env.API_URL || 'http://localhost:8080'
 
 class ApiService {
   baseUrl: string

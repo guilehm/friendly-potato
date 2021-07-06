@@ -1,4 +1,4 @@
-import MyButton from '../../components/Button/Button'
+// import MyButton from '../../components/Button/Button'
 import * as S from './Login.styles'
 import {
   FormControl,
@@ -47,12 +47,13 @@ const Login = (): JSX.Element => (
           <FormHelperText>{'We\'ll never share your email.'}</FormHelperText>
           <PasswordInput />
 
+          <Button size="sm">Register</Button>
+          <Button size="sm">Sign In</Button>
+
         </FormControl>
 
       </main>
       <footer>
-        <MyButton>Register</MyButton>
-        <MyButton>Sign In</MyButton>
       </footer>
     </S.Section>
   </S.Container>

@@ -16,7 +16,7 @@ services:
       MONGODB_URI: mongodb://potato-mongo:27017/potato
       JWT_SECRET_KEY: whatever
     ports:
-      - 8090:80
+      - 8080:80
 
   animated:
     build: ./animated

@@ -1,13 +1,9 @@
 import styled from 'styled-components'
 
 
-export const Container = styled.div`
-  width: 90vw;
-  margin: auto;
-`
-
 export const Section = styled.section`
-  /* text-align: center; */
+  display: flex;
+  flex-direction: column;
 `
 
 export const Title = styled.h2`

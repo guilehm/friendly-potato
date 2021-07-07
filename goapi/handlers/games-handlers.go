@@ -11,7 +11,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func Games(w http.ResponseWriter, r *http.Request) {
+func GameList(w http.ResponseWriter, r *http.Request) {
 	rawg := services.RawgService()
 	resp, err := rawg.SearchGame(r.URL.Query())
 
@@ -30,7 +30,7 @@ func Games(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonResponse)
 }
 
-func GamesDetail(w http.ResponseWriter, r *http.Request) {
+func GameDetail(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
 

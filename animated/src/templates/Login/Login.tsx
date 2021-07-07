@@ -7,6 +7,8 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  Stack,
+  HStack,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
@@ -40,14 +42,18 @@ const Login = (): JSX.Element => (
       <main>
 
         <FormControl id="email">
+          <Stack spacing={2}>
+            <FormLabel>Email address</FormLabel>
+            <Input type="email" />
+            <FormHelperText>{'We\'ll never share your email.'}</FormHelperText>
+            <FormLabel>Password</FormLabel>
+            <PasswordInput />
 
-          <FormLabel>Email address</FormLabel>
-          <Input type="email" />
-          <FormHelperText>{'We\'ll never share your email.'}</FormHelperText>
-          <PasswordInput />
-
-          <Button size="sm">Register</Button>
-          <Button size="sm">Sign In</Button>
+            <HStack>
+              <Button size="sm">Register</Button>
+              <Button size="sm">Sign In</Button>
+            </HStack>
+          </Stack>
 
         </FormControl>
 

@@ -31,6 +31,7 @@ const Home = (): JSX.Element => {
     }
     fetchGameList()
   }, [])
+
   return (
     <S.HomeContainer>
       <NavBar />

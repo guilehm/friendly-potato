@@ -9,6 +9,8 @@ import {
   Button,
   Stack,
   HStack,
+  Container,
+  Box,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
@@ -21,7 +23,7 @@ function PasswordInput() {
       <Input
         pr="4.5rem"
         type={show ? 'text' : 'password'}
-        placeholder="Enter password"
+        placeholder="enter password"
       />
       <InputRightElement width="4.5rem">
         <Button h="1.75rem" size="sm" onClick={handleClick}>
@@ -33,8 +35,9 @@ function PasswordInput() {
 }
 
 const Login = (): JSX.Element => (
-  <S.Container>
+  <Container maxW="xl" centerContent>
     <S.Section>
+
       <header>
         <S.Title>{'Let\'s sign you in'}</S.Title>
         <S.Paragraph>Welcome back!</S.Paragraph>
@@ -43,10 +46,10 @@ const Login = (): JSX.Element => (
 
         <FormControl id="email">
           <Stack spacing={2}>
-            <FormLabel>Email address</FormLabel>
-            <Input type="email" />
-            <FormHelperText>{'We\'ll never share your email.'}</FormHelperText>
-            <FormLabel>Password</FormLabel>
+            <FormLabel display="none">Email address</FormLabel>
+            <Input type="email" placeholder="enter your email" />
+            <FormHelperText display="none">{'We\'ll never share your email.'}</FormHelperText>
+            <FormLabel display="none">Password</FormLabel>
             <PasswordInput />
 
             <HStack>
@@ -56,12 +59,11 @@ const Login = (): JSX.Element => (
           </Stack>
 
         </FormControl>
-
       </main>
       <footer>
       </footer>
     </S.Section>
-  </S.Container>
+  </Container>
 )
 
 

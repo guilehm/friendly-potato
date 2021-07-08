@@ -44,7 +44,7 @@ const Login = (): JSX.Element => (
       </header>
 
       <main>
-        <FormControl id="email">
+        <FormControl id="login">
           <Stack spacing={2}>
             <FormLabel display="none">Email address</FormLabel>
             <Input type="email" placeholder="email" />

@@ -34,7 +34,6 @@ const Home = (): JSX.Element => {
 
   return (
     <S.HomeContainer>
-      <S.Title>game list</S.Title>
       <S.HomeSection>
         {gameList.map(game =>
           <Card

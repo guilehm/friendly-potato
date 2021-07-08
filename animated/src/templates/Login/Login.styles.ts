@@ -9,7 +9,9 @@ export const Section = styled.section`
 `
 
 export const Title = styled.h2`
-  font-size: 2.4rem;
+  font-size: 3.4rem;
+  line-height: 60px;
+  padding-bottom: 20px;
 `
 
 export const Paragraph = styled.p`

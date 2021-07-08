@@ -27,7 +27,9 @@ const App = (): JSX.Element => (
         <Switch>
 
           <Route path="/login">
-            <Login />
+            <Layout>
+              <Login />
+            </Layout>
           </Route>
 
           <Route path="/">

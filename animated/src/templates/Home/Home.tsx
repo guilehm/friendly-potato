@@ -1,7 +1,6 @@
 import { AxiosError, AxiosResponse } from 'axios'
 import { useEffect, useState } from 'react'
 import Card from '../../components/Card/Card'
-import NavBar from '../../components/NavBar'
 import Spinner from '../../components/Spinner'
 import ApiService from '../../services/api-service'
 import * as S from './Home.styles'

@@ -1,32 +1,21 @@
+
+import { FiMenu } from 'react-icons/fi'
 import { Link } from 'react-router-dom'
+import {
+  Avatar,
+  Box,
+  Flex, FlexProps, HStack, IconButton, Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList, Text, useColorModeValue
+} from '@chakra-ui/react'
 
 
 type LayoutProps = {
   children: JSX.Element
 }
 
-
-import {
-  IconButton,
-  Avatar,
-  Box,
-  Flex,
-  HStack,
-  VStack,
-  useColorModeValue,
-  Text,
-  FlexProps,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
-} from '@chakra-ui/react'
-import {
-  FiMenu,
-  FiBell,
-  FiChevronDown,
-} from 'react-icons/fi'
 
 interface MobileProps extends FlexProps {
   onOpen: () => void

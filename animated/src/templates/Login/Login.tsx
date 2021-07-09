@@ -15,7 +15,6 @@ import {
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { formatDiagnostic, getEffectiveTypeParameterDeclarations } from 'typescript'
 
 
 type LoginFormInputs = {
@@ -35,7 +34,8 @@ const Login = (): JSX.Element => {
     resolver: yupResolver(schema),
   })
 
-  const onSubmit = (values: LoginFormInputs) => console.log('****', values)
+  const onRegister = (values: LoginFormInputs) => console.log('****', values)
+  const onLogin = (values: LoginFormInputs) => console.log('****', values)
 
   return (
     <S.Container maxW="xl" centerContent>
@@ -48,7 +48,7 @@ const Login = (): JSX.Element => {
 
         <main>
           <FormControl id="login" isInvalid={!!errors.email || !!errors.password}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form>
 
               <Stack spacing={2}>
 
@@ -67,8 +67,8 @@ const Login = (): JSX.Element => {
                 {errors.password && <FormErrorMessage>{errors.password.message}</FormErrorMessage>}
 
                 <HStack>
-                  <Button onClick={handleSubmit(onSubmit)} size="sm">Register</Button>
-                  <Button type="submit" size="sm">Sign In</Button>
+                  <Button onClick={handleSubmit(onRegister)} size="sm">Register</Button>
+                  <Button onClick={handleSubmit(onLogin)} size="sm">Login</Button>
                 </HStack>
 
               </Stack>

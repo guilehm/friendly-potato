@@ -71,23 +71,26 @@ const Login = (): JSX.Element => {
 
         <main>
           <FormControl id="login" isInvalid={!!errors.email || !!errors.password}>
-            <Stack spacing={2}>
+            <form onSubmit={handleSubmit(onSubmit)}>
 
-              <FormLabel display="none">Email address</FormLabel>
-              <Input placeholder="email" {...register('email')} isInvalid={!!errors.email} />
-              {errors.email && <FormErrorMessage>{errors.email.message}</FormErrorMessage>}
-              <FormHelperText display="none">{'We\'ll never share your email.'}</FormHelperText>
+              <Stack spacing={2}>
 
-              <FormLabel display="none">Password</FormLabel>
-              <PasswordInput />
-              {errors.password && <FormErrorMessage>{errors.password.message}</FormErrorMessage>}
+                <FormLabel display="none">Email address</FormLabel>
+                <Input placeholder="email" {...register('email')} isInvalid={!!errors.email} />
+                {errors.email && <FormErrorMessage>{errors.email.message}</FormErrorMessage>}
+                <FormHelperText display="none">{'We\'ll never share your email.'}</FormHelperText>
 
-              <HStack>
-                <Button onClick={handleSubmit(onSubmit)} size="sm">Register</Button>
-                <Button onClick={handleSubmit(onSubmit)} size="sm">Sign In</Button>
-              </HStack>
+                <FormLabel display="none">Password</FormLabel>
+                <PasswordInput />
+                {errors.password && <FormErrorMessage>{errors.password.message}</FormErrorMessage>}
 
-            </Stack>
+                <HStack>
+                  {/* <Button onClick={handleSubmit(onSubmit)} size="sm">Register</Button> */}
+                  <Button type="submit" size="sm">Sign In</Button>
+                </HStack>
+
+              </Stack>
+            </form>
           </FormControl>
         </main>
 

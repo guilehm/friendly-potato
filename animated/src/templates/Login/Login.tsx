@@ -3,6 +3,7 @@ import * as S from './Login.styles'
 import {
   Button,
   FormControl,
+  FormErrorMessage,
   FormHelperText,
   FormLabel,
   HStack,
@@ -14,6 +15,7 @@ import {
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { formatDiagnostic, getEffectiveTypeParameterDeclarations } from 'typescript'
 
 
 type LoginFormInputs = {
@@ -46,6 +48,7 @@ const Login = (): JSX.Element => {
           type={show ? 'text' : 'password'}
           placeholder="password"
           id="password"
+          isInvalid={!!errors.password}
           {...register('password')}
         />
         <InputRightElement width="4.5rem">
@@ -67,17 +70,17 @@ const Login = (): JSX.Element => {
         </header>
 
         <main>
-          <FormControl id="login">
+          <FormControl id="login" isInvalid={!!errors.email || !!errors.password}>
             <Stack spacing={2}>
 
               <FormLabel display="none">Email address</FormLabel>
-              <Input {...register('email')} />
-              {errors.email && <p>{errors.email.message}</p>}
+              <Input placeholder="email" {...register('email')} isInvalid={!!errors.email} />
+              {errors.email && <FormErrorMessage>{errors.email.message}</FormErrorMessage>}
               <FormHelperText display="none">{'We\'ll never share your email.'}</FormHelperText>
 
               <FormLabel display="none">Password</FormLabel>
               <PasswordInput />
-              {errors.password && <p>{errors.password.message}</p>}
+              {errors.password && <FormErrorMessage>{errors.password.message}</FormErrorMessage>}
 
               <HStack>
                 <Button onClick={handleSubmit(onSubmit)} size="sm">Register</Button>
@@ -89,7 +92,7 @@ const Login = (): JSX.Element => {
         </main>
 
       </S.Section>
-    </S.Container>
+    </S.Container >
   )
 }
 

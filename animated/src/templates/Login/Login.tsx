@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import * as S from './Login.styles'
 import {
   Button,
   FormControl,
@@ -7,14 +5,12 @@ import {
   FormHelperText,
   FormLabel,
   HStack,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Stack,
+  Input, Stack
 } from '@chakra-ui/react'
-import * as yup from 'yup'
-import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useForm } from 'react-hook-form'
+import * as yup from 'yup'
+import * as S from './Login.styles'
 
 
 type LoginFormInputs = {

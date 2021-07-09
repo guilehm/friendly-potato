@@ -25,8 +25,6 @@ func GameList(w http.ResponseWriter, r *http.Request) {
 
 	db.OpenCollection("game-list")
 
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonResponse)
 }
 
@@ -50,7 +48,5 @@ func GameDetail(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("ERROR: %v", err)
 	}
 
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonResponse)
 }

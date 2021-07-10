@@ -5,7 +5,9 @@ import {
   FormHelperText,
   FormLabel,
   HStack,
-  Input, Stack, useToast
+  Input,
+  Stack,
+  useToast,
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AxiosError } from 'axios'
@@ -17,6 +19,7 @@ import { makeToastData } from '../../helpers'
 import ApiService, { LoginResponse } from '../../services/api-service'
 import { useCookies } from 'react-cookie'
 import { ACCESS_TOKEN_LIFTIME, REFRESH_TOKEN_LIFTIME } from '../../settings'
+import { useHistory } from 'react-router-dom'
 
 const Api = new ApiService()
 
@@ -33,8 +36,10 @@ const schema = yup.object().shape({
 
 const Login = (): JSX.Element => {
 
-  const [, setCookie] = useCookies(['access', 'refresh'])
   const toast = useToast()
+  const history = useHistory()
+
+  const [, setCookie] = useCookies(['access', 'refresh'])
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
@@ -54,6 +59,7 @@ const Login = (): JSX.Element => {
     })
 
     toast(makeToastData({ title, description }))
+    history.push('/')
 
   }
 

@@ -11,8 +11,6 @@ var SECRET_KEY = os.Getenv("JWT_SECRET_KEY")
 
 func SetHeaders(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// TODO: Allow origin to be set
-		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Content-Type", "application/json")
 		handler.ServeHTTP(w, r)
 	})

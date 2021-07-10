@@ -53,7 +53,7 @@ const Login = (): JSX.Element => {
         </header>
 
         <main>
-          <FormControl id="login" isInvalid={!!errors.email || !!errors.password}>
+          <FormControl isInvalid={!!errors.email || !!errors.password}>
             <form>
 
               <Stack spacing={2}>

@@ -8,6 +8,7 @@ import {
   Input, Stack, useToast
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { AxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import ApiService from '../../services/api-service'
@@ -45,12 +46,10 @@ const Login = (): JSX.Element => {
       isClosable: true,
     })
 
-    const handleError = () => toast({
-      title: 'Account created.',
-      description: `Failed to register ${values.email}`,
+    const handleError = (error: AxiosError) => toast({
+      title: `${error.response?.data?.error || 'Failed to register'}`,
       status: 'error',
       duration: 5000,
-      isClosable: true,
     })
 
     Api.createUser(values.email, values.password)

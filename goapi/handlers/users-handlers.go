@@ -89,13 +89,17 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	user.Token = &token
 	user.RefreshToken = &refresh
 
-	result, err := userCollection.InsertOne(ctx, user)
+	_, err = userCollection.InsertOne(ctx, user)
 	if err != nil {
 		utils.HandleApiErrors(w, http.StatusInternalServerError, "Could not create user")
 		return
 	}
 
-	response, _ := json.Marshal(result)
+	response, _ := json.Marshal(struct {
+		Id      string `json:"id"`
+		Token   string `json:"token"`
+		Refresh string `json:"refresh_token"`
+	}{user.UserId, *user.Token, *user.RefreshToken})
 	w.WriteHeader(http.StatusCreated)
 	w.Write(response)
 }

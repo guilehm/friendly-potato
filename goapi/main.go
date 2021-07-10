@@ -26,5 +26,6 @@ func main() {
 	r.StrictSlash(true).HandleFunc("/games/{id}/", handlers.GameDetail)
 	r.StrictSlash(true).HandleFunc("/users/", handlers.SignUp).Methods("POST")
 	r.StrictSlash(true).HandleFunc("/users/login/", handlers.Login).Methods("POST")
+	r.StrictSlash(true).HandleFunc("/users/refresh/", handlers.RefreshToken).Methods("POST")
 	http.ListenAndServe(":"+os.Getenv("PORT"), utils.SetHeaders(utils.LogRequest(handler)))
 }

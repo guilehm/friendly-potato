@@ -35,7 +35,7 @@ func VerifyPassword(userPassword string, providedPassword string) (bool, string)
 
 	if err != nil {
 		ok = false
-		msg = "password is incorrect"
+		msg = "Password is incorrect"
 	}
 
 	return ok, msg
@@ -65,7 +65,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if count > 0 {
-		utils.HandleApiErrors(w, http.StatusBadRequest, "Please choose another email")
+		utils.HandleApiErrors(w, http.StatusBadRequest, "Email already in use")
 		return
 	}
 

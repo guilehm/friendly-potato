@@ -1,5 +1,3 @@
-import { FiMenu } from 'react-icons/fi'
-import { Link, useHistory } from 'react-router-dom'
 import {
   Avatar,
   Box,
@@ -16,6 +14,8 @@ import {
   useColorModeValue,
   useToast,
 } from '@chakra-ui/react'
+import { FiMenu } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import { makeToastData } from '../../helpers'
 
@@ -31,7 +31,6 @@ interface MobileProps extends FlexProps {
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const [cookies, , removeCookie] = useCookies(['access', 'refresh'])
   const toast = useToast()
-  const history = useHistory()
 
   const isAuthenticated: boolean = !!cookies.access && !!cookies.refresh
 

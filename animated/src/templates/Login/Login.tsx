@@ -50,6 +50,7 @@ const Login = (): JSX.Element => {
       title: `${error.response?.data?.error || 'Failed to register'}`,
       status: 'error',
       duration: 5000,
+      isClosable: true,
     })
 
     Api.createUser(values.email, values.password)
@@ -59,8 +60,7 @@ const Login = (): JSX.Element => {
 
   const onLogin = async (values: LoginFormInputs) => {
     const handleSuccess = () => toast({
-      title: '',
-      description: 'Login successfully',
+      title: 'Login successfully',
       status: 'success',
       duration: 5000,
       isClosable: true,
@@ -70,6 +70,7 @@ const Login = (): JSX.Element => {
       title: `${error.response?.data?.error || 'Failed to login'}`,
       status: 'error',
       duration: 5000,
+      isClosable: true,
     })
 
     Api.login(values.email, values.password)

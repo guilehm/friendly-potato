@@ -2,6 +2,12 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios'
 
 const API_URL = process.env.API_URL || 'http://localhost:8080'
 
+type LoginResponse = {
+  id: string
+  token: string
+  refresh_token: string
+}
+
 class ApiService {
   baseUrl: string
   client: AxiosInstance
@@ -27,3 +33,4 @@ class ApiService {
 
 
 export default ApiService
+export type { LoginResponse }

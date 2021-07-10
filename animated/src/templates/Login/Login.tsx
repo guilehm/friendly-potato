@@ -31,43 +31,33 @@ const schema = yup.object().shape({
 
 
 const Login = (): JSX.Element => {
+  const toast = useToast()
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>({
     mode: 'onBlur',
     resolver: yupResolver(schema),
   })
 
-  const toast = useToast()
+
+  const handleSuccess = (title: string, description = '') => toast(makeToastData({
+    title, description,
+  }))
+
+  const handleError = (error: AxiosError, fallbackTitle: string) => toast(makeToastData({
+    title: `${error.response?.data?.error || fallbackTitle}`,
+    status: 'error'
+  }))
 
 
   const onRegister = async (values: LoginFormInputs) => {
-    const handleSuccess = () => toast(makeToastData({
-      title: 'Account created.',
-      description: 'We\'ve created your account for you.',
-    }))
-
-    const handleError = (error: AxiosError) => toast(makeToastData({
-      title: `${error.response?.data?.error || 'Failed to register'}`,
-      status: 'error'
-    }))
-
     Api.createUser(values.email, values.password)
-      .then(handleSuccess)
-      .catch(handleError)
+      .then(() => handleSuccess('Account created', 'We\'ve created your account for you'))
+      .catch(err => handleError(err, 'Failed to register'))
   }
 
   const onLogin = async (values: LoginFormInputs) => {
-    const handleSuccess = () => toast(makeToastData({
-      title: 'Logged in.',
-    }))
-
-    const handleError = (error: AxiosError) => toast(makeToastData({
-      title: `${error.response?.data?.error || 'Failed to login'}`,
-      status: 'error',
-    }))
-
     Api.login(values.email, values.password)
-      .then(handleSuccess)
-      .catch(handleError)
+      .then(() => handleSuccess('Logged in'))
+      .catch(err => handleError(err, 'Failed to login'))
   }
 
   return (

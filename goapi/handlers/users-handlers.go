@@ -120,7 +120,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		ctx, bson.M{"email": userLogin.Email},
 	).Decode(&user); err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
-			utils.HandleApiErrors(w, http.StatusBadRequest, err.Error())
+			utils.HandleApiErrors(w, http.StatusBadRequest, "User not found")
 			return
 		}
 		utils.HandleApiErrors(w, http.StatusInternalServerError, "")

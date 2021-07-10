@@ -5,7 +5,7 @@ import {
   FormHelperText,
   FormLabel,
   HStack,
-  Input, Stack
+  Input, Stack, useToast
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
@@ -33,9 +33,26 @@ const Login = (): JSX.Element => {
     resolver: yupResolver(schema),
   })
 
+  const toast = useToast()
+
+
   const onRegister = async (values: LoginFormInputs) => {
-    const handleSuccess = () => console.log(`Successfully registered ${values.email}`)
-    const handleError = () => console.log(`Failed to register ${values.email}`)
+    const handleSuccess = () => toast({
+      title: 'Account created.',
+      description: 'We\'ve created your account for you.',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+
+    const handleError = () => toast({
+      title: 'Account created.',
+      description: `Failed to register ${values.email}`,
+      status: 'error',
+      duration: 5000,
+      isClosable: true,
+    })
+
     Api.createUser(values.email, values.password)
       .then(handleSuccess)
       .catch(handleError)

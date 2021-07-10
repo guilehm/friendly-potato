@@ -57,7 +57,25 @@ const Login = (): JSX.Element => {
       .catch(handleError)
   }
 
-  const onLogin = (values: LoginFormInputs) => console.log('****', values)
+  const onLogin = async (values: LoginFormInputs) => {
+    const handleSuccess = () => toast({
+      title: '',
+      description: 'Login successfully',
+      status: 'success',
+      duration: 5000,
+      isClosable: true,
+    })
+
+    const handleError = (error: AxiosError) => toast({
+      title: `${error.response?.data?.error || 'Failed to login'}`,
+      status: 'error',
+      duration: 5000,
+    })
+
+    Api.login(values.email, values.password)
+      .then(handleSuccess)
+      .catch(handleError)
+  }
 
   return (
     <S.Container maxW="xl" centerContent>

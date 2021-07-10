@@ -75,16 +75,22 @@ const Login = (): JSX.Element => {
               <Stack spacing={2}>
 
                 <FormLabel display="none">Email address</FormLabel>
-                <Input placeholder="email" {...register('email')} isInvalid={!!errors.email} />
+                <Input
+                  id="email"
+                  placeholder="email"
+                  isInvalid={!!errors.email}
+                  {...register('email')}
+                />
                 {errors.email && <FormErrorMessage>{errors.email.message}</FormErrorMessage>}
                 <FormHelperText display="none">{'We\'ll never share your email.'}</FormHelperText>
 
                 <FormLabel display="none">Password</FormLabel>
                 <Input
+                  id="password"
                   placeholder="password"
                   type="password"
-                  {...register('password')}
                   isInvalid={!!errors.password}
+                  {...register('password')}
                 />
                 {errors.password && <FormErrorMessage>{errors.password.message}</FormErrorMessage>}
 

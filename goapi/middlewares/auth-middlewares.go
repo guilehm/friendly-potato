@@ -16,7 +16,7 @@ const (
 
 func Authentication(handler http.HandlerFunc) http.HandlerFunc {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		clientToken := r.Header.Get("token")
+		clientToken := r.Header.Get("Authorization")
 		if clientToken == "" {
 			utils.HandleApiErrors(w, http.StatusUnauthorized, "")
 			return

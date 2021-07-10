@@ -18,18 +18,21 @@ type SignedDetails struct {
 	jwt.StandardClaims
 }
 
+const accessTokenLifetime = time.Minute * time.Duration(10)
+const refreshTokenLifetime = time.Hour * time.Duration(24)
+
 func GenerateTokens(email string, uid string) (signedToken string, signedRefreshToken string, err error) {
 	claims := &SignedDetails{
 		Email: email,
 		Uid:   uid,
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Local().Add(time.Minute * time.Duration(10)).Unix(),
+			ExpiresAt: time.Now().Local().Add(accessTokenLifetime).Unix(),
 		},
 	}
 
 	refreshClaims := &SignedDetails{
 		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Local().Add(time.Hour * time.Duration(24)).Unix(),
+			ExpiresAt: time.Now().Local().Add(refreshTokenLifetime).Unix(),
 		},
 	}
 

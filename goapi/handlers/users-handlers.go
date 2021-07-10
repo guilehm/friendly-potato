@@ -138,13 +138,18 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
 		return
 	}
-	utils.UpdateTokens(token, refresh, user.UserId, userCollection)
+
+	tokens, err := utils.UpdateTokens(token, refresh, user.UserId, userCollection)
+	if err != nil {
+		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
+		return
+	}
 
 	response, _ := json.Marshal(struct {
 		Id      string `json:"id"`
 		Token   string `json:"token"`
 		Refresh string `json:"refresh_token"`
-	}{user.UserId, *user.Token, *user.RefreshToken})
+	}{user.UserId, *tokens.Token, *tokens.RefreshToken})
 	w.Write(response)
 }
 
@@ -175,11 +180,9 @@ func RefreshToken(w http.ResponseWriter, r *http.Request) {
 		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
 		return
 	}
-	utils.UpdateTokens(token, refresh, user.UserId, userCollection)
 
-	if err := userCollection.FindOne(
-		ctx, bson.M{"_id": user.ID},
-	).Decode(&user); err != nil {
+	tokens, err = utils.UpdateTokens(token, refresh, user.UserId, userCollection)
+	if err != nil {
 		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
 		return
 	}
@@ -188,7 +191,7 @@ func RefreshToken(w http.ResponseWriter, r *http.Request) {
 		Id      string `json:"id"`
 		Token   string `json:"token"`
 		Refresh string `json:"refresh_token"`
-	}{user.UserId, *user.Token, *user.RefreshToken})
+	}{user.UserId, *tokens.Token, *tokens.RefreshToken})
 	w.Write(response)
 
 }

@@ -2,6 +2,7 @@ package utils
 
 import (
 	"context"
+	"goapi/models"
 	"log"
 	"time"
 
@@ -60,7 +61,7 @@ func UpdateTokens(
 	signedRefreshToken string,
 	userId string,
 	collection *mongo.Collection,
-) {
+) (models.Tokens, error) {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 
@@ -89,8 +90,14 @@ func UpdateTokens(
 
 	if err != nil {
 		log.Panic(err)
-		return
+		return models.Tokens{}, err
 	}
+
+	updatedTokens := models.Tokens{
+		Token:        &signedToken,
+		RefreshToken: &signedRefreshToken,
+	}
+	return updatedTokens, nil
 
 }
 

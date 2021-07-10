@@ -6,6 +6,11 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+type UserRefresh struct {
+	Token        *string `bson:"token" json:"token"`
+	RefreshToken *string `bson:"refresh_token" json:"refresh_token"`
+}
+
 type UserLogin struct {
 	Email    string `json:"email" validate:"email,required"`
 	Password string `json:"password" validate:"required"`

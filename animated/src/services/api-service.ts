@@ -21,7 +21,6 @@ class ApiService {
 
   getClient(): AxiosInstance {
     const cookies = new Cookies(['access'])
-
     const client = axios.create()
     client.interceptors.request.use(
       config => {
@@ -62,6 +61,13 @@ class ApiService {
         return Promise.reject(error)
       })
     return client
+  }
+
+  refreshTokens(accessToken: string, refreshToken: string): Promise<AxiosResponse> {
+    return this.client.post(`${this.baseUrl}/users/refresh/`, {
+      access_token: accessToken,
+      refresh_token: refreshToken,
+    })
   }
 
   getGameList(): Promise<AxiosResponse> {

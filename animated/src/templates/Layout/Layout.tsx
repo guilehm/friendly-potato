@@ -1,15 +1,23 @@
-
 import { FiMenu } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import {
   Avatar,
   Box,
-  Flex, FlexProps, HStack, IconButton, Menu,
+  Flex,
+  FlexProps,
+  HStack,
+  IconButton,
+  Menu,
   MenuButton,
   MenuDivider,
   MenuItem,
-  MenuList, Text, useColorModeValue
+  MenuList,
+  Text,
+  useColorModeValue,
+  useToast,
 } from '@chakra-ui/react'
+import { useCookies } from 'react-cookie'
+import { makeToastData } from '../../helpers'
 
 
 type LayoutProps = {
@@ -21,6 +29,12 @@ interface MobileProps extends FlexProps {
   onOpen: () => void
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const [cookies, , removeCookie] = useCookies(['access', 'refresh'])
+  const toast = useToast()
+  const history = useHistory()
+
+  const isAuthenticated: boolean = !!cookies.access && !!cookies.refresh
+
   return (
     <Flex
       ml={{ base: 0, md: 0 }}
@@ -91,8 +105,14 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <Link to="/login">
                 <MenuItem>Profile</MenuItem>
               </Link>
-              <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              {isAuthenticated && <>
+                <MenuDivider />
+                <MenuItem onClick={() => {
+                  removeCookie('access')
+                  removeCookie('refresh')
+                  toast(makeToastData({ title: 'Logged out' }))
+                }}>Sign out</MenuItem>
+              </>}
             </MenuList>
           </Menu>
         </Flex>

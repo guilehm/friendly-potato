@@ -14,8 +14,9 @@ import * as yup from 'yup'
 
 import * as S from './Login.styles'
 import { makeToastData } from '../../helpers'
-import ApiService from '../../services/api-service'
-
+import ApiService, { LoginResponse } from '../../services/api-service'
+import { useCookies } from 'react-cookie'
+import { ACCESS_TOKEN_LIFTIME, REFRESH_TOKEN_LIFTIME } from '../../settings'
 
 const Api = new ApiService()
 
@@ -31,6 +32,8 @@ const schema = yup.object().shape({
 
 
 const Login = (): JSX.Element => {
+
+  const [, setCookie] = useCookies(['access', 'refresh'])
   const toast = useToast()
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>({
     mode: 'onBlur',
@@ -38,9 +41,23 @@ const Login = (): JSX.Element => {
   })
 
 
-  const handleSuccess = (title: string, description = '') => toast(makeToastData({
-    title, description,
-  }))
+  const handleSuccess = (title: string, description = '', response: LoginResponse) => {
+    setCookie('access', response.token, {
+      path: '/',
+      maxAge: ACCESS_TOKEN_LIFTIME,
+      sameSite: true,
+    })
+    setCookie('refresh', response.refresh_token, {
+      path: '/',
+      maxAge: REFRESH_TOKEN_LIFTIME,
+      sameSite: true,
+    })
+
+    toast(makeToastData({
+      title, description,
+    }))
+
+  }
 
   const handleError = (error: AxiosError, fallbackTitle: string) => toast(makeToastData({
     title: `${error.response?.data?.error || fallbackTitle}`,
@@ -50,13 +67,17 @@ const Login = (): JSX.Element => {
 
   const onRegister = async (values: LoginFormInputs) => {
     Api.createUser(values.email, values.password)
-      .then(() => handleSuccess('Account created', 'We\'ve created your account for you'))
+      .then(res => handleSuccess(
+        'Account created',
+        'We\'ve created your account for you',
+        res.data,
+      ))
       .catch(err => handleError(err, 'Failed to register'))
   }
 
   const onLogin = async (values: LoginFormInputs) => {
     Api.login(values.email, values.password)
-      .then(() => handleSuccess('Logged in'))
+      .then(res => handleSuccess('Logged in', '', res.data))
       .catch(err => handleError(err, 'Failed to login'))
   }
 

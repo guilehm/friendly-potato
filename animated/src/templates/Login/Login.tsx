@@ -11,8 +11,10 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { AxiosError } from 'axios'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
-import ApiService from '../../services/api-service'
+
 import * as S from './Login.styles'
+import { makeToastData } from '../../helpers'
+import ApiService from '../../services/api-service'
 
 
 const Api = new ApiService()
@@ -38,20 +40,15 @@ const Login = (): JSX.Element => {
 
 
   const onRegister = async (values: LoginFormInputs) => {
-    const handleSuccess = () => toast({
+    const handleSuccess = () => toast(makeToastData({
       title: 'Account created.',
       description: 'We\'ve created your account for you.',
-      status: 'success',
-      duration: 5000,
-      isClosable: true,
-    })
+    }))
 
-    const handleError = (error: AxiosError) => toast({
+    const handleError = (error: AxiosError) => toast(makeToastData({
       title: `${error.response?.data?.error || 'Failed to register'}`,
-      status: 'error',
-      duration: 5000,
-      isClosable: true,
-    })
+      status: 'error'
+    }))
 
     Api.createUser(values.email, values.password)
       .then(handleSuccess)
@@ -59,19 +56,14 @@ const Login = (): JSX.Element => {
   }
 
   const onLogin = async (values: LoginFormInputs) => {
-    const handleSuccess = () => toast({
-      title: 'Login successfully',
-      status: 'success',
-      duration: 5000,
-      isClosable: true,
-    })
+    const handleSuccess = () => toast(makeToastData({
+      title: 'Logged in.',
+    }))
 
-    const handleError = (error: AxiosError) => toast({
+    const handleError = (error: AxiosError) => toast(makeToastData({
       title: `${error.response?.data?.error || 'Failed to login'}`,
       status: 'error',
-      duration: 5000,
-      isClosable: true,
-    })
+    }))
 
     Api.login(values.email, values.password)
       .then(handleSuccess)

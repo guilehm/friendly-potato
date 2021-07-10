@@ -10,8 +10,11 @@ import {
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import ApiService from '../../services/api-service'
 import * as S from './Login.styles'
 
+
+const Api = new ApiService()
 
 type LoginFormInputs = {
   email: string
@@ -30,7 +33,14 @@ const Login = (): JSX.Element => {
     resolver: yupResolver(schema),
   })
 
-  const onRegister = (values: LoginFormInputs) => console.log('****', values)
+  const onRegister = async (values: LoginFormInputs) => {
+    const handleSuccess = () => console.log(`Successfully registered ${values.email}`)
+    const handleError = () => console.log(`Failed to register ${values.email}`)
+    Api.createUser(values.email, values.password)
+      .then(handleSuccess)
+      .catch(handleError)
+  }
+
   const onLogin = (values: LoginFormInputs) => console.log('****', values)
 
   return (

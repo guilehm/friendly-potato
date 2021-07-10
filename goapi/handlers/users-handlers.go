@@ -152,15 +152,15 @@ func RefreshToken(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	var refreshData models.UserRefresh
-	if err := json.NewDecoder(r.Body).Decode(&refreshData); err != nil {
+	var tokens models.Tokens
+	if err := json.NewDecoder(r.Body).Decode(&tokens); err != nil {
 		utils.HandleApiErrors(w, http.StatusBadRequest, err.Error())
 		return
 	}
 
 	var user models.User
 	if err := userCollection.FindOne(
-		ctx, bson.M{"refresh_token": refreshData.RefreshToken},
+		ctx, bson.M{"refresh_token": tokens.RefreshToken},
 	).Decode(&user); err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
 			utils.HandleApiErrors(w, http.StatusBadRequest, "Invalid token")

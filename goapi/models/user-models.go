@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type UserRefresh struct {
+type Tokens struct {
 	Token        *string `bson:"token" json:"token"`
 	RefreshToken *string `bson:"refresh_token" json:"refresh_token"`
 }

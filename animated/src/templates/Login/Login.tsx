@@ -41,7 +41,7 @@ const Login = (): JSX.Element => {
   })
 
 
-  const handleSuccess = (title: string, description = '', response: LoginResponse) => {
+  const handleSuccess = (response: LoginResponse, title: string, description = '') => {
     setCookie('access', response.token, {
       path: '/',
       maxAge: ACCESS_TOKEN_LIFTIME,
@@ -53,9 +53,7 @@ const Login = (): JSX.Element => {
       sameSite: true,
     })
 
-    toast(makeToastData({
-      title, description,
-    }))
+    toast(makeToastData({ title, description }))
 
   }
 
@@ -68,16 +66,16 @@ const Login = (): JSX.Element => {
   const onRegister = async (values: LoginFormInputs) => {
     Api.createUser(values.email, values.password)
       .then(res => handleSuccess(
+        res.data,
         'Account created',
         'We\'ve created your account for you',
-        res.data,
       ))
       .catch(err => handleError(err, 'Failed to register'))
   }
 
   const onLogin = async (values: LoginFormInputs) => {
     Api.login(values.email, values.password)
-      .then(res => handleSuccess('Logged in', '', res.data))
+      .then(res => handleSuccess(res.data, 'Logged in'))
       .catch(err => handleError(err, 'Failed to login'))
   }
 

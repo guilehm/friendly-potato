@@ -74,6 +74,10 @@ class ApiService {
     return this.client.get(`${this.baseUrl}/games/`)
   }
 
+  getGameDetail(slug: string): Promise<AxiosResponse> {
+    return this.client.get(`${this.baseUrl}/games/${slug}`)
+  }
+
   createUser(email: string, password: string): Promise<AxiosResponse> {
     return this.client.post(`${this.baseUrl}/users/`, { email, password })
   }

@@ -19,9 +19,9 @@ type rawgService struct {
 	ApiKey string
 }
 
-func (r rawgService) GetGameDetail(gameId int) (models.GameStruct, error) {
+func (r rawgService) GetGameDetail(gameSlug string) (models.GameStruct, error) {
 	endpoint := fmt.Sprintf(
-		"%v/%v/%v?key=%v", RAWG_API_URL, GAMES_ENDPOINT, gameId, r.ApiKey,
+		"%v/%v/%v?key=%v", RAWG_API_URL, GAMES_ENDPOINT, gameSlug, r.ApiKey,
 	)
 	resp, err := http.Get(endpoint)
 	if err != nil {

@@ -17,3 +17,4 @@ const Card: React.FC<CardProps> = ({ title, image }) => {
 }
 
 export default Card
+export type { CardProps }

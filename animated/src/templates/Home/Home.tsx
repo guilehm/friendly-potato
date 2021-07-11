@@ -5,7 +5,6 @@ import Spinner from "../../components/Spinner"
 import ApiService from "../../services/api-service"
 import * as S from "./Home.styles"
 
-
 type GameListResult = {
   id: number
   slug: string
@@ -21,7 +20,6 @@ const Home = (): JSX.Element => {
 
   useEffect(() => {
     const fetchGameList = async () => {
-
       const handleError = (error: AxiosError) => console.log(error)
       const handleSuccess = (response: AxiosResponse) => {
         setGameList(response.data.results)
@@ -38,12 +36,16 @@ const Home = (): JSX.Element => {
   return (
     <S.HomeContainer>
       <S.HomeSection>
-        {loading ? <Spinner /> :
-          gameList.map(game =>
+        {loading ? (
+          <Spinner />
+        ) :
+          gameList.map((game) => (
             <Card
               key={game.slug}
               title={game.name}
-              image={game.background_image} />)
+              image={game.background_image}
+            />
+          ))
         }
       </S.HomeSection>
     </S.HomeContainer>

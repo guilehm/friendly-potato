@@ -2,8 +2,8 @@ import { AxiosResponse } from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Card from "../../components/Card/Card"
+import { Spinner } from "../../components/Spinner/Spinner.styles"
 import ApiService from "../../services/api-service"
-
 
 type UrlParams = {
   slug: string
@@ -31,7 +31,9 @@ const GameDetail = (): JSX.Element => {
   }, [slug])
 
   return (
-    gameData ? <Card title={gameData.name} image={gameData.background_image} /> : <></>
+    gameData ?
+      <Card title={gameData.name} image={gameData.background_image} />
+      : <Spinner />
   )
 }
 

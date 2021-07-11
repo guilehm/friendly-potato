@@ -75,7 +75,7 @@ class ApiService {
   }
 
   getGameDetail(slug: string): Promise<AxiosResponse> {
-    return this.client.get(`${this.baseUrl}/games/${slug}`)
+    return this.client.get(`${this.baseUrl}/games/${slug}/`)
   }
 
   createUser(email: string, password: string): Promise<AxiosResponse> {

@@ -8,6 +8,7 @@ import {
   Route,
 } from 'react-router-dom'
 import { ChakraProvider } from '@chakra-ui/react'
+import GameDetail from './templates/GameDetail'
 
 
 const GlobalStyle = createGlobalStyle`
@@ -19,6 +20,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+
 const App = (): JSX.Element => (
   <div className="App">
     <GlobalStyle />
@@ -29,6 +31,12 @@ const App = (): JSX.Element => (
           <Route path="/login">
             <Layout>
               <Login />
+            </Layout>
+          </Route>
+
+          <Route path="/games/gta">
+            <Layout>
+              <GameDetail />
             </Layout>
           </Route>
 

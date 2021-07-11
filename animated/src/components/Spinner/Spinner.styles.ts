@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { Spinner as ChakraSpinner } from '@chakra-ui/react'
+import styled from "styled-components"
+import { Spinner as ChakraSpinner } from "@chakra-ui/react"
 
 
 export const Spinner = styled(ChakraSpinner)`

@@ -1,4 +1,4 @@
-import * as S from './Button.styles'
+import * as S from "./Button.styles"
 
 type ButtonProps = {
   children: JSX.Element | string

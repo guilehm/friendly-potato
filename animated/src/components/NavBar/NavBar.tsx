@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom'
-import Avatar from '../Avatar'
-import * as S from './NavBar.styles'
+import { Link } from "react-router-dom"
+import Avatar from "../Avatar"
+import * as S from "./NavBar.styles"
 
 
 const NavBar = (): JSX.Element => (

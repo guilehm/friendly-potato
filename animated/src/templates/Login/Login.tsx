@@ -8,18 +8,18 @@ import {
   Input,
   Stack,
   useToast,
-} from '@chakra-ui/react'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { AxiosError } from 'axios'
-import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
+} from "@chakra-ui/react"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { AxiosError } from "axios"
+import { useForm } from "react-hook-form"
+import * as yup from "yup"
 
-import * as S from './Login.styles'
-import { makeToastData } from '../../helpers'
-import ApiService, { LoginResponse } from '../../services/api-service'
-import { useCookies } from 'react-cookie'
-import { ACCESS_TOKEN_LIFTIME, REFRESH_TOKEN_LIFTIME } from '../../settings'
-import { useHistory } from 'react-router-dom'
+import * as S from "./Login.styles"
+import { makeToastData } from "../../helpers"
+import ApiService, { LoginResponse } from "../../services/api-service"
+import { useCookies } from "react-cookie"
+import { ACCESS_TOKEN_LIFTIME, REFRESH_TOKEN_LIFTIME } from "../../settings"
+import { useHistory } from "react-router-dom"
 
 const Api = new ApiService()
 
@@ -39,33 +39,33 @@ const Login = (): JSX.Element => {
   const toast = useToast()
   const history = useHistory()
 
-  const [, setCookie] = useCookies(['access', 'refresh'])
+  const [, setCookie] = useCookies(["access", "refresh"])
   const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>({
-    mode: 'onBlur',
+    mode: "onBlur",
     resolver: yupResolver(schema),
   })
 
 
-  const handleSuccess = (response: LoginResponse, title: string, description = '') => {
-    setCookie('access', response.token, {
-      path: '/',
+  const handleSuccess = (response: LoginResponse, title: string, description = "") => {
+    setCookie("access", response.token, {
+      path: "/",
       maxAge: ACCESS_TOKEN_LIFTIME,
       sameSite: true,
     })
-    setCookie('refresh', response.refresh_token, {
-      path: '/',
+    setCookie("refresh", response.refresh_token, {
+      path: "/",
       maxAge: REFRESH_TOKEN_LIFTIME,
       sameSite: true,
     })
 
     toast(makeToastData({ title, description }))
-    history.push('/')
+    history.push("/")
 
   }
 
   const handleError = (error: AxiosError, fallbackTitle: string) => toast(makeToastData({
     title: `${error.response?.data?.error || fallbackTitle}`,
-    status: 'error'
+    status: "error"
   }))
 
 
@@ -73,16 +73,16 @@ const Login = (): JSX.Element => {
     Api.createUser(values.email, values.password)
       .then(res => handleSuccess(
         res.data,
-        'Account created',
-        'We\'ve created your account for you',
+        "Account created",
+        "We've created your account for you",
       ))
-      .catch(err => handleError(err, 'Failed to register'))
+      .catch(err => handleError(err, "Failed to register"))
   }
 
   const onLogin = async (values: LoginFormInputs) => {
     Api.login(values.email, values.password)
-      .then(res => handleSuccess(res.data, 'Logged in'))
-      .catch(err => handleError(err, 'Failed to login'))
+      .then(res => handleSuccess(res.data, "Logged in"))
+      .catch(err => handleError(err, "Failed to login"))
   }
 
   return (
@@ -90,7 +90,7 @@ const Login = (): JSX.Element => {
       <S.Section>
 
         <header>
-          <S.Title>{'Let\'s sign you in'}</S.Title>
+          <S.Title>{"Let's sign you in"}</S.Title>
           <S.Paragraph>Welcome back!</S.Paragraph>
         </header>
 
@@ -105,10 +105,10 @@ const Login = (): JSX.Element => {
                   id="email"
                   placeholder="email"
                   isInvalid={!!errors.email}
-                  {...register('email')}
+                  {...register("email")}
                 />
                 {errors.email && <FormErrorMessage>{errors.email.message}</FormErrorMessage>}
-                <FormHelperText display="none">{'We\'ll never share your email.'}</FormHelperText>
+                <FormHelperText display="none">{"We'll never share your email."}</FormHelperText>
 
                 <FormLabel display="none">Password</FormLabel>
                 <Input
@@ -116,7 +116,7 @@ const Login = (): JSX.Element => {
                   placeholder="password"
                   type="password"
                   isInvalid={!!errors.password}
-                  {...register('password')}
+                  {...register("password")}
                 />
                 {errors.password && <FormErrorMessage>{errors.password.message}</FormErrorMessage>}
 

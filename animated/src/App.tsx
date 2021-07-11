@@ -1,14 +1,14 @@
-import { createGlobalStyle } from 'styled-components'
-import Layout from './templates/Layout'
-import Home from './templates/Home'
-import Login from './templates/Login'
+import { createGlobalStyle } from "styled-components"
+import Layout from "./templates/Layout"
+import Home from "./templates/Home"
+import Login from "./templates/Login"
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-} from 'react-router-dom'
-import { ChakraProvider } from '@chakra-ui/react'
-import GameDetail from './templates/GameDetail'
+} from "react-router-dom"
+import { ChakraProvider } from "@chakra-ui/react"
+import GameDetail from "./templates/GameDetail"
 
 
 const GlobalStyle = createGlobalStyle`

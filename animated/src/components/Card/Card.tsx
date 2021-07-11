@@ -1,4 +1,4 @@
-import * as S from './Card.styles'
+import * as S from "./Card.styles"
 
 
 type CardProps = {

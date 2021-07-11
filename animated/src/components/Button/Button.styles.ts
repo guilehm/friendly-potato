@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components"
 
 type ButtonType = {
   color?: string
@@ -10,8 +10,8 @@ export const Button = styled.a<ButtonType>`
   font-size: .75rem;
   font-weight: 700;
   padding: .35em .65em;
-  color: ${props => props.color || 'white'};
-  background-color: ${props => props.bgColor || 'black'};
+  color: ${props => props.color || "white"};
+  background-color: ${props => props.bgColor || "black"};
   text-align: center;
   border-radius: .25rem;
   white-space: nowrap;

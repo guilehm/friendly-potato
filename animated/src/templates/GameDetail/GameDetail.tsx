@@ -1,7 +1,7 @@
-import { AxiosResponse } from 'axios'
-import { useEffect, useState } from 'react'
-import Card from '../../components/Card/Card'
-import ApiService from '../../services/api-service'
+import { AxiosResponse } from "axios"
+import { useEffect, useState } from "react"
+import Card from "../../components/Card/Card"
+import ApiService from "../../services/api-service"
 
 
 type GameDetailData = {
@@ -20,7 +20,7 @@ const GameDetail = (): JSX.Element => {
       setGameData(response.data)
     }
 
-    Api.getGameDetail('overkill')
+    Api.getGameDetail("overkill")
       .then(handleSuccess)
   }, [])
 

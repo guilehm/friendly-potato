@@ -1,5 +1,5 @@
-import { Container as ChakraContainer } from '@chakra-ui/react'
-import styled from 'styled-components'
+import { Container as ChakraContainer } from "@chakra-ui/react"
+import styled from "styled-components"
 
 
 export const Container = styled(ChakraContainer)`

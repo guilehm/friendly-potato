@@ -1,9 +1,9 @@
-import { AxiosError, AxiosResponse } from 'axios'
-import { useEffect, useState } from 'react'
-import Card from '../../components/Card/Card'
-import Spinner from '../../components/Spinner'
-import ApiService from '../../services/api-service'
-import * as S from './Home.styles'
+import { AxiosError, AxiosResponse } from "axios"
+import { useEffect, useState } from "react"
+import Card from "../../components/Card/Card"
+import Spinner from "../../components/Spinner"
+import ApiService from "../../services/api-service"
+import * as S from "./Home.styles"
 
 
 type GameListResult = {

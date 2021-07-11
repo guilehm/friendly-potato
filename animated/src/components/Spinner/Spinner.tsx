@@ -1,4 +1,4 @@
-import * as S from './Spinner.styles'
+import * as S from "./Spinner.styles"
 
 const Spinner = (): JSX.Element => <S.Spinner />
 

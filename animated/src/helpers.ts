@@ -1,9 +1,9 @@
 type ToastData = {
-  title: string,
-  description?: string,
-  status?: "info" | "warning" | "success" | "error",
-  duration?: number,
-  isClosable?: boolean,
+  title: string
+  description?: string
+  status?: "info" | "warning" | "success" | "error"
+  duration?: number
+  isClosable?: boolean
 }
 
 const makeToastData = ({
@@ -13,8 +13,11 @@ const makeToastData = ({
   duration = 5000,
   isClosable = true,
 }: ToastData): ToastData => ({
-  title: title, description, status, duration, isClosable,
+  title: title,
+  description,
+  status,
+  duration,
+  isClosable,
 })
-
 
 export { makeToastData }

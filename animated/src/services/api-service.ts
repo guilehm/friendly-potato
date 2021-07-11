@@ -23,26 +23,30 @@ class ApiService {
     const cookies = new Cookies(["access"])
     const client = axios.create()
     client.interceptors.request.use(
-      config => {
+      (config) => {
         const accessToken = cookies.get("access")
         if (accessToken) {
           config.headers["Authorization"] = accessToken
         }
         return config
       },
-      error => {
+      (error) => {
         Promise.reject(error)
       }
     )
 
     client.interceptors.response.use(
-      response => response,
-      async error => {
+      (response) => response,
+      async (error) => {
         const cookies = new Cookies(["access", "refresh"])
         const accessToken = cookies.get("access")
         const refreshToken = cookies.get("refresh")
         const originalRequest = error.config
-        if (refreshToken && error.response.status === 401 && !originalRequest._retry) {
+        if (
+          refreshToken &&
+          error.response.status === 401 &&
+          !originalRequest._retry
+        ) {
           originalRequest._retry = true
           const response = await this.refreshTokens(accessToken, refreshToken)
           axios.defaults.headers.common["Authorization"] = response.data.token
@@ -59,11 +63,15 @@ class ApiService {
           return client(originalRequest)
         }
         return Promise.reject(error)
-      })
+      }
+    )
     return client
   }
 
-  refreshTokens(accessToken: string, refreshToken: string): Promise<AxiosResponse> {
+  refreshTokens(
+    accessToken: string,
+    refreshToken: string
+  ): Promise<AxiosResponse> {
     return this.client.post(`${this.baseUrl}/users/refresh/`, {
       access_token: accessToken,
       refresh_token: refreshToken,
@@ -85,9 +93,7 @@ class ApiService {
   login(email: string, password: string): Promise<AxiosResponse> {
     return this.client.post(`${this.baseUrl}/users/login/`, { email, password })
   }
-
 }
-
 
 export default ApiService
 export type { LoginResponse }

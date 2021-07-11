@@ -10,7 +10,6 @@ export const HomeSection = styled.section`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   grid-gap: 20px;
-
 `
 
 export const Title = styled.h1`

@@ -1,11 +1,9 @@
 import styled from "styled-components"
 
-
-export const Nav = styled.nav`
-`
+export const Nav = styled.nav``
 
 export const SearchButton = styled.button`
-  background: url('/img/icons/search-icon.svg') no-repeat 95% 50%;
+  background: url("/img/icons/search-icon.svg") no-repeat 95% 50%;
   border: 0;
   background-size: auto;
   width: 30px;

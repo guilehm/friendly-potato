@@ -1,6 +1,5 @@
 import styled from "styled-components"
 
-
 export const Section = styled.section`
   transition: ease 500ms;
   &:hover {

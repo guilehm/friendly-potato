@@ -11,6 +11,7 @@ type UrlParams = {
 
 type GameDetailData = {
   name: string,
+  slug: string,
   background_image: string
 }
 
@@ -32,7 +33,7 @@ const GameDetail = (): JSX.Element => {
 
   return (
     gameData ?
-      <Card title={gameData.name} image={gameData.background_image} />
+      <Card title={gameData.name} image={gameData.background_image} slug={gameData.slug} />
       : <Spinner />
   )
 }

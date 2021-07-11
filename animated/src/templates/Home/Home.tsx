@@ -43,6 +43,7 @@ const Home = (): JSX.Element => {
             <Card
               key={game.slug}
               title={game.name}
+              slug={game.slug}
               image={game.background_image}
             />
           ))

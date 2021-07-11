@@ -28,13 +28,13 @@ const App = (): JSX.Element => (
       <Router>
         <Switch>
 
-          <Route path="/login">
+          <Route path="/login/">
             <Layout>
               <Login />
             </Layout>
           </Route>
 
-          <Route path="/games/:slug">
+          <Route path="/games/:slug/">
             <Layout>
               <GameDetail />
             </Layout>

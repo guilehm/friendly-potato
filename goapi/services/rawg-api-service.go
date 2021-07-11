@@ -2,6 +2,7 @@ package services
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"goapi/models"
 	"net/http"
@@ -26,6 +27,10 @@ func (r rawgService) GetGameDetail(gameId int) (models.GameStruct, error) {
 	if err != nil {
 		return models.GameStruct{}, err
 	}
+	if resp.StatusCode == http.StatusNotFound {
+		return models.GameStruct{}, ErrNotFound
+	}
+
 	var jsonResponse models.GameStruct
 	err = json.NewDecoder(resp.Body).Decode(&jsonResponse)
 	return jsonResponse, err

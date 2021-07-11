@@ -22,7 +22,7 @@ func main() {
 		AllowCredentials: true,
 	}).Handler(r)
 	r.StrictSlash(true).HandleFunc("/games/", handlers.GameList)
-	r.StrictSlash(true).HandleFunc("/games/{id}/", handlers.GameDetail)
+	r.StrictSlash(true).HandleFunc("/games/{slug}/", handlers.GameDetail)
 	r.StrictSlash(true).HandleFunc("/users/", handlers.SignUp).Methods("POST")
 	r.StrictSlash(true).HandleFunc("/users/login/", handlers.Login).Methods("POST")
 	r.StrictSlash(true).HandleFunc("/users/refresh/", handlers.RefreshToken).Methods("POST")

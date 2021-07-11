@@ -8,7 +8,6 @@ import (
 	"goapi/services"
 	"goapi/utils"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -32,16 +31,11 @@ func GameList(w http.ResponseWriter, r *http.Request) {
 
 func GameDetail(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	id := vars["id"]
+	slug := vars["slug"]
 
 	rawg := services.RawgService()
-	intId, err := strconv.Atoi(id)
-	if err != nil {
-		fmt.Println("Error: invalid ID")
-		utils.HandleApiErrors(w, http.StatusBadRequest, "invalid ID")
-	}
 
-	resp, err := rawg.GetGameDetail(intId)
+	resp, err := rawg.GetGameDetail(slug)
 	if err != nil {
 		if errors.Is(err, services.ErrNotFound) {
 			utils.HandleApiErrors(w, http.StatusNotFound, "")

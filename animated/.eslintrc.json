@@ -28,7 +28,6 @@
         "ignoreChainWithDepth": 4
       }
     ],
-    "prettier/prettier": 2,
     "indent": [
       "error",
       2

@@ -49,6 +49,8 @@ func GameDetail(w http.ResponseWriter, r *http.Request) {
 	jsonResponse, err := json.Marshal(resp)
 	if err != nil {
 		fmt.Printf("ERROR: %v\n", err)
+		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
+		return
 	}
 
 	w.Write(jsonResponse)

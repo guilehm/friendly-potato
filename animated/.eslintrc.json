@@ -22,6 +22,13 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "newline-per-chained-call": [
+      2,
+      {
+        "ignoreChainWithDepth": 4
+      }
+    ],
+    "prettier/prettier": 2,
     "indent": [
       "error",
       2

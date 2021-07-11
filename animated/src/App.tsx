@@ -34,7 +34,7 @@ const App = (): JSX.Element => (
             </Layout>
           </Route>
 
-          <Route path="/games/gta">
+          <Route path="/games/:slug">
             <Layout>
               <GameDetail />
             </Layout>

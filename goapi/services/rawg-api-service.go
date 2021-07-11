@@ -12,6 +12,8 @@ import (
 const RAWG_API_URL = "https://api.rawg.io/api"
 const GAMES_ENDPOINT = "games"
 
+var ErrNotFound = errors.New("not found")
+
 type rawgService struct {
 	ApiKey string
 }

@@ -33,7 +33,12 @@ const GameDetail = (): JSX.Element => {
 
   return (
     gameData ?
-      <Card title={gameData.name} image={gameData.background_image} slug={gameData.slug} />
+      <Card
+        zoom={false}
+        title={gameData.name}
+        image={gameData.background_image}
+        slug={gameData.slug}
+      />
       : <Spinner />
   )
 }

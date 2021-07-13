@@ -1,10 +1,15 @@
 import styled from "styled-components"
 
-export const Section = styled.section`
+type SectionProps = {
+  zoom: boolean
+}
+
+export const Section = styled.section<SectionProps>`
   transition: ease 500ms;
-  &:hover {
-    transform: scale(1.05);
-  }
+  ${props => (props.zoom ?
+    `&:hover {
+      transform: scale(1.05);
+    }` : "")};
 `
 
 export const Title = styled.h2`

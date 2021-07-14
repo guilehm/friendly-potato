@@ -6,10 +6,12 @@ type SectionProps = {
 
 export const Section = styled.section<SectionProps>`
   transition: ease 500ms;
-  ${props => (props.zoom ?
-    `&:hover {
+  ${(props) =>
+    props.zoom
+      ? `&:hover {
       transform: scale(1.05);
-    }` : "")};
+    }`
+      : ""};
 `
 
 export const Title = styled.h2`

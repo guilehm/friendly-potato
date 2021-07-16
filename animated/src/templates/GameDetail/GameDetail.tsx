@@ -35,6 +35,7 @@ const GameDetail = (): JSX.Element => {
     gameData ?
       <Card
         zoom={false}
+        height={800}
         title={gameData.name}
         image={gameData.background_image}
         slug={gameData.slug}

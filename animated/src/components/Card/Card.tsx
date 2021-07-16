@@ -6,13 +6,17 @@ type CardProps = {
   image: string
   slug: string
   zoom?: boolean
+  height?: number
 }
 
 
-const Card: React.FC<CardProps> = ({ title, image, slug, zoom = true }) => {
+const Card: React.FC<CardProps> = ({ title, image, slug, height, zoom = true }) => {
   return (
     <S.Section zoom={zoom}>
-      <S.Image src={image} ></S.Image>
+      <S.Image
+        src={image}
+        height={height} >
+      </S.Image>
       <S.Title>
         <Link to={`/games/${slug}/`}>
           {title}

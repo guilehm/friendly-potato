@@ -3,9 +3,11 @@ package db
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -28,4 +30,34 @@ func Connection() *mongo.Client {
 func OpenCollection(collectionName string) *mongo.Collection {
 	collection := MongoClient.Database(DatabaseName).Collection(collectionName)
 	return collection
+}
+
+func createIndex(key string, unique bool, collection *mongo.Collection) {
+	indexName, err := collection.Indexes().CreateOne(
+		context.Background(),
+		mongo.IndexModel{
+			Keys: bson.M{
+				key: 1,
+			},
+			Options: options.Index().SetUnique(true),
+		},
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf(
+		"Successfully created index %s for collection %s\n", indexName, collection.Name(),
+	)
+}
+
+func CreateIndexes() {
+	gamesCollection := OpenCollection("games")
+	userCollection := OpenCollection("users")
+
+	createIndex("id", true, gamesCollection)
+	createIndex("slug", true, gamesCollection)
+
+	createIndex("email", true, userCollection)
+	createIndex("token", false, userCollection)
+	createIndex("refresh_token", false, userCollection)
 }

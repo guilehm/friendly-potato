@@ -23,10 +23,10 @@ const Home = (): JSX.Element => {
     const fetchGameList = async () => {
       const handleError = () => setError(true)
       const handleSuccess = (response: AxiosResponse) => {
-        setGameList(response.data.results)
+        setGameList(response.data.results || [])
       }
 
-      Api.getGameList()
+      Api.getRandomGameList()
         .then(handleSuccess)
         .catch(handleError)
     }

@@ -18,10 +18,14 @@ func GameList(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		fmt.Printf("ERROR: %v\n", err)
+		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
+		return
 	}
 	jsonResponse, err := json.Marshal(resp)
 	if err != nil {
 		fmt.Printf("ERROR: %v\n", err)
+		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
+		return
 	}
 
 	db.OpenCollection("game-list")

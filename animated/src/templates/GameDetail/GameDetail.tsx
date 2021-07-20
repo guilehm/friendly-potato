@@ -22,7 +22,7 @@ const Api = new ApiService()
 const GameDetail = (): JSX.Element => {
   const { slug } = useParams<UrlParams>()
   const [gameData, setGameData] = useState<GameDetailData>()
-  const [error, setError] = useState(true)
+  const [error, setError] = useState(false)
 
 
   useEffect(() => {

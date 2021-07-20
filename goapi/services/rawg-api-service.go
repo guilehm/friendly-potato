@@ -47,18 +47,16 @@ func (r rawgService) GetGameDetail(gameSlug string) (models.GameStruct, error) {
 	defer cancel()
 
 	upsert := true
-	opt := options.UpdateOptions{
-		Upsert: &upsert,
-	}
+	opt := options.UpdateOptions{Upsert: &upsert}
 
 	gameDetailCollection := db.OpenCollection("games")
-	insertResult, err := gameDetailCollection.UpdateOne(
+	_, err = gameDetailCollection.UpdateOne(
 		ctx, bson.M{"id": gameData.ID}, bson.D{{Key: "$set", Value: gameData}}, &opt,
 	)
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(insertResult)
+	fmt.Printf("Successfully updated game %s\n", gameData.Slug)
 	return gameData, err
 }
 

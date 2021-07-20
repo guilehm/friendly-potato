@@ -17,7 +17,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var userCollection = db.OpenCollection("user")
+var usersCollection = db.OpenCollection("users")
 var validate = validator.New()
 
 func HashPassword(password string) (string, error) {
@@ -57,7 +57,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	count, err := userCollection.CountDocuments(ctx, bson.M{"email": user.Email})
+	count, err := usersCollection.CountDocuments(ctx, bson.M{"email": user.Email})
 	defer cancel()
 	if err != nil {
 		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
@@ -89,7 +89,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 	user.Token = &token
 	user.RefreshToken = &refresh
 
-	_, err = userCollection.InsertOne(ctx, user)
+	_, err = usersCollection.InsertOne(ctx, user)
 	if err != nil {
 		utils.HandleApiErrors(w, http.StatusInternalServerError, "Could not create user")
 		return
@@ -116,7 +116,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var user models.User
-	if err := userCollection.FindOne(
+	if err := usersCollection.FindOne(
 		ctx, bson.M{"email": userLogin.Email},
 	).Decode(&user); err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
@@ -139,7 +139,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tokens, err := utils.UpdateTokens(token, refresh, user.UserId, userCollection)
+	tokens, err := utils.UpdateTokens(token, refresh, user.UserId, usersCollection)
 	if err != nil {
 		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
 		return
@@ -164,7 +164,7 @@ func RefreshToken(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var user models.User
-	if err := userCollection.FindOne(
+	if err := usersCollection.FindOne(
 		ctx, bson.M{"refresh_token": tokens.RefreshToken},
 	).Decode(&user); err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
@@ -181,7 +181,7 @@ func RefreshToken(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tokens, err = utils.UpdateTokens(token, refresh, user.UserId, userCollection)
+	tokens, err = utils.UpdateTokens(token, refresh, user.UserId, usersCollection)
 	if err != nil {
 		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
 		return

@@ -6,7 +6,7 @@ type ToastData = {
   isClosable?: boolean
 }
 
-const makeToastData = ({
+export const makeToastData = ({
   title,
   description = "",
   status = "success",
@@ -20,4 +20,6 @@ const makeToastData = ({
   isClosable,
 })
 
-export { makeToastData }
+export const getRandomInt = (min: number, max: number): number =>
+  Math.floor(Math.random() * (max - min + 1)) + min
+

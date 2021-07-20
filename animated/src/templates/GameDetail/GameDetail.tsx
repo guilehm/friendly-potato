@@ -1,3 +1,4 @@
+import { Container } from "@chakra-ui/react"
 import { AxiosResponse } from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
@@ -31,14 +32,18 @@ const GameDetail = (): JSX.Element => {
       .then(handleSuccess)
   }, [slug])
 
+
   return (
     gameData ?
-      <Card
-        zoom={false}
-        title={gameData.name}
-        image={gameData.background_image}
-        slug={gameData.slug}
-      />
+      <Container>
+        <Card
+          height={"400px"}
+          zoom={false}
+          title={gameData.name}
+          image={gameData.background_image}
+          slug={gameData.slug}
+        />
+      </Container>
       : <Spinner />
   )
 }

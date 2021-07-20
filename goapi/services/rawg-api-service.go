@@ -31,9 +31,9 @@ func (r rawgService) GetGameDetail(gameSlug string) (models.GameStruct, error) {
 		return models.GameStruct{}, ErrNotFound
 	}
 
-	var jsonResponse models.GameStruct
-	err = json.NewDecoder(resp.Body).Decode(&jsonResponse)
-	return jsonResponse, err
+	var gameData models.GameStruct
+	err = json.NewDecoder(resp.Body).Decode(&gameData)
+	return gameData, err
 }
 
 func (r rawgService) SearchGame(queries url.Values) (models.SearchResponse, error) {

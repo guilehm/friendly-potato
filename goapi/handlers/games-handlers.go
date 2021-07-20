@@ -39,7 +39,7 @@ func GameDetail(w http.ResponseWriter, r *http.Request) {
 
 	rawg := services.RawgService()
 
-	resp, err := rawg.GetGameDetail(slug)
+	gameDetail, err := rawg.GetGameDetail(slug)
 	if err != nil {
 		if errors.Is(err, services.ErrNotFound) {
 			utils.HandleApiErrors(w, http.StatusNotFound, "")
@@ -50,7 +50,7 @@ func GameDetail(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	jsonResponse, err := json.Marshal(resp)
+	jsonResponse, err := json.Marshal(gameDetail)
 	if err != nil {
 		fmt.Printf("ERROR: %v\n", err)
 		utils.HandleApiErrors(w, http.StatusInternalServerError, "")

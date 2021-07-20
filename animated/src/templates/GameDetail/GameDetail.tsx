@@ -2,6 +2,7 @@ import { Container } from "@chakra-ui/react"
 import { AxiosResponse } from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import AlertComposition from "../../components/AlertComposition"
 import Card from "../../components/Card/Card"
 import { Spinner } from "../../components/Spinner/Spinner.styles"
 import ApiService from "../../services/api-service"
@@ -21,17 +22,19 @@ const Api = new ApiService()
 const GameDetail = (): JSX.Element => {
   const { slug } = useParams<UrlParams>()
   const [gameData, setGameData] = useState<GameDetailData>()
+  const [error, setError] = useState(true)
 
 
   useEffect(() => {
     const handleSuccess = (response: AxiosResponse<GameDetailData>) => {
       setGameData(response.data)
     }
+    const handleError = () => setError(true)
 
     Api.getGameDetail(slug)
       .then(handleSuccess)
+      .catch(handleError)
   }, [slug])
-
 
   return (
     gameData ?
@@ -44,7 +47,11 @@ const GameDetail = (): JSX.Element => {
           slug={gameData.slug}
         />
       </Container>
-      : <Spinner />
+      : error ?
+        <AlertComposition
+          status={"error"}
+          title={"There was an error processing your request"}
+          description={"Please try again"} /> : <Spinner />
   )
 }
 

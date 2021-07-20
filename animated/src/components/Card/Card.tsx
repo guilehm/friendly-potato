@@ -1,6 +1,8 @@
 import * as S from "./Card.styles"
 import { Link } from "react-router-dom"
 
+import notfound from "./image-not-found.jpg"
+
 type CardProps = {
   title: string
   image: string
@@ -11,9 +13,10 @@ type CardProps = {
 
 
 const Card: React.FC<CardProps> = ({ title, image, slug, height = "200px", zoom = true }) => {
+  console.log(image)
   return (
     <S.Section zoom={zoom}>
-      <S.Image src={image} height={height} ></S.Image>
+      {<S.Image src={image || notfound} height={height} ></S.Image>}
       <S.Title>
         <Link to={`/games/${slug}/`}>
           {title}

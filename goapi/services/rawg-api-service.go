@@ -43,20 +43,23 @@ func (r rawgService) GetGameDetail(gameSlug string) (models.GameStruct, error) {
 		return models.GameStruct{}, err
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
+	go func() {
+		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer cancel()
 
-	upsert := true
-	opt := options.UpdateOptions{Upsert: &upsert}
+		upsert := true
+		opt := options.UpdateOptions{Upsert: &upsert}
 
-	gameDetailCollection := db.OpenCollection("games")
-	_, err = gameDetailCollection.UpdateOne(
-		ctx, bson.M{"id": gameData.ID}, bson.D{{Key: "$set", Value: gameData}}, &opt,
-	)
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Printf("Successfully updated game %s\n", gameData.Slug)
+		gameDetailCollection := db.OpenCollection("games")
+		_, err = gameDetailCollection.UpdateOne(
+			ctx, bson.M{"id": gameData.ID}, bson.D{{Key: "$set", Value: gameData}}, &opt,
+		)
+		if err != nil {
+			fmt.Printf("An error ocurred while saving %s", gameData.Slug)
+		}
+		fmt.Printf("Successfully updated game %s\n", gameData.Slug)
+	}()
+
 	return gameData, err
 }
 

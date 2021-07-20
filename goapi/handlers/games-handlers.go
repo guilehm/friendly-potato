@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"goapi/db"
 	"goapi/services"
 	"goapi/utils"
 	"net/http"
@@ -27,8 +26,6 @@ func GameList(w http.ResponseWriter, r *http.Request) {
 		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
 		return
 	}
-
-	db.OpenCollection("game-list")
 
 	w.Write(jsonResponse)
 }

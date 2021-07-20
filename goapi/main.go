@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"goapi/db"
 	"goapi/handlers"
 	"goapi/middlewares"
 	"net/http"
@@ -13,6 +14,7 @@ import (
 
 func main() {
 	fmt.Println("hello from goapi")
+	db.CreateIndexes()
 
 	r := mux.NewRouter()
 	handler := cors.New(cors.Options{

@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios"
 import { Cookies } from "react-cookie"
+import { getRandomInt } from "../helpers"
 import { ACCESS_TOKEN_LIFTIME, REFRESH_TOKEN_LIFTIME } from "../settings"
 
 const API_URL = process.env.API_URL || "http://localhost:8080"
@@ -76,6 +77,10 @@ class ApiService {
       access_token: accessToken,
       refresh_token: refreshToken,
     })
+  }
+
+  getRandomGameList(): Promise<AxiosResponse> {
+    return this.client.get(`${this.baseUrl}/games/?page=${getRandomInt(1, 29325)}`)
   }
 
   getGameList(): Promise<AxiosResponse> {

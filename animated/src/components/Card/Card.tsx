@@ -13,7 +13,6 @@ type CardProps = {
 
 
 const Card: React.FC<CardProps> = ({ title, image, slug, height = "200px", zoom = true }) => {
-  console.log(image)
   return (
     <S.Section zoom={zoom}>
       {<S.Image src={image || notfound} height={height} ></S.Image>}

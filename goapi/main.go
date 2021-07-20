@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"goapi/handlers"
-	"goapi/utils"
+	"goapi/middlewares"
 	"net/http"
 	"os"
 
@@ -26,5 +26,5 @@ func main() {
 	r.StrictSlash(true).HandleFunc("/users/", handlers.SignUp).Methods("POST")
 	r.StrictSlash(true).HandleFunc("/users/login/", handlers.Login).Methods("POST")
 	r.StrictSlash(true).HandleFunc("/users/refresh/", handlers.RefreshToken).Methods("POST")
-	http.ListenAndServe(":"+os.Getenv("PORT"), utils.SetHeaders(utils.LogRequest(handler)))
+	http.ListenAndServe(":"+os.Getenv("PORT"), middlewares.SetHeaders(middlewares.LogRequest(handler)))
 }

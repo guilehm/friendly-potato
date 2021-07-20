@@ -35,9 +35,9 @@ const GameDetail = (): JSX.Element => {
 
   return (
     gameData ?
-      <Container>
+      <Container maxW="container.xl">
         <Card
-          height={"400px"}
+          height={"500px"}
           zoom={false}
           title={gameData.name}
           image={gameData.background_image}

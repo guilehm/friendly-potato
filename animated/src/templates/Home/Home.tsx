@@ -1,5 +1,6 @@
-import { AxiosError, AxiosResponse } from "axios"
+import { AxiosResponse } from "axios"
 import { useEffect, useState } from "react"
+import AlertComposition from "../../components/AlertComposition"
 import Card from "../../components/Card/Card"
 import Spinner from "../../components/Spinner"
 import ApiService from "../../services/api-service"
@@ -15,15 +16,14 @@ type GameListResult = {
 const Api = new ApiService()
 
 const Home = (): JSX.Element => {
-  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
   const [gameList, setGameList] = useState<GameListResult[]>([])
 
   useEffect(() => {
     const fetchGameList = async () => {
-      const handleError = (error: AxiosError) => console.log(error)
+      const handleError = () => setError(true)
       const handleSuccess = (response: AxiosResponse) => {
         setGameList(response.data.results)
-        setLoading(false)
       }
 
       Api.getGameList()
@@ -36,9 +36,7 @@ const Home = (): JSX.Element => {
   return (
     <S.HomeContainer>
       <S.HomeSection>
-        {loading ? (
-          <Spinner />
-        ) :
+        {gameList.length ? (
           gameList.map((game) => (
             <Card
               key={game.slug}
@@ -47,6 +45,12 @@ const Home = (): JSX.Element => {
               image={game.background_image}
             />
           ))
+        ) : error ?
+          <AlertComposition
+            status={"error"}
+            title={"There was an error processing your request"}
+            description={"Please try again"} /> :
+          <Spinner />
         }
       </S.HomeSection>
     </S.HomeContainer>

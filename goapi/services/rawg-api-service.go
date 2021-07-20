@@ -1,13 +1,19 @@
 package services
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"goapi/db"
 	"goapi/models"
 	"net/http"
 	"net/url"
 	"os"
+	"time"
+
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 const RAWG_API_URL = "https://api.rawg.io/api"
@@ -33,6 +39,26 @@ func (r rawgService) GetGameDetail(gameSlug string) (models.GameStruct, error) {
 
 	var gameData models.GameStruct
 	err = json.NewDecoder(resp.Body).Decode(&gameData)
+	if err != nil {
+		return models.GameStruct{}, err
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	upsert := true
+	opt := options.UpdateOptions{
+		Upsert: &upsert,
+	}
+
+	gameDetailCollection := db.OpenCollection("games")
+	insertResult, err := gameDetailCollection.UpdateOne(
+		ctx, bson.M{"id": gameData.ID}, bson.D{{Key: "$set", Value: gameData}}, &opt,
+	)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(insertResult)
 	return gameData, err
 }
 

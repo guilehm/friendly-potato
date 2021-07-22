@@ -3,10 +3,7 @@ package utils
 import (
 	"encoding/json"
 	"net/http"
-	"os"
 )
-
-var SECRET_KEY = os.Getenv("JWT_SECRET_KEY")
 
 func HandleApiErrors(w http.ResponseWriter, status int, message string) {
 	if message == "" {

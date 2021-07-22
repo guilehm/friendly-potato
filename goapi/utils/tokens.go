@@ -4,6 +4,7 @@ import (
 	"context"
 	"goapi/models"
 	"log"
+	"os"
 	"time"
 
 	jwt "github.com/dgrijalva/jwt-go"
@@ -12,6 +13,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
+
+var SECRET_KEY = os.Getenv("JWT_SECRET_KEY")
 
 type SignedDetails struct {
 	Email string

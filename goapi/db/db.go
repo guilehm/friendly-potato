@@ -53,7 +53,7 @@ func createIndex(key string, unique bool, collection *mongo.Collection) {
 func CreateIndexes() {
 	gamesCollection := OpenCollection("games")
 	usersCollection := OpenCollection("users")
-	salesCollection := OpenCollection("users")
+	salesCollection := OpenCollection("sales")
 
 	createIndex("id", true, gamesCollection)
 	createIndex("slug", true, gamesCollection)

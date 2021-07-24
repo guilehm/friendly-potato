@@ -11,4 +11,10 @@ type Sale struct {
 	OrderDate     time.Time
 	OrderId       string
 	ShipDate      time.Time
+	UnitsSold     int
+	UnitPrice     uint64
+	UnitCost      uint64
+	TotalRevenue  uint64
+	TotalCost     uint64
+	TotalProfit   uint64
 }

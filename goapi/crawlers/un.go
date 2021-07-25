@@ -54,6 +54,7 @@ func (c UNCrawler) GetSiteMap(filename string) error {
 
 	var sitemapsCollection = db.OpenCollection("sitemaps")
 
+	// TODO: refactor to save final urls instead of gzip urls
 	opts := options.InsertMany().SetOrdered(false)
 	docs := make([]interface{}, len(sitemap.Sitemaps))
 	for i, v := range sitemap.Sitemaps {

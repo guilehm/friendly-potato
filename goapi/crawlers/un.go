@@ -2,11 +2,12 @@ package crawlers
 
 import (
 	"compress/gzip"
+	"encoding/xml"
 	"errors"
 	"fmt"
-	"io"
+	"goapi/models"
+	"io/ioutil"
 	"net/http"
-	"os"
 )
 
 type UNCrawler struct {
@@ -34,20 +35,16 @@ func (c UNCrawler) GetSiteMap(filename string) error {
 		return err
 	}
 
-	resourcesPath := "./resources/" + c.Name
-	err = os.MkdirAll(resourcesPath, os.ModePerm)
+	var xmlData models.SitemapIndex
+
+	sitemap, err := ioutil.ReadAll(gReader)
 	if err != nil {
 		return err
 	}
+	xml.Unmarshal(sitemap, &xmlData)
 
-	writer, err := os.Create(fmt.Sprintf("%v/%v", resourcesPath, filename))
-	if err != nil {
-		return err
-	}
-	defer writer.Close()
-
-	if _, err = io.Copy(writer, gReader); err != nil {
-		return err
+	for _, sitemap := range xmlData.Sitemaps {
+		fmt.Println(sitemap.Location)
 	}
 
 	return nil

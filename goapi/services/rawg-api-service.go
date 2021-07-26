@@ -50,7 +50,7 @@ func (r rawgService) GetGameDetail(gameSlug string) (models.GameStruct, error) {
 		upsert := true
 		opt := options.UpdateOptions{Upsert: &upsert}
 
-		gameDetailCollection := db.OpenCollection("games")
+		gameDetailCollection := db.OpenCollection("games", "")
 		_, err = gameDetailCollection.UpdateOne(
 			ctx, bson.M{"id": gameData.ID}, bson.D{{Key: "$set", Value: gameData}}, &opt,
 		)

@@ -17,7 +17,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var usersCollection = db.OpenCollection("users")
+var usersCollection = db.OpenCollection("users", "")
 var validate = validator.New()
 
 func HashPassword(password string) (string, error) {

@@ -48,7 +48,7 @@ func (c UNCrawler) GetAllUrlsFromSitemap() error {
 	}
 	xml.Unmarshal(unzipData, &sitemap)
 
-	var sitemapsCollection = db.OpenCollection("sitemaps")
+	var sitemapsCollection = db.OpenCollection("sitemaps", "un")
 
 	for _, sitemap := range sitemap.Sitemaps {
 		fmt.Println("Requesting", sitemap.Location)

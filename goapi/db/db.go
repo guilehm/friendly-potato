@@ -27,8 +27,11 @@ func Connection() *mongo.Client {
 	return client
 }
 
-func OpenCollection(collectionName string) *mongo.Collection {
-	collection := MongoClient.Database(DatabaseName).Collection(collectionName)
+func OpenCollection(collectionName, databaseName string) *mongo.Collection {
+	if databaseName == "" {
+		databaseName = DatabaseName
+	}
+	collection := MongoClient.Database(databaseName).Collection(collectionName)
 	return collection
 }
 
@@ -51,9 +54,9 @@ func createIndex(key string, unique bool, collection *mongo.Collection) {
 }
 
 func CreateIndexes() {
-	gamesCollection := OpenCollection("games")
-	usersCollection := OpenCollection("users")
-	salesCollection := OpenCollection("sales")
+	gamesCollection := OpenCollection("games", "")
+	usersCollection := OpenCollection("users", "")
+	salesCollection := OpenCollection("sales", "")
 
 	createIndex("id", true, gamesCollection)
 	createIndex("slug", true, gamesCollection)

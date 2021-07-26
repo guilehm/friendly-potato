@@ -9,7 +9,6 @@ import (
 	"goapi/db"
 	"goapi/models"
 	"io/ioutil"
-	"log"
 	"net/http"
 
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -21,7 +20,7 @@ type UNCrawler struct {
 	SiteMapPath string
 }
 
-func (c UNCrawler) GetAllUrlsFromSitemap() error {
+func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 
 	url := c.BaseUrl + c.SiteMapPath
 
@@ -85,7 +84,7 @@ func (c UNCrawler) GetAllUrlsFromSitemap() error {
 			context.TODO(), docs, opts,
 		)
 		if err != nil {
-			log.Fatal(err)
+			return err
 		}
 		fmt.Printf("Success saving %v\n", sitemapCount)
 	}

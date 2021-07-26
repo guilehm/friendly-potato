@@ -48,7 +48,7 @@ func (c UNCrawler) GetAllUrlsFromSitemap() error {
 	}
 	xml.Unmarshal(unzipData, &sitemap)
 
-	var sitemapsCollection = db.OpenCollection("sitemaps", "un")
+	var unUrlsCollection = db.OpenCollection("urls", "un")
 
 	for _, sitemap := range sitemap.Sitemaps {
 		fmt.Println("Requesting", sitemap.Location)
@@ -79,13 +79,13 @@ func (c UNCrawler) GetAllUrlsFromSitemap() error {
 		for i, v := range sitemapDetail.Sitemaps {
 			docs[i] = v
 		}
-		_, err = sitemapsCollection.InsertMany(
+		_, err = unUrlsCollection.InsertMany(
 			context.TODO(), docs, opts,
 		)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("\tSuccess saving %v\n", len(sitemapDetail.Sitemaps))
+		fmt.Printf("Success saving %v\n", len(sitemapDetail.Sitemaps))
 	}
 
 	return nil

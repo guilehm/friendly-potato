@@ -74,18 +74,20 @@ func (c UNCrawler) GetAllUrlsFromSitemap() error {
 			return err
 		}
 		xml.Unmarshal(unzipData, &sitemapDetail)
-		opts := options.InsertMany().SetOrdered(false)
-		docs := make([]interface{}, len(sitemapDetail.Sitemaps))
+		sitemapCount := len(sitemapDetail.Sitemaps)
+		docs := make([]interface{}, sitemapCount)
 		for i, v := range sitemapDetail.Sitemaps {
 			docs[i] = v
 		}
+
+		opts := options.InsertMany().SetOrdered(false)
 		_, err = unUrlsCollection.InsertMany(
 			context.TODO(), docs, opts,
 		)
 		if err != nil {
 			log.Fatal(err)
 		}
-		fmt.Printf("Success saving %v\n", len(sitemapDetail.Sitemaps))
+		fmt.Printf("Success saving %v\n", sitemapCount)
 	}
 
 	return nil

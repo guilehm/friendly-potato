@@ -21,7 +21,7 @@ type UNCrawler struct {
 	SiteMapPath string
 }
 
-func (c UNCrawler) GetSiteMap(filename string) error {
+func (c UNCrawler) GetAllUrlsFromSitemap() error {
 
 	url := c.BaseUrl + c.SiteMapPath
 
@@ -48,26 +48,45 @@ func (c UNCrawler) GetSiteMap(filename string) error {
 	}
 	xml.Unmarshal(unzipData, &sitemap)
 
-	for _, sitemap := range sitemap.Sitemaps {
-		fmt.Println(sitemap.Location)
-	}
-
 	var sitemapsCollection = db.OpenCollection("sitemaps")
 
-	// TODO: refactor to save final urls instead of gzip urls
-	opts := options.InsertMany().SetOrdered(false)
-	docs := make([]interface{}, len(sitemap.Sitemaps))
-	for i, v := range sitemap.Sitemaps {
-		docs[i] = v
-	}
+	for _, sitemap := range sitemap.Sitemaps {
+		fmt.Println("Requesting", sitemap.Location)
+		resp, err := http.Get(sitemap.Location)
+		if err != nil {
+			return err
+		}
+		defer resp.Body.Close()
 
-	results, err := sitemapsCollection.InsertMany(
-		context.TODO(), docs, opts,
-	)
-	if err != nil {
-		log.Fatal(err)
+		if resp.StatusCode != http.StatusOK {
+			return errors.New("HTTP error: " + resp.Status)
+		}
+
+		gReader, err := gzip.NewReader(resp.Body)
+		if err != nil {
+			return err
+		}
+
+		var sitemapDetail models.SitemapDetail
+
+		unzipData, err := ioutil.ReadAll(gReader)
+		if err != nil {
+			return err
+		}
+		xml.Unmarshal(unzipData, &sitemapDetail)
+		opts := options.InsertMany().SetOrdered(false)
+		docs := make([]interface{}, len(sitemapDetail.Sitemaps))
+		for i, v := range sitemapDetail.Sitemaps {
+			docs[i] = v
+		}
+		_, err = sitemapsCollection.InsertMany(
+			context.TODO(), docs, opts,
+		)
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("\tSuccess saving %v\n", len(sitemapDetail.Sitemaps))
 	}
-	fmt.Printf("%v", results)
 
 	return nil
 }

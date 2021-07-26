@@ -14,6 +14,18 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// START CRAWLER
+// crawler := UNCrawler{
+// 	Name:        "un",
+// 	BaseUrl:     "https://digitallibrary.un.org",
+// 	SiteMapPath: "/sitemap_index.xml.gz",
+// }
+
+// err := crawler.GetAllUrlsFromSitemaps()
+// if err != nil {
+// 	fmt.Println("Error while trying to get sitemap", err)
+// }
+
 type UNCrawler struct {
 	Name        string
 	BaseUrl     string

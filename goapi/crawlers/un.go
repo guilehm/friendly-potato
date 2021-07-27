@@ -167,7 +167,7 @@ func (c UNCrawler) Crawl(limit int64) error {
 		fmt.Println("Trying to update", sitemap.Location)
 		_, err = sitemapsCollection.UpdateOne(
 			ctx,
-			bson.M{"location": sitemap.Location},
+			bson.M{"_id": sitemap.ID},
 			bson.D{
 				{"$set", bson.D{{"crawled", true}}},
 			},

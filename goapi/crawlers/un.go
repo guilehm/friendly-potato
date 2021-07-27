@@ -32,46 +32,52 @@ type UNCrawler struct {
 	SiteMapPath string
 }
 
+func (c UNCrawler) GetResponse(url string) (*http.Response, error) {
+	fmt.Println("Requesting", url)
+	resp, err := http.Get(url)
+	if err != nil {
+		return resp, err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return resp, errors.New("HTTP error: " + resp.Status)
+	}
+
+	return resp, nil
+}
+
 func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 
 	url := c.BaseUrl + c.SiteMapPath
 
-	resp, err := http.Get(url)
+	resp, err := c.GetResponse(url)
 	if err != nil {
 		return err
 	}
 	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return errors.New("HTTP error: " + resp.Status)
-	}
 
 	gReader, err := gzip.NewReader(resp.Body)
 	if err != nil {
 		return err
 	}
 
-	var sitemap models.SitemapIndex
-
 	unzipData, err := ioutil.ReadAll(gReader)
 	if err != nil {
 		return err
 	}
+
+	var sitemap models.SitemapIndex
 	xml.Unmarshal(unzipData, &sitemap)
 
 	var unUrlsCollection = db.OpenCollection("urls", "un")
 
 	for _, sitemap := range sitemap.Sitemaps {
 		fmt.Println("Requesting", sitemap.Location)
-		resp, err := http.Get(sitemap.Location)
+		resp, err := c.GetResponse(sitemap.Location)
 		if err != nil {
 			return err
 		}
 		defer resp.Body.Close()
-
-		if resp.StatusCode != http.StatusOK {
-			return errors.New("HTTP error: " + resp.Status)
-		}
 
 		gReader, err := gzip.NewReader(resp.Body)
 		if err != nil {

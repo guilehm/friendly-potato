@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"time"
 
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
@@ -29,7 +30,7 @@ import (
 // }
 
 var responseCollection = db.OpenCollection("response", "un")
-var urlsCollection = db.OpenCollection("urls", "un")
+var sitemapsCollection = db.OpenCollection("sitemaps", "un")
 
 type UNCrawler struct {
 	Name        string
@@ -101,7 +102,7 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 		}
 
 		opts := options.InsertMany().SetOrdered(false)
-		_, err = urlsCollection.InsertMany(
+		_, err = sitemapsCollection.InsertMany(
 			context.TODO(), docs, opts,
 		)
 		if err != nil {

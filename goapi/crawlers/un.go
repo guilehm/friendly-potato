@@ -28,6 +28,9 @@ import (
 // 	fmt.Println("Error while trying to get sitemap", err)
 // }
 
+var responseCollection = db.OpenCollection("response", "un")
+var urlsCollection = db.OpenCollection("urls", "un")
+
 type UNCrawler struct {
 	Name        string
 	BaseUrl     string
@@ -71,8 +74,6 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 	var sitemap models.SitemapIndex
 	xml.Unmarshal(unzipData, &sitemap)
 
-	var unUrlsCollection = db.OpenCollection("urls", "un")
-
 	for _, sitemap := range sitemap.Sitemaps {
 		fmt.Println("Requesting", sitemap.Location)
 		resp, err := c.GetResponse(sitemap.Location)
@@ -100,7 +101,7 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 		}
 
 		opts := options.InsertMany().SetOrdered(false)
-		_, err = unUrlsCollection.InsertMany(
+		_, err = urlsCollection.InsertMany(
 			context.TODO(), docs, opts,
 		)
 		if err != nil {
@@ -131,7 +132,6 @@ func (c UNCrawler) SaveBodyData(url string) error {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	var responseCollection = db.OpenCollection("response", "un")
 
 	_, err = responseCollection.InsertOne(ctx, response)
 	return err

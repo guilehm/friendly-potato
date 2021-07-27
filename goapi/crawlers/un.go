@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
@@ -97,6 +98,7 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 		sitemapCount := len(sitemapDetail.Sitemaps)
 		docs := make([]interface{}, sitemapCount)
 		for i, v := range sitemapDetail.Sitemaps {
+			v.ID = primitive.NewObjectID()
 			docs[i] = v
 		}
 

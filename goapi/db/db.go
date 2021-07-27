@@ -66,4 +66,5 @@ func CreateIndexes() {
 	createIndex("refresh_token", false, usersCollection)
 
 	createIndex("location", true, unSitemapsCollection)
+	createIndex("crawled", false, unSitemapsCollection)
 }

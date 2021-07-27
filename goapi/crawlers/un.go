@@ -154,7 +154,7 @@ func (c UNCrawler) Crawl(limit int64) error {
 		return err
 	}
 
-	for cur.Next(context.Background()) {
+	for cur.Next(ctx) {
 
 		var sitemap models.Sitemap
 		err := cur.Decode(&sitemap)

@@ -143,14 +143,13 @@ func (c UNCrawler) SaveBodyData(url string) error {
 }
 
 func (c UNCrawler) Crawl(limit int64) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx := context.Background()
 	opts := options.Find().SetLimit(limit)
 	cur, err := sitemapsCollection.Find(
 		ctx,
 		bson.M{"crawled": false},
 		opts,
 	)
-	defer cancel()
 
 	if err != nil {
 		return err

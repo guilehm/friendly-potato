@@ -176,10 +176,13 @@ func (c UNCrawler) Crawl(limit int64) error {
 		)
 
 		if err != nil {
-			fmt.Printf("An error ocurred while updating %s", sitemap.Location)
+			fmt.Printf(
+				"An error ocurred while updating %s\n\t%s\n",
+				sitemap.Location,
+				err,
+			)
 		}
 	}
-
 	cur.Close(ctx)
 
 	return nil

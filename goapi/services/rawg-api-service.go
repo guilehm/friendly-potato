@@ -55,7 +55,8 @@ func (r rawgService) GetGameDetail(gameSlug string) (models.GameStruct, error) {
 			ctx, bson.M{"id": gameData.ID}, bson.D{{Key: "$set", Value: gameData}}, &opt,
 		)
 		if err != nil {
-			fmt.Printf("An error ocurred while saving %s", gameData.Slug)
+			fmt.Printf("An error ocurred while saving %s\n%s\n", gameData.Slug, err)
+
 		}
 		fmt.Printf("Successfully updated game %s\n", gameData.Slug)
 	}()

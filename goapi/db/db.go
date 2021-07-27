@@ -42,7 +42,7 @@ func createIndex(key string, unique bool, collection *mongo.Collection) {
 			Keys: bson.M{
 				key: 1,
 			},
-			Options: options.Index().SetUnique(true),
+			Options: options.Index().SetUnique(unique),
 		},
 	)
 	if err != nil {

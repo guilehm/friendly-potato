@@ -171,7 +171,7 @@ func (c UNCrawler) Crawl(limit int64) error {
 			ctx,
 			bson.M{"_id": sitemap.ID},
 			bson.D{
-				{"$set", bson.D{{"crawled", true}}},
+				{Key: "$set", Value: bson.D{{Key: "crawled", Value: true}}},
 			},
 		)
 

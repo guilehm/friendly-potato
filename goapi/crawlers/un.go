@@ -30,6 +30,8 @@ import (
 // 	fmt.Println("Error while trying to get sitemap", err)
 // }
 
+// crawler.Crawl(10)
+
 var responseCollection = db.OpenCollection("response", "un")
 var sitemapsCollection = db.OpenCollection("sitemaps", "un")
 

@@ -137,3 +137,40 @@ func (c UNCrawler) SaveBodyData(url string) error {
 	return err
 
 }
+
+func (c UNCrawler) Crawl(limit int64) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	opts := options.Find()
+	opts.SetLimit(limit)
+	cur, err := sitemapsCollection.Find(
+		ctx,
+		bson.M{},
+		opts,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	for cur.Next(context.TODO()) {
+
+		var sitemap models.Sitemap
+		err := cur.Decode(&sitemap)
+		if err != nil {
+			return err
+		}
+
+		if err := c.SaveBodyData(sitemap.Location); err != nil {
+			fmt.Println("Error while saving body data for", sitemap.Location)
+		}
+	}
+
+	if err := cur.Err(); err != nil {
+		return err
+	}
+
+	cur.Close(context.TODO())
+
+	return nil
+}

@@ -1,6 +1,7 @@
 package crawlers
 
 import (
+	"bytes"
 	"compress/gzip"
 	"context"
 	"encoding/xml"
@@ -10,6 +11,7 @@ import (
 	"goapi/models"
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -108,4 +110,30 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 	}
 
 	return nil
+}
+
+func (c UNCrawler) SaveBodyData(url string) error {
+
+	resp, err := c.GetResponse(url)
+
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(resp.Body)
+	body := buf.String()
+	response := models.CrawlResponse{
+		Url:        url,
+		StatusCode: resp.StatusCode,
+		Body:       string(body),
+	}
+	if err != nil {
+		response.Error = err.Error()
+	}
+	defer resp.Body.Close()
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	var responseCollection = db.OpenCollection("response", "un")
+
+	_, err = responseCollection.InsertOne(ctx, response)
+	return err
+
 }

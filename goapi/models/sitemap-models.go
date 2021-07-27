@@ -1,13 +1,18 @@
 package models
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
 
 type Sitemap struct {
-	Location   string `xml:"loc" bson:"location"`
-	LastMod    string `xml:"lastmod" bson:"lastmod"`
-	ChangeFreq string `xml:"changefreq" bson:"changefreq,omitempty"`
-	Priority   string `xml:"priority" bson:"priority,omitempty"`
-	Crawled    bool   `xml:"-" bson:"crawled"`
+	ID         primitive.ObjectID `bson:"_id"`
+	Location   string             `xml:"loc" bson:"location"`
+	LastMod    string             `xml:"lastmod" bson:"lastmod"`
+	ChangeFreq string             `xml:"changefreq" bson:"changefreq,omitempty"`
+	Priority   string             `xml:"priority" bson:"priority,omitempty"`
+	Crawled    bool               `xml:"-" bson:"crawled"`
 }
 
 type SitemapIndex struct {

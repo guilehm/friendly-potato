@@ -56,7 +56,7 @@ func createIndex(key string, unique bool, collection *mongo.Collection) {
 func CreateIndexes() {
 	gamesCollection := OpenCollection("games", "")
 	usersCollection := OpenCollection("users", "")
-	unUrlsCollection := OpenCollection("urls", "un")
+	unSitemapsCollection := OpenCollection("sitemaps", "un")
 
 	createIndex("id", true, gamesCollection)
 	createIndex("slug", true, gamesCollection)
@@ -65,5 +65,5 @@ func CreateIndexes() {
 	createIndex("token", false, usersCollection)
 	createIndex("refresh_token", false, usersCollection)
 
-	createIndex("location", true, unUrlsCollection)
+	createIndex("location", true, unSitemapsCollection)
 }

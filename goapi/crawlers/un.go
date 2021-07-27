@@ -104,7 +104,7 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 
 		opts := options.InsertMany().SetOrdered(false)
 		_, err = sitemapsCollection.InsertMany(
-			context.TODO(), docs, opts,
+			context.Background(), docs, opts,
 		)
 		if err != nil {
 			return err

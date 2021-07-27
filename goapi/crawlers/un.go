@@ -97,9 +97,9 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 		xml.Unmarshal(unzipData, &sitemapDetail)
 		sitemapCount := len(sitemapDetail.Sitemaps)
 		docs := make([]interface{}, sitemapCount)
-		for i, v := range sitemapDetail.Sitemaps {
-			v.ID = primitive.NewObjectID()
-			docs[i] = v
+		for i, s := range sitemapDetail.Sitemaps {
+			s.ID = primitive.NewObjectID()
+			docs[i] = s
 		}
 
 		opts := options.InsertMany().SetOrdered(false)

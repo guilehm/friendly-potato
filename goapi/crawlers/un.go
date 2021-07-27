@@ -164,10 +164,19 @@ func (c UNCrawler) Crawl(limit int64) error {
 		if err := c.SaveBodyData(sitemap.Location); err != nil {
 			fmt.Println("Error while saving body data for", sitemap.Location)
 		}
-	}
 
-	if err := cur.Err(); err != nil {
-		return err
+		fmt.Println("Trying to update", sitemap.Location)
+		_, err = sitemapsCollection.UpdateOne(
+			ctx,
+			bson.M{"location": sitemap.Location},
+			bson.D{
+				{"$set", bson.D{{"crawled", true}}},
+			},
+		)
+
+		if err != nil {
+			fmt.Printf("An error ocurred while updating %s", sitemap.Location)
+		}
 	}
 
 	cur.Close(ctx)

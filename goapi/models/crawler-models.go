@@ -7,3 +7,9 @@ type CrawlResponse struct {
 	Body       string `bson:"body"`
 	Translated bool   `bson:"translated"`
 }
+
+type UNReport struct {
+	Url    string `bson:"url"`
+	Title  string `bson:"title"`
+	Symbol string `bson:"symbol"`
+}

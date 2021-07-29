@@ -5,4 +5,5 @@ type CrawlResponse struct {
 	StatusCode int    `bson:"status_code"`
 	Error      string `bson:"error"`
 	Body       string `bson:"body"`
+	Translated bool   `bson:"translated"`
 }

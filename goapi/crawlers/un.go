@@ -167,7 +167,7 @@ func (c UNCrawler) Crawl(limit int64) error {
 			fmt.Println("Error while saving body data for", sitemap.Location)
 		}
 
-		fmt.Println("Trying to update", sitemap.Location)
+		fmt.Println("Updating ", sitemap.Location)
 		_, err = sitemapsCollection.UpdateOne(
 			ctx,
 			bson.M{"_id": sitemap.ID},

@@ -127,7 +127,7 @@ func (c UNCrawler) SaveBodyData(url string) error {
 	response := models.CrawlResponse{
 		Url:        url,
 		StatusCode: resp.StatusCode,
-		Body:       string(body),
+		Body:       body,
 	}
 	if err != nil {
 		response.Error = err.Error()

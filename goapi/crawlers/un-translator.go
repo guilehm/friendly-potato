@@ -15,13 +15,45 @@ import (
 
 var reportsCollection = db.OpenCollection("reports", "un")
 
-func (c UNCrawler) Translate() error {
+func (c UNCrawler) TranslateMany(limit int64) error {
+	ctx := context.Background()
+	opts := options.Find().SetLimit(limit).SetProjection(
+		bson.M{"_id": 0, "url": 1},
+	)
+
+	cur, err := responseCollection.Find(
+		ctx,
+		bson.M{"translated": false},
+		opts,
+	)
+
+	if err != nil {
+		fmt.Println("could not retrieve data to make translations")
+		return err
+	}
+
+	for cur.Next(ctx) {
+		var response models.CrawlResponse
+		err := cur.Decode(&response)
+
+		if err != nil {
+			fmt.Println("could not decode sitemap response")
+			return err
+		}
+
+		c.Translate(response.Url)
+	}
+
+	return nil
+}
+
+func (c UNCrawler) Translate(url string) error {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	var response models.CrawlResponse
 	responseCollection.FindOne(
-		ctx, bson.M{"translated": false},
+		ctx, bson.M{"url": url},
 	).Decode(&response)
 
 	body := response.Body

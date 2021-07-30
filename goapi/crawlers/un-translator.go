@@ -74,8 +74,8 @@ func (c UNCrawler) Translate(url string) error {
 
 	detailsXpath := `//div[@class="metadata-row"]/span[contains(text(), "%v")]/following-sibling::span`
 	titleXpath := htmlquery.FindOne(doc, fmt.Sprintf(detailsXpath, "Title"))
-
 	title := htmlquery.InnerText(titleXpath)
+
 	report := models.UNReport{
 		Url:   response.Url,
 		Title: title,
@@ -98,7 +98,7 @@ func (c UNCrawler) Translate(url string) error {
 	)
 	if descriptionXpath != nil {
 		description := htmlquery.InnerText(descriptionXpath)
-		report.Description = description
+		report.Description = strings.TrimSpace(description)
 	}
 
 	upsert := true

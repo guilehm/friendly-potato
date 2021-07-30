@@ -10,6 +10,7 @@ import (
 
 	"github.com/antchfx/htmlquery"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 var reportsCollection = db.OpenCollection("reports", "un")
@@ -46,7 +47,16 @@ func (c UNCrawler) Translate() error {
 		report.Symbol = symbol
 	}
 
-	reportsCollection.InsertOne(ctx, report)
+	upsert := true
+	opt := options.UpdateOptions{Upsert: &upsert}
+	_, err = reportsCollection.UpdateOne(
+		ctx, bson.M{"url": response.Url}, bson.D{{Key: "$set", Value: report}}, &opt,
+	)
+
+	if err != nil {
+		fmt.Printf("An error ocurred while saving report for %s\n%s\n", response.Url, err)
+		return err
+	}
 
 	return nil
 }

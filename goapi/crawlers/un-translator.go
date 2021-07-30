@@ -18,7 +18,7 @@ var reportsCollection = db.OpenCollection("reports", "un")
 func (c UNCrawler) TranslateMany(limit int64) error {
 	ctx := context.Background()
 	if limit > 1000 {
-		fmt.Printf("limit exceeded, setting maximum value of 1000.")
+		fmt.Println("limit exceeded, setting maximum value of 1000")
 		limit = 1000
 	}
 	opts := options.Find().SetLimit(limit).SetProjection(

@@ -9,7 +9,9 @@ type CrawlResponse struct {
 }
 
 type UNReport struct {
-	Url    string `bson:"url"`
-	Title  string `bson:"title"`
-	Symbol string `bson:"symbol"`
+	Url         string `bson:"url"`
+	Title       string `bson:"title"`
+	Symbol      string `bson:"symbol"`
+	Imprint     string `bson:"imprint"`
+	Description string `bson:"description"`
 }

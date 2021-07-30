@@ -86,6 +86,11 @@ func (c UNCrawler) Translate(url string) error {
 		symbol := htmlquery.InnerText(symbolXpath)
 		report.Symbol = symbol
 	}
+	imprintXpath := htmlquery.FindOne(doc, fmt.Sprintf(detailsXpath, "Imprint"))
+	if imprintXpath != nil {
+		imprint := htmlquery.InnerText(imprintXpath)
+		report.Imprint = imprint
+	}
 
 	upsert := true
 	opt := options.UpdateOptions{Upsert: &upsert}

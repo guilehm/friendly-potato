@@ -58,5 +58,15 @@ func (c UNCrawler) Translate() error {
 		return err
 	}
 
+	upsert = false
+	_, err = responseCollection.UpdateOne(
+		ctx, bson.M{"url": response.Url}, bson.D{{Key: "$set", Value: bson.M{"translated": true}}}, &opt,
+	)
+
+	if err != nil {
+		fmt.Printf("An error ocurred while updating response for %s\n%s\n", response.Url, err)
+		return err
+	}
+
 	return nil
 }

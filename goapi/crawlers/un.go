@@ -142,9 +142,9 @@ func (c UNCrawler) SaveBodyData(url string) error {
 
 }
 
-func (c UNCrawler) Crawl(limit int64) error {
+func (c UNCrawler) Crawl(limit, skip int64) error {
 	ctx := context.Background()
-	opts := options.Find().SetLimit(limit)
+	opts := options.Find().SetLimit(limit).SetSkip(skip)
 	cur, err := sitemapsCollection.Find(
 		ctx,
 		bson.M{"crawled": false},

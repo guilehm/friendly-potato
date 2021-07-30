@@ -41,7 +41,11 @@ func (c UNCrawler) TranslateMany(limit int64) error {
 			return err
 		}
 
-		c.Translate(response.Url)
+		go func() {
+			fmt.Printf("sending %v to translation\n", response.Url)
+			c.Translate(response.Url)
+		}()
+
 	}
 
 	return nil

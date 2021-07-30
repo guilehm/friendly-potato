@@ -92,6 +92,15 @@ func (c UNCrawler) Translate(url string) error {
 		report.Imprint = imprint
 	}
 
+	descriptionXpath := htmlquery.FindOne(
+		doc,
+		`.//div[@class="metadata-row"]/span[contains(text(), "Description")]/following-sibling::span`,
+	)
+	if descriptionXpath != nil {
+		description := htmlquery.InnerText(descriptionXpath)
+		report.Description = description
+	}
+
 	upsert := true
 	opt := options.UpdateOptions{Upsert: &upsert}
 	_, err = reportsCollection.UpdateOne(

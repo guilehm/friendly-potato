@@ -33,11 +33,19 @@ func (c UNCrawler) Translate() error {
 
 	detailsXpath := `//div[@class="metadata-row"]/span[contains(text(), "%v")]/following-sibling::span`
 	titleXpath := htmlquery.FindOne(doc, fmt.Sprintf(detailsXpath, "Title"))
+
 	title := htmlquery.InnerText(titleXpath)
 	report := models.UNReport{
 		Url:   response.Url,
 		Title: title,
 	}
+
+	symbolXpath := htmlquery.FindOne(doc, fmt.Sprintf(detailsXpath, "Symbol"))
+	if symbolXpath != nil {
+		symbol := htmlquery.InnerText(symbolXpath)
+		report.Symbol = symbol
+	}
+
 	reportsCollection.InsertOne(ctx, report)
 
 	return nil

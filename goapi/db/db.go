@@ -57,6 +57,7 @@ func CreateIndexes() {
 	gamesCollection := OpenCollection("games", "")
 	usersCollection := OpenCollection("users", "")
 	unSitemapsCollection := OpenCollection("sitemaps", "un")
+	reportsCollection := OpenCollection("reports", "un")
 
 	createIndex("id", true, gamesCollection)
 	createIndex("slug", true, gamesCollection)
@@ -67,4 +68,7 @@ func CreateIndexes() {
 
 	createIndex("location", true, unSitemapsCollection)
 	createIndex("crawled", false, unSitemapsCollection)
+
+	createIndex("url", true, reportsCollection)
+
 }

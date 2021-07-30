@@ -73,14 +73,16 @@ func (c UNCrawler) Translate(url string) error {
 	}
 
 	detailsXpath := `//div[@class="metadata-row"]/span[contains(text(), "%v")]/following-sibling::span`
-	titleXpath := htmlquery.FindOne(doc, fmt.Sprintf(detailsXpath, "Title"))
-	title := htmlquery.InnerText(titleXpath)
 
 	report := models.UNReport{
-		Url:   response.Url,
-		Title: title,
+		Url: response.Url,
 	}
 
+	titleXpath := htmlquery.FindOne(doc, fmt.Sprintf(detailsXpath, "Title"))
+	if titleXpath != nil {
+		title := htmlquery.InnerText(titleXpath)
+		report.Title = title
+	}
 	symbolXpath := htmlquery.FindOne(doc, fmt.Sprintf(detailsXpath, "Symbol"))
 	if symbolXpath != nil {
 		symbol := htmlquery.InnerText(symbolXpath)

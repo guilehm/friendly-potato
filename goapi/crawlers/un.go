@@ -122,7 +122,10 @@ func (c UNCrawler) SaveBodyData(url string) error {
 	resp, err := c.GetResponse(url)
 
 	buf := new(bytes.Buffer)
-	buf.ReadFrom(resp.Body)
+	_, err = buf.ReadFrom(resp.Body)
+	if err != nil {
+		return err
+	}
 	body := buf.String()
 	response := models.CrawlResponse{
 		Url:        url,

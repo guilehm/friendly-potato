@@ -99,7 +99,10 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 		if err != nil {
 			return err
 		}
-		xml.Unmarshal(unzipData, &sitemapDetail)
+		err = xml.Unmarshal(unzipData, &sitemapDetail)
+		if err != nil {
+			return err
+		}
 		sitemapCount := len(sitemapDetail.Sitemaps)
 		docs := make([]interface{}, sitemapCount)
 		for i, s := range sitemapDetail.Sitemaps {

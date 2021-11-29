@@ -14,7 +14,7 @@ import (
 
 var MongoClient *mongo.Client = Connection()
 
-const DatabaseName = "potato"
+const DefaultDatabaseName = "potato"
 
 func Connection() *mongo.Client {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -29,7 +29,7 @@ func Connection() *mongo.Client {
 
 func OpenCollection(collectionName, databaseName string) *mongo.Collection {
 	if databaseName == "" {
-		databaseName = DatabaseName
+		databaseName = DefaultDatabaseName
 	}
 	collection := MongoClient.Database(databaseName).Collection(collectionName)
 	return collection

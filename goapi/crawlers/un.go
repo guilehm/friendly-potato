@@ -117,7 +117,7 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 		if err != nil {
 			return err
 		}
-		fmt.Printf("Success saving %v\n", sitemapCount)
+		fmt.Printf("Success saving %v sitemaps\n", sitemapCount)
 	}
 
 	return nil

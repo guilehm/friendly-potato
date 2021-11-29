@@ -16,8 +16,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-const RAWG_API_URL = "https://api.rawg.io/api"
-const GAMES_ENDPOINT = "games"
+const RawgApiUrl = "https://api.rawg.io/api"
+const GamesEndpoint = "games"
 
 var ErrNotFound = errors.New("not found")
 
@@ -27,7 +27,7 @@ type rawgService struct {
 
 func (r rawgService) GetGameDetail(gameSlug string) (models.GameStruct, error) {
 	endpoint := fmt.Sprintf(
-		"%v/%v/%v?key=%v", RAWG_API_URL, GAMES_ENDPOINT, gameSlug, r.ApiKey,
+		"%v/%v/%v?key=%v", RawgApiUrl, GamesEndpoint, gameSlug, r.ApiKey,
 	)
 	resp, err := http.Get(endpoint)
 	if err != nil {
@@ -65,7 +65,7 @@ func (r rawgService) GetGameDetail(gameSlug string) (models.GameStruct, error) {
 }
 
 func (r rawgService) SearchGame(queries url.Values) (models.SearchResponse, error) {
-	endpoint, err := url.Parse(fmt.Sprintf("%v/%v", RAWG_API_URL, GAMES_ENDPOINT))
+	endpoint, err := url.Parse(fmt.Sprintf("%v/%v", RawgApiUrl, GamesEndpoint))
 	if err != nil {
 		return models.SearchResponse{}, err
 	}

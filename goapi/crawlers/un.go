@@ -76,7 +76,10 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 	}
 
 	var sitemap models.SitemapIndex
-	xml.Unmarshal(unzipData, &sitemap)
+	err = xml.Unmarshal(unzipData, &sitemap)
+	if err != nil {
+		return err
+	}
 
 	for _, sitemap := range sitemap.Sitemaps {
 		resp, err := c.GetResponse(sitemap.Location)

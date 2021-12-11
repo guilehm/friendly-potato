@@ -86,7 +86,6 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 		if err != nil {
 			return err
 		}
-		defer resp.Body.Close()
 
 		gReader, err := gzip.NewReader(resp.Body)
 		if err != nil {
@@ -118,6 +117,7 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 			return err
 		}
 		fmt.Printf("Success saving %v sitemaps\n", sitemapCount)
+		_ = resp.Body.Close()
 	}
 
 	return nil

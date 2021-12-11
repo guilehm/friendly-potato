@@ -98,6 +98,8 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 		if err != nil {
 			return err
 		}
+		_ = resp.Body.Close()
+
 		err = xml.Unmarshal(unzipData, &sitemapDetail)
 		if err != nil {
 			return err
@@ -117,7 +119,6 @@ func (c UNCrawler) GetAllUrlsFromSitemaps() error {
 			return err
 		}
 		fmt.Printf("Success saving %v sitemaps\n", sitemapCount)
-		_ = resp.Body.Close()
 	}
 
 	return nil

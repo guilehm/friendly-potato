@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 	"goapi/db"
 	"goapi/handlers"
 	"goapi/middlewares"
+	"goapi/ws"
 	"net/http"
 	"os"
-
-	"github.com/gorilla/mux"
-	"github.com/rs/cors"
 )
 
 func main() {

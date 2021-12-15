@@ -13,7 +13,7 @@ export const makeToastData = ({
   duration = 5000,
   isClosable = true,
 }: ToastData): ToastData => ({
-  title: title,
+  title,
   description,
   status,
   duration,

@@ -6,20 +6,25 @@
 </head>
 <body>
     <h1>Hello World</h1>
+    <label for="username">username</label>
+    <input type="text" id="username">
     <button id="start">start</button>
 </body>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // TODO: update location
         const location =  "ws://localhost:8080/socket/"
         const webSocket = new WebSocket(location);
 
-        // webSocket.send("testing");
-
-        webSocket.onmessage = event => {
-            console.log("event", event)
-            console.log("event.data", event.data)
-        }
+        const startButton = document.getElementById("start")
+        startButton.addEventListener("click", () => {
+            const username = document.getElementById("username").value
+            webSocket.send(JSON.stringify({
+                username,
+            }))
+            startButton.style.display = "none"
+        })
     });
 </script>
 

@@ -1,5 +1,6 @@
 package models
 
+import "time"
 
 type Wood struct {
 	Name string
@@ -14,4 +15,5 @@ type Player struct {
 	ID string
 	Coins int
 	Sprite string
+	LastLogin time.Time
 }

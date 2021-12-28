@@ -8,4 +8,19 @@
     <h1>Hello World</h1>
     <button id="start">start</button>
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const location =  "ws://localhost:8080/socket/"
+        const webSocket = new WebSocket(location);
+
+        // webSocket.send("testing");
+
+        webSocket.onmessage = event => {
+            console.log("event", event)
+            console.log("event.data", event.data)
+        }
+    });
+</script>
+
 </html>

@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components"
 import Layout from "./templates/Layout"
 import Home from "./templates/Home"
+import Lumber from "./templates/Lumber"
 import Login from "./templates/Login"
 import {
   BrowserRouter as Router,
@@ -37,6 +38,12 @@ const App = (): JSX.Element => (
           <Route path="/games/:slug/">
             <Layout>
               <GameDetail />
+            </Layout>
+          </Route>
+
+          <Route path="/lumber/">
+            <Layout>
+              <Lumber />
             </Layout>
           </Route>
 

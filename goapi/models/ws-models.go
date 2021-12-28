@@ -1,6 +1,6 @@
 package models
 
-type Message struct {
+type WSMessage struct {
 	ID   string
 	data []byte
 }

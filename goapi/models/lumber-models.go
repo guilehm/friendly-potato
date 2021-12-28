@@ -2,6 +2,8 @@ package models
 
 import (
 	"time"
+
+	"github.com/gorilla/websocket"
 )
 
 type Wood struct {
@@ -21,4 +23,5 @@ type Player struct {
 	Sprite    string
 	LastLogin time.Time
 	WoodPile  WoodPile
+	conn      *websocket.Conn
 }

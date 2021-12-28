@@ -13,6 +13,7 @@ type WoodPile struct {
 
 type Player struct {
 	ID string
+	Username string
 	Coins int
 	Sprite string
 	LastLogin time.Time

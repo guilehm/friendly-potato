@@ -5,10 +5,12 @@
     <title>Lumber Game</title>
 </head>
 <body>
-    <h1>Hello World</h1>
-    <label for="username">username</label>
-    <input type="text" id="username">
-    <button id="start">start</button>
+    <h1 id="hello">Hello World</h1>
+    <div class="start">
+        <label for="username">username</label>
+        <input type="text" id="username">
+        <button id="start">start</button>
+    </div>
 </body>
 
 <script>
@@ -23,7 +25,8 @@
             webSocket.send(JSON.stringify({
                 username,
             }))
-            startButton.style.display = "none"
+            document.getElementsByClassName("start")[0].remove()
+            document.getElementById("hello").innerText = `Hello ${username}`
         })
     });
 </script>

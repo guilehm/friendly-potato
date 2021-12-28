@@ -9,3 +9,9 @@ type Wood struct {
 type WoodPile struct {
 	Woods []Wood
 }
+
+type Player struct {
+	ID string
+	Coins int
+	Sprite string
+}

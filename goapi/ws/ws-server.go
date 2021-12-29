@@ -52,7 +52,6 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 				fmt.Println("Error during message writing:", err)
 				break
 			}
-			fmt.Println("successfully unmarshalled", data.RefreshToken, data.Token)
 
 			go func() {
 				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -64,20 +63,21 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 					cancel()
 					return
 				}
-				cancel()
 				// emailRef := *user.Email
 				// err = conn.WriteMessage(websocket.TextMessage, []byte(emailRef))
 
 				playerData := models.PlayerData{}
 				err := lumberCollection.FindOne(ctx, bson.M{"user_id": user.UserId}).Decode(&playerData)
 				if err != nil {
-					if errors.Is(err, mongo.ErrNoDocuments) {
+					if !errors.Is(err, mongo.ErrNoDocuments) {
+						fmt.Println("Error while trying to find player:", err)
+					} else {
 						pd := models.PlayerData{
 							UserId:    user.UserId,
 							Coins:     0,
 							Sprite:    "",
-							LastLogin: time.Now(),
-							WoodPile:  models.WoodPile{},
+							LastLogin: time.Now().Local(),
+							WoodPile:  &models.WoodPile{},
 						}
 						_, err := lumberCollection.InsertOne(ctx, pd)
 						if err != nil {
@@ -87,10 +87,10 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 						}
 						fmt.Println("Player data created for", *user.Email)
 					}
-					fmt.Println("Could not find player:", err)
 					cancel()
 					return
 				}
+				cancel()
 
 			}()
 

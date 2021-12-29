@@ -45,6 +45,13 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 				break
 			}
 			fmt.Println("successfully unmarshalled", data.RefreshToken, data.Token)
+
+			// case models.Update:
+			// 	data := models.UpdateMessage{}
+			// 	err := json.Unmarshal(message.Data, &data)
+			// 	if err != nil {
+			// 		fmt.Println("Error during unmarshall:", err)
+			// 	}
 		}
 	}
 }

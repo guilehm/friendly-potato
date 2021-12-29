@@ -24,6 +24,8 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: do not allow all origins
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 
+	quit := make(chan bool)
+
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		fmt.Println("Error during connection upgrade:", err)
@@ -108,20 +110,26 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 
 				go func() {
 					for {
-						time.Sleep(5 * time.Second)
-						newWood := models.Wood{
-							Name:        "Oak",
-							Color:       "",
-							DateCreated: time.Time{},
-						}
-						*playerData.Woods = append(*playerData.Woods, newWood)
+						select {
+						case <-quit:
+							fmt.Println("Stopping process by connection closed")
+							return
+						default:
+							time.Sleep(5 * time.Second)
+							newWood := models.Wood{
+								Name:        models.Oak,
+								Color:       "",
+								DateCreated: time.Time{},
+							}
+							*playerData.Woods = append(*playerData.Woods, newWood)
 
-						err = conn.WriteJSON(models.UpdateMessage{
-							Type:       models.Update,
-							PlayerData: &playerData,
-						})
-						if err != nil {
-							fmt.Println("Could not send update message for:", *user.Email, err)
+							err = conn.WriteJSON(models.UpdateMessage{
+								Type:       models.Update,
+								PlayerData: &playerData,
+							})
+							if err != nil {
+								fmt.Println("Could not send update message for:", *user.Email, err)
+							}
 						}
 					}
 				}()

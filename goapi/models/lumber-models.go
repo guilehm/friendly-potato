@@ -18,9 +18,9 @@ var (
 )
 
 type Wood struct {
-	Name        WoodName
-	Color       string
-	DateCreated time.Time
+	Name        WoodName  `bson:"name" json:"name"`
+	Color       string    `bson:"color" json:"color"`
+	DateCreated time.Time `bson:"date_created" json:"date_created"`
 }
 
 type PlayerData struct {

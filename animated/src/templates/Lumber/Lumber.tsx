@@ -31,11 +31,7 @@ const Lumber = (): JSX.Element => {
       <h1>Hello from Lumber</h1>
       <S.List>
         <S.ListItem>
-          <S.Number>1</S.Number>
-          <S.Image src={`${window.location.origin}/img/lumber/a.png`} />
-        </S.ListItem>
-        <S.ListItem>
-          <S.Number>1</S.Number>
+          <S.Number>{lumberCount}</S.Number>
           <S.Image src={`${window.location.origin}/img/lumber/a.png`} />
         </S.ListItem>
       </S.List>

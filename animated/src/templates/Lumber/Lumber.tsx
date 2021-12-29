@@ -23,7 +23,11 @@ const Lumber = (): JSX.Element => {
     }
 
     webSocket.onmessage = (event) => {
-      console.log("message:", event.data)
+      const data = JSON.parse(event.data)
+      if (data.type === "update") {
+        const woods = data["player_data"]["woods"]
+        woods && setLumberCount(woods.length)
+      }
     }
 
   }, [])

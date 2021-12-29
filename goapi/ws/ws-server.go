@@ -97,8 +97,28 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 				}
 				err = conn.WriteJSON(um)
 				if err != nil {
-					fmt.Println("Player data created for", *user.Email)
+					fmt.Println("Could not send update message for:", *user.Email)
 				}
+
+				go func() {
+					for {
+						time.Sleep(5 * time.Second)
+						newWood := models.Wood{
+							Name:        "Oak",
+							Color:       "",
+							DateCreated: time.Time{},
+						}
+						*playerData.Woods = append(*playerData.Woods, newWood)
+
+						err = conn.WriteJSON(models.UpdateMessage{
+							Type:       models.Update,
+							PlayerData: &playerData,
+						})
+						if err != nil {
+							fmt.Println("Could not send update message for:", *user.Email, err)
+						}
+					}
+				}()
 			}()
 
 		}

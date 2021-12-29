@@ -1,9 +1,12 @@
 package ws
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/gorilla/websocket"
+	"goapi/models"
 	"net/http"
+
+	"github.com/gorilla/websocket"
 )
 
 var upgrader = websocket.Upgrader{}
@@ -20,16 +23,28 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 	defer conn.Close()
 
 	for {
-		messageType, message, err := conn.ReadMessage()
+		message := models.WSMessage{}
+		err = conn.ReadJSON(&message)
 		if err != nil {
-			fmt.Println("Error during message reading:", err)
+			fmt.Println("Error while reading json:", err)
 			break
 		}
-		fmt.Printf("Received: %s\n", message)
-		err = conn.WriteMessage(messageType, message)
-		if err != nil {
-			fmt.Println("Error during message writing:", err)
-			break
+
+		switch message.MessageType {
+		case models.Login:
+			data := models.Tokens{}
+			err := json.Unmarshal(message.Data, &data)
+			if err != nil {
+				fmt.Println("Error during unmarshall:", err)
+				break
+			}
+
+			err = conn.WriteMessage(websocket.TextMessage, []byte("Authenticated!!!"))
+			if err != nil {
+				fmt.Println("Error during message writing:", err)
+				break
+			}
+			fmt.Println("successfully unmarshalled", data.RefreshToken, data.Token)
 		}
 	}
 }

@@ -18,8 +18,7 @@ type Wood struct {
 }
 
 type WoodPile struct {
-	Woods       []Wood
-	DateCreated time.Time
+	Woods *[]Wood
 }
 
 type PlayerData struct {
@@ -27,7 +26,7 @@ type PlayerData struct {
 	Coins     int       `bson:"coins "json:"coins"`
 	Sprite    string    `bson:"sprite" json:"sprite"`
 	LastLogin time.Time `bson:"last_login" json:"last_login"`
-	WoodPile  WoodPile  `bson:"wood_pile" json:"wood_pile"`
+	WoodPile  *WoodPile `bson:"wood_pile" json:"wood_pile"`
 	conn      *websocket.Conn
 }
 

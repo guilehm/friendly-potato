@@ -18,6 +18,10 @@ const Lumber = (): JSX.Element => {
       webSocket.send(JSON.stringify(message))
     }
 
+    webSocket.onmessage = (event) => {
+      console.log("message:", event.data)
+    }
+
   }, [])
 
   return (

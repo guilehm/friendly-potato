@@ -3,17 +3,21 @@ package ws
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"goapi/db"
 	"goapi/models"
 	"net/http"
 	"time"
 
+	"go.mongodb.org/mongo-driver/mongo"
+
 	"github.com/gorilla/websocket"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
 var usersCollection = db.OpenCollection("users", "")
+var lumberCollection = db.OpenCollection("lumber", "")
 var upgrader = websocket.Upgrader{}
 
 func SocketHandler(w http.ResponseWriter, r *http.Request) {
@@ -44,8 +48,6 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 				break
 			}
 
-			// TODO: remove this line
-			err = conn.WriteMessage(websocket.TextMessage, []byte("Authenticated!!!"))
 			if err != nil {
 				fmt.Println("Error during message writing:", err)
 				break
@@ -63,8 +65,32 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 					return
 				}
 				cancel()
-				emailRef := *user.Email
-				err = conn.WriteMessage(websocket.TextMessage, []byte(emailRef))
+				// emailRef := *user.Email
+				// err = conn.WriteMessage(websocket.TextMessage, []byte(emailRef))
+
+				playerData := models.PlayerData{}
+				err := lumberCollection.FindOne(ctx, bson.M{"user_id": user.UserId}).Decode(&playerData)
+				if err != nil {
+					if errors.Is(err, mongo.ErrNoDocuments) {
+						pd := models.PlayerData{
+							UserId:    user.UserId,
+							Coins:     0,
+							Sprite:    "",
+							LastLogin: time.Now(),
+							WoodPile:  models.WoodPile{},
+						}
+						_, err := lumberCollection.InsertOne(ctx, pd)
+						if err != nil {
+							fmt.Println("Could not create user data:", err)
+							cancel()
+							return
+						}
+					}
+					fmt.Println("Could not find player:", err)
+					cancel()
+					return
+				}
+
 			}()
 
 		}

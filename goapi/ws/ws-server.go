@@ -10,6 +10,8 @@ import (
 	"net/http"
 	"time"
 
+	"go.mongodb.org/mongo-driver/mongo/options"
+
 	"go.mongodb.org/mongo-driver/mongo"
 
 	"github.com/gorilla/websocket"
@@ -102,17 +104,33 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 				}
 
 				go func() {
+					time.Sleep(2 * time.Second)
 					for {
 						select {
 						case <-quit:
-							// stop updating by closed connection
+							upsert := true
+							opt := options.UpdateOptions{Upsert: &upsert}
+							c, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+							_, err = lumberCollection.UpdateOne(
+								c,
+								bson.M{"user_id": user.UserId},
+								bson.M{
+									"$set": bson.M{
+										"coins": playerData.Coins,
+										"woods": playerData.Woods,
+									},
+								},
+								&opt,
+							)
+							fmt.Println("Could not save game data")
+							cancel()
 							return
 						default:
-							time.Sleep(5 * time.Second)
+							time.Sleep(1 * time.Second)
 							newWood := models.Wood{
 								Name:        models.Oak,
 								Color:       "",
-								DateCreated: time.Time{},
+								DateCreated: time.Now().Local(),
 							}
 							*playerData.Woods = append(*playerData.Woods, newWood)
 

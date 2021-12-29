@@ -72,14 +72,14 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 					if !errors.Is(err, mongo.ErrNoDocuments) {
 						fmt.Println("Error while trying to find player:", err)
 					} else {
-						pd := models.PlayerData{
+						playerData = models.PlayerData{
 							UserId:    user.UserId,
 							Coins:     0,
 							Sprite:    "",
 							LastLogin: time.Now().Local(),
 							Woods:     &[]models.Wood{},
 						}
-						_, err := lumberCollection.InsertOne(ctx, pd)
+						_, err := lumberCollection.InsertOne(ctx, playerData)
 						if err != nil {
 							fmt.Println("Could not create user data:", err)
 							cancel()

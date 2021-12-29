@@ -85,6 +85,7 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 							cancel()
 							return
 						}
+						fmt.Println("Player data created for", *user.Email)
 					}
 					fmt.Println("Could not find player:", err)
 					cancel()

@@ -22,8 +22,8 @@ type WoodPile struct {
 }
 
 type PlayerData struct {
-	UserId    string    `bson:"id" json:"id"`
-	Coins     int       `bson:"coins "json:"coins"`
+	UserId    string    `bson:"user_id" json:"user_id"`
+	Coins     int       `bson:"coins" json:"coins"`
 	Sprite    string    `bson:"sprite" json:"sprite"`
 	LastLogin time.Time `bson:"last_login" json:"last_login"`
 	WoodPile  *WoodPile `bson:"wood_pile" json:"wood_pile"`

@@ -1,7 +1,9 @@
 import { useEffect } from "react"
+import Cookies from "universal-cookie"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./Lumber.styles"
 
+const cookies = new Cookies()
 
 const Lumber = (): JSX.Element => {
 
@@ -11,7 +13,7 @@ const Lumber = (): JSX.Element => {
 
     const message: WSMessage = {
       type: "login",
-      data: { "refresh_token": "whatever" },
+      data: { "refresh_token": cookies.get("refresh") },
     }
 
     webSocket.onopen = () => {

@@ -77,7 +77,7 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 							Coins:     0,
 							Sprite:    "",
 							LastLogin: time.Now().Local(),
-							WoodPile:  &models.WoodPile{},
+							Woods:     &[]models.Wood{},
 						}
 						_, err := lumberCollection.InsertOne(ctx, pd)
 						if err != nil {
@@ -91,7 +91,14 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 					return
 				}
 				cancel()
-
+				um := models.UpdateMessage{
+					Type:       models.Update,
+					PlayerData: &playerData,
+				}
+				err = conn.WriteJSON(um)
+				if err != nil {
+					fmt.Println("Player data created for", *user.Email)
+				}
 			}()
 
 		}

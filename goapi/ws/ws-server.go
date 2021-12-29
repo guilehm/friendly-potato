@@ -56,11 +56,6 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 				break
 			}
 
-			if err != nil {
-				fmt.Println("Error during message writing:", err)
-				break
-			}
-
 			go func() {
 				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 				var user models.User
@@ -71,8 +66,6 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 					cancel()
 					return
 				}
-				// emailRef := *user.Email
-				// err = conn.WriteMessage(websocket.TextMessage, []byte(emailRef))
 
 				playerData := models.PlayerData{}
 				err := lumberCollection.FindOne(ctx, bson.M{"user_id": user.UserId}).Decode(&playerData)

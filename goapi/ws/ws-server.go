@@ -39,7 +39,7 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			if errors.Is(err.(*websocket.CloseError), err) {
 				quit <- true
-				fmt.Println("Closing connection")
+				fmt.Println("Connection closed")
 				return
 			} else {
 				fmt.Println("Could not read message:", err)
@@ -105,7 +105,7 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 					for {
 						select {
 						case <-quit:
-							fmt.Println("Stopping process by connection closed")
+							// stop updating by closed connection
 							return
 						default:
 							time.Sleep(5 * time.Second)

@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import Cookies from "universal-cookie"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./Lumber.styles"
@@ -6,6 +6,8 @@ import * as S from "./Lumber.styles"
 const cookies = new Cookies()
 
 const Lumber = (): JSX.Element => {
+
+  const [lumberCount, setLumberCount] = useState<number>(0)
 
   useEffect(() => {
     const location = "ws://localhost:8080/socket/"

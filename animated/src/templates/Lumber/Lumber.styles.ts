@@ -19,3 +19,9 @@ export const ListItem = styled.li`
   display: flex;
   padding: 20px;
 `
+
+export const Number = styled.span`
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
+`

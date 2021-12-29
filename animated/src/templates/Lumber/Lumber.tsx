@@ -31,11 +31,11 @@ const Lumber = (): JSX.Element => {
       <h1>Hello from Lumber</h1>
       <S.List>
         <S.ListItem>
-          <span>1</span>
+          <S.Number>1</S.Number>
           <S.Image src={`${window.location.origin}/img/lumber/a.png`} />
         </S.ListItem>
         <S.ListItem>
-          <span>1</span>
+          <S.Number>1</S.Number>
           <S.Image src={`${window.location.origin}/img/lumber/a.png`} />
         </S.ListItem>
       </S.List>

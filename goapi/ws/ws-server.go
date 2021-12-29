@@ -44,6 +44,7 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 				break
 			}
 
+			// TODO: remove this line
 			err = conn.WriteMessage(websocket.TextMessage, []byte("Authenticated!!!"))
 			if err != nil {
 				fmt.Println("Error during message writing:", err)
@@ -51,19 +52,20 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 			}
 			fmt.Println("successfully unmarshalled", data.RefreshToken, data.Token)
 
-			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-
-			var user models.User
-			if err := usersCollection.FindOne(
-				ctx, bson.M{"refresh_token": data.RefreshToken},
-			).Decode(&user); err != nil {
-				fmt.Println("Could not find user:", err)
+			go func() {
+				ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+				var user models.User
+				if err := usersCollection.FindOne(
+					ctx, bson.M{"refresh_token": data.RefreshToken},
+				).Decode(&user); err != nil {
+					fmt.Println("Could not find user:", err)
+					cancel()
+					return
+				}
 				cancel()
-				return
-			}
-			cancel()
-			emailRef := *user.Email
-			err = conn.WriteMessage(websocket.TextMessage, []byte(emailRef))
+				emailRef := *user.Email
+				err = conn.WriteMessage(websocket.TextMessage, []byte(emailRef))
+			}()
 
 		}
 	}

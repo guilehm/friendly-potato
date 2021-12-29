@@ -1,6 +1,13 @@
 package models
 
+type WSMessageType string
+
+var (
+	Login  WSMessageType = "login"
+	Update               = "update"
+)
+
 type WSMessage struct {
-	ID   string
+	ID   WSMessageType
 	data []byte
 }

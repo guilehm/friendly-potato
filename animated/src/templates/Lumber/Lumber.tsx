@@ -1,7 +1,24 @@
+import { useEffect } from "react"
+import { WSMessage } from "../../types/ws-types"
 import * as S from "./Lumber.styles"
 
 
 const Lumber = (): JSX.Element => {
+
+  useEffect(() => {
+    const location = "ws://localhost:8080/socket/"
+    const webSocket = new WebSocket(location)
+
+    const message: WSMessage = {
+      type: "login",
+      data: { "refresh_token": "whatever" },
+    }
+
+    webSocket.onopen = () => {
+      webSocket.send(JSON.stringify(message))
+    }
+
+  }, [])
 
   return (
     <S.LumberContainer>

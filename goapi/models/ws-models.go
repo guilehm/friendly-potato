@@ -8,6 +8,6 @@ var (
 )
 
 type WSMessage struct {
-	ID   WSMessageType
-	data []byte
+	messageType WSMessageType
+	data        interface{}
 }

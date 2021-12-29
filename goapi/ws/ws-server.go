@@ -1,14 +1,19 @@
 package ws
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
+	"goapi/db"
 	"goapi/models"
 	"net/http"
+	"time"
 
 	"github.com/gorilla/websocket"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
+var usersCollection = db.OpenCollection("users", "")
 var upgrader = websocket.Upgrader{}
 
 func SocketHandler(w http.ResponseWriter, r *http.Request) {
@@ -46,12 +51,20 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 			}
 			fmt.Println("successfully unmarshalled", data.RefreshToken, data.Token)
 
-			// case models.Update:
-			// 	data := models.UpdateMessage{}
-			// 	err := json.Unmarshal(message.Data, &data)
-			// 	if err != nil {
-			// 		fmt.Println("Error during unmarshall:", err)
-			// 	}
+			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+
+			var user models.User
+			if err := usersCollection.FindOne(
+				ctx, bson.M{"refresh_token": data.RefreshToken},
+			).Decode(&user); err != nil {
+				fmt.Println("Could not find user:", err)
+				cancel()
+				return
+			}
+			cancel()
+			emailRef := *user.Email
+			err = conn.WriteMessage(websocket.TextMessage, []byte(emailRef))
+
 		}
 	}
 }

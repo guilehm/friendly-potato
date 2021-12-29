@@ -1,13 +1,15 @@
 package models
 
+import "encoding/json"
+
 type WSMessageType string
 
 var (
 	Login  WSMessageType = "login"
-	Update               = "update"
+	Update WSMessageType = "update"
 )
 
 type WSMessage struct {
-	messageType WSMessageType
-	data        interface{}
+	MessageType WSMessageType   `json:"type"`
+	Data        json.RawMessage `json:"data"`
 }

@@ -11,8 +11,14 @@ var (
 	Update WSMessageType = "update"
 )
 
+type WoodName string
+
+var (
+	Oak WoodName = "oak"
+)
+
 type Wood struct {
-	Name        string
+	Name        WoodName
 	Color       string
 	DateCreated time.Time
 }

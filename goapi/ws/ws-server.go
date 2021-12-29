@@ -35,8 +35,14 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 		message := models.WSMessage{}
 		err = conn.ReadJSON(&message)
 		if err != nil {
-			fmt.Println("Error while reading json:", err)
-			break
+			if errors.Is(err.(*websocket.CloseError), err) {
+				quit <- true
+				fmt.Println("Closing connection")
+				return
+			} else {
+				fmt.Println("Could not read message:", err)
+				continue
+			}
 		}
 
 		switch message.MessageType {

@@ -25,7 +25,7 @@ type Wood struct {
 
 type PlayerData struct {
 	UserId    string    `bson:"user_id" json:"user_id"`
-	Coins     int       `bson:"coins" json:"coins"`
+	Gold      int       `bson:"gold" json:"gold"`
 	Sprite    string    `bson:"sprite" json:"sprite"`
 	LastLogin time.Time `bson:"last_login" json:"last_login"`
 	Woods     *[]Wood   `bson:"woods" json:"woods"`

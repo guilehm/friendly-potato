@@ -1,13 +1,31 @@
 import { useEffect, useState } from "react"
+import { RouteComponentProps } from "react-router-dom"
 import Cookies from "universal-cookie"
+import ApiService from "../../services/api-service"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./Lumber.styles"
 
 const cookies = new Cookies()
+const Api = new ApiService()
 
-const Lumber = (): JSX.Element => {
+
+const Lumber = ({ history }: RouteComponentProps): JSX.Element => {
 
   const [lumberCount, setLumberCount] = useState<number>(0)
+
+  useEffect(() => {
+    const cookies = new Cookies(["access", "refresh"])
+    const accessToken = cookies.get("access")
+    const refreshToken = cookies.get("refresh")
+
+    if (!accessToken || !refreshToken) {
+      history.push("/login")
+    } else {
+      Api.validateToken(refreshToken)
+        .catch(() => history.push("/login"))
+    }
+
+  }, [history])
 
   useEffect(() => {
     const location = "ws://localhost:8080/socket/"

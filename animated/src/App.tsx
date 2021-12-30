@@ -21,7 +21,6 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-
 const App = (): JSX.Element => (
   <div className="App">
     <GlobalStyle />
@@ -41,10 +40,10 @@ const App = (): JSX.Element => (
             </Layout>
           </Route>
 
-          <Route path="/lumber/">
+          <Route path="/lumber/" render={(props) =>
             <Layout>
-              <Lumber />
-            </Layout>
+              <Lumber {...props} />
+            </Layout>}>
           </Route>
 
           <Route path="/">

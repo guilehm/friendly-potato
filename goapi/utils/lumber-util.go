@@ -35,7 +35,7 @@ func UpdatePlayerData(playerData *models.PlayerData, user models.User) error {
 	return err
 }
 
-func GetPlayerData(user models.User) (models.PlayerData, error) {
+func GetPlayerData(user models.User) (*models.PlayerData, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -44,7 +44,7 @@ func GetPlayerData(user models.User) (models.PlayerData, error) {
 	if err != nil {
 		if !errors.Is(err, mongo.ErrNoDocuments) {
 			fmt.Println("Error while trying to find player:", err)
-			return playerData, err
+			return &playerData, err
 		} else {
 			playerData = models.PlayerData{
 				UserId:    user.UserId,
@@ -56,10 +56,10 @@ func GetPlayerData(user models.User) (models.PlayerData, error) {
 			_, err := lumberCollection.InsertOne(ctx, playerData)
 			if err != nil {
 				fmt.Println("Could not create user data:", err)
-				return playerData, err
+				return &playerData, err
 			}
 			fmt.Println("Player data created for", *user.Email)
 		}
 	}
-	return playerData, err
+	return &playerData, err
 }

@@ -71,7 +71,7 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 
 				um := models.UpdateMessage{
 					Type:       models.Update,
-					PlayerData: &playerData,
+					PlayerData: playerData,
 				}
 				err = conn.WriteJSON(um)
 				if err != nil {
@@ -83,7 +83,7 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 					for {
 						select {
 						case <-quit:
-							err := utils.UpdatePlayerData(&playerData, user)
+							err := utils.UpdatePlayerData(playerData, user)
 							if err != nil {
 								fmt.Println("Could not save game data for:", *user.Email, err)
 								return
@@ -100,7 +100,7 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 
 							err = conn.WriteJSON(models.UpdateMessage{
 								Type:       models.Update,
-								PlayerData: &playerData,
+								PlayerData: playerData,
 							})
 							if err != nil {
 								fmt.Println("Could not send update message for:", *user.Email, err)

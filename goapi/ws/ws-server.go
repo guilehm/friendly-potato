@@ -11,8 +11,6 @@ import (
 	"net/http"
 	"time"
 
-	"go.mongodb.org/mongo-driver/mongo"
-
 	"github.com/gorilla/websocket"
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -68,30 +66,8 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 					return
 				}
 
-				playerData := models.PlayerData{}
-				err := lumberCollection.FindOne(ctx, bson.M{"user_id": user.UserId}).Decode(&playerData)
-				if err != nil {
-					if !errors.Is(err, mongo.ErrNoDocuments) {
-						fmt.Println("Error while trying to find player:", err)
-					} else {
-						playerData = models.PlayerData{
-							UserId:    user.UserId,
-							Gold:      0,
-							Sprite:    "",
-							LastLogin: time.Now().Local(),
-							Woods:     &[]models.Wood{},
-						}
-						_, err := lumberCollection.InsertOne(ctx, playerData)
-						if err != nil {
-							fmt.Println("Could not create user data:", err)
-							cancel()
-							return
-						}
-						fmt.Println("Player data created for", *user.Email)
-					}
-					cancel()
-					return
-				}
+				playerData, err := utils.GetPlayerData(user)
+
 				cancel()
 				um := models.UpdateMessage{
 					Type:       models.Update,

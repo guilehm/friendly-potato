@@ -77,7 +77,7 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 					} else {
 						playerData = models.PlayerData{
 							UserId:    user.UserId,
-							Coins:     0,
+							Gold:      0,
 							Sprite:    "",
 							LastLogin: time.Now().Local(),
 							Woods:     &[]models.Wood{},
@@ -116,7 +116,7 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 								bson.M{"user_id": user.UserId},
 								bson.M{
 									"$set": bson.M{
-										"coins": playerData.Coins,
+										"gold":  playerData.Gold,
 										"woods": playerData.Woods,
 									},
 								},

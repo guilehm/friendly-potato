@@ -122,7 +122,11 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 								},
 								&opt,
 							)
-							fmt.Println("Could not save game data")
+							if err != nil {
+								fmt.Println("Could not save game data for:", *user.Email, err)
+							} else {
+								fmt.Println("Successfully saved game data for:", *user.Email)
+							}
 							cancel()
 							return
 						default:

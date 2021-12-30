@@ -65,10 +65,10 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 					cancel()
 					return
 				}
+				cancel()
 
 				playerData, err := utils.GetPlayerData(user)
 
-				cancel()
 				um := models.UpdateMessage{
 					Type:       models.Update,
 					PlayerData: &playerData,

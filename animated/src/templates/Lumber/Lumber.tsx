@@ -12,6 +12,7 @@ const Api = new ApiService()
 const Lumber = ({ history }: RouteComponentProps): JSX.Element => {
 
   const [lumberCount, setLumberCount] = useState<number>(0)
+  const [coinCount, setCointCount] = useState<number>(0)
 
   useEffect(() => {
     const cookies = new Cookies(["access", "refresh"])
@@ -57,6 +58,10 @@ const Lumber = ({ history }: RouteComponentProps): JSX.Element => {
         <S.ListItem>
           <S.Number>{lumberCount}</S.Number>
           <S.Image src={`${window.location.origin}/img/lumber/a.png`} />
+        </S.ListItem>
+        <S.ListItem>
+          <S.Number>{coinCount}</S.Number>
+          <S.Image src={`${window.location.origin}/img/lumber/gold-chest.png`} />
         </S.ListItem>
       </S.List>
     </S.LumberContainer>

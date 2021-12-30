@@ -153,6 +153,35 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	w.Write(response)
 }
 
+func ValidateToken(w http.ResponseWriter, r *http.Request) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	var tokens models.Tokens
+	if err := json.NewDecoder(r.Body).Decode(&tokens); err != nil {
+		utils.HandleApiErrors(w, http.StatusBadRequest, err.Error())
+		return
+	}
+
+	var user models.User
+	if err := usersCollection.FindOne(
+		ctx, bson.M{"refresh_token": tokens.RefreshToken},
+	).Decode(&user); err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			utils.HandleApiErrors(w, http.StatusBadRequest, "Invalid token")
+			return
+		}
+		utils.HandleApiErrors(w, http.StatusInternalServerError, "")
+		return
+	}
+
+	response, _ := json.Marshal(struct {
+		Ok bool `json:"ok"`
+	}{Ok: true})
+	w.Write(response)
+
+}
+
 func RefreshToken(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

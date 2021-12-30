@@ -7,10 +7,9 @@ import (
 	"fmt"
 	"goapi/db"
 	"goapi/models"
+	"goapi/utils"
 	"net/http"
 	"time"
-
-	"go.mongodb.org/mongo-driver/mongo/options"
 
 	"go.mongodb.org/mongo-driver/mongo"
 
@@ -108,26 +107,11 @@ func SocketHandler(w http.ResponseWriter, r *http.Request) {
 					for {
 						select {
 						case <-quit:
-							upsert := true
-							opt := options.UpdateOptions{Upsert: &upsert}
-							c, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-							_, err = lumberCollection.UpdateOne(
-								c,
-								bson.M{"user_id": user.UserId},
-								bson.M{
-									"$set": bson.M{
-										"gold":  playerData.Gold,
-										"woods": playerData.Woods,
-									},
-								},
-								&opt,
-							)
+							err := utils.UpdatePlayerData(&playerData, user)
 							if err != nil {
 								fmt.Println("Could not save game data for:", *user.Email, err)
-							} else {
-								fmt.Println("Successfully saved game data for:", *user.Email)
+								return
 							}
-							cancel()
 							return
 						default:
 							time.Sleep(1 * time.Second)

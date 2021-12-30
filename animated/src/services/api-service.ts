@@ -79,6 +79,12 @@ class ApiService {
     })
   }
 
+  validateToken(refreshToken: string): Promise<AxiosResponse> {
+    return this.client.post(`${this.baseUrl}/users/validate/`, {
+      refresh_token: refreshToken,
+    })
+  }
+
   getRandomGameList(): Promise<AxiosResponse> {
     return this.client.get(`${this.baseUrl}/games/?page=${getRandomInt(1, 29325)}`)
   }

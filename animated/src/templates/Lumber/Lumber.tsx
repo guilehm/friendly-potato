@@ -46,6 +46,8 @@ const Lumber = ({ history }: RouteComponentProps): JSX.Element => {
       if (data.type === "update") {
         const woods = data["player_data"]["woods"]
         woods && setLumberCount(woods.length)
+        const gold = data["player_data"]["gold"]
+        gold && setLumberCount(gold.length)
       }
     }
 

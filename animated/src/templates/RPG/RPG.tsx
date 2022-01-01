@@ -5,6 +5,7 @@ const CHARACTER_SIZE = 100
 const CANVAS_WIDTH = 1000
 const CANVAS_HEIGHT = 800
 
+
 const RPG = (): JSX.Element => {
 
   const canvasRef = useRef<HTMLCanvasElement>()
@@ -18,7 +19,7 @@ const RPG = (): JSX.Element => {
 
     const image = new Image()
     image.onload = () => ctx.drawImage(
-      image, 900, 400, CHARACTER_SIZE, CHARACTER_SIZE
+      image, 10, 50, CHARACTER_SIZE, CHARACTER_SIZE
     )
     image.src = `${window.location.origin}/img/assets/characters/tile096.png`
 
@@ -26,7 +27,7 @@ const RPG = (): JSX.Element => {
     canvas.height = CANVAS_HEIGHT
 
     ctx.font = "40px serif"
-    ctx.fillText("gui", 50, 40)
+    ctx.fillText("gui", 10, 40)
 
     ctx.imageSmoothingEnabled = false
   }, [])

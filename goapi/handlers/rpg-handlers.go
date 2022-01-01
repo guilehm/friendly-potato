@@ -80,8 +80,20 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 				Send:   make(chan []byte, 256),
 				Player: np,
 			}
+
 			hub.Register <- client
 			hub.Broadcast <- true
+
+			// TODO: do I need a go func here?
+			go func() {
+				fmt.Println("starting a new go routine here!!!!")
+				for {
+					select {
+					case <-quit:
+						hub.Unregister <- client
+					}
+				}
+			}()
 
 		}
 	}

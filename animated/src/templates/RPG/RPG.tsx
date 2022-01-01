@@ -14,7 +14,7 @@ const RPG = (): JSX.Element => {
     if (!ctx) return
 
     const image = new Image()
-    image.onload = () => ctx.drawImage(image, 50, 50, 8, 8)
+    image.onload = () => ctx.drawImage(image, 50, 50, 80, 80)
     image.src = `${window.location.origin}/img/assets/characters/tile096.png`
     ctx.imageSmoothingEnabled = false
   }, [])

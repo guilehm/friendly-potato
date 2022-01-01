@@ -1,6 +1,13 @@
 package models
 
+import "encoding/json"
+
 type CharacterType string
+
+var (
+	GameJoin        WSMessageType = "game-join"
+	LoginSuccessful WSMessageType = "login-successful"
+)
 
 var (
 	Human    CharacterType = "human"

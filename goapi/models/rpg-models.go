@@ -17,8 +17,18 @@ var (
 )
 
 type Player struct {
-	Type      CharacterType
-	Username  string
-	PositionX int
-	PositionY int
+	Type      CharacterType `json:"type"`
+	Username  string        `json:"username"`
+	PositionX int           `json:"position_x"`
+	PositionY int           `json:"position_y"`
+}
+
+type GameJoinMessage struct {
+	Username      string `json:"username"`
+	CharacterType string `json:"character_type,omitempty"`
+}
+
+type RPGMessage struct {
+	Type WSMessageType   `json:"type"`
+	Data json.RawMessage `json:"data"`
 }

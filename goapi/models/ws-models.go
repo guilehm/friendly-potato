@@ -15,14 +15,15 @@ type WSMessage struct {
 }
 
 type Client struct {
-	Hub  *Hub
-	Conn *websocket.Conn
-	Send chan []byte
+	Hub    *Hub
+	Conn   *websocket.Conn
+	Send   chan []byte
+	Player *Player `json:"player"`
 }
 
 type Hub struct {
-	Clients    map[*Client]bool
-	Broadcast  chan []byte
+	Clients    *[]Client
+	Broadcast  chan bool
 	Register   chan *Client
 	Unregister chan *Client
 }

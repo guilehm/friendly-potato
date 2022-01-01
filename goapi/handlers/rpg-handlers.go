@@ -18,6 +18,7 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 	// TODO: do not allow all origins
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 
+	quit := make(chan bool)
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		fmt.Println("Error during connection upgrade:", err)
@@ -31,6 +32,7 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			if errors.Is(err.(*websocket.CloseError), err) {
 				fmt.Println("Connection closed")
+				quit <- true
 				// TODO: the client must be removed from hub here
 				return
 			} else {

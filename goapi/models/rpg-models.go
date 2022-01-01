@@ -11,10 +11,12 @@ var (
 )
 
 var (
-	Human    CharacterType = "human"
-	Orc      CharacterType = "orc"
-	Skeleton CharacterType = "skeleton"
-	Archer   CharacterType = "archer"
+	Human     CharacterType = "human"
+	Orc       CharacterType = "orc"
+	Skeleton  CharacterType = "skeleton"
+	Archer    CharacterType = "archer"
+	Vampire   CharacterType = "vampire"
+	Berzerker CharacterType = "berzerker"
 )
 
 type Player struct {

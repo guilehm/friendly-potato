@@ -43,6 +43,8 @@ const RPG = (): JSX.Element => {
       const data = JSON.parse(event.data)
 
       if (data.type === "broadcast") {
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
         data.players.forEach((player: Player) => {
           const image = new Image()
           image.onload = () => ctx.drawImage(

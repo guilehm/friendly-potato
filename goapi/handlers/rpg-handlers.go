@@ -90,6 +90,21 @@ func RPGHandler(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				fmt.Println("Could not send message", err)
 			}
+			for i := 0; i <= posMaxX-20; i += 1 {
+
+				pX := strconv.Itoa(np.PositionX + i)
+
+				time.Sleep(20 * time.Millisecond)
+				err = conn.WriteJSON(models.RPGMessage{
+					Type: models.LoginSuccessful,
+					Data: []byte(fmt.Sprintf(`{
+					"username": "%s",
+					"character_type": "%s",
+					"position_x": "%s",
+					"position_y": "%s"
+				}`, np.Username, np.Type, pX, positionY)),
+				})
+			}
 		}
 	}
 }

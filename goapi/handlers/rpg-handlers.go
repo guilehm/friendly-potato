@@ -18,6 +18,8 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 	// TODO: do not allow all origins
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 
+	client := &models.Client{}
+
 	quit := make(chan bool)
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -73,10 +75,10 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			np := &models.Player{
 				Type:      ctChoices[rand.Int()%len(ctChoices)],
 				Username:  data.Username,
-				PositionX: posX,
-				PositionY: posY,
+				PositionX: &posX,
+				PositionY: &posY,
 			}
-			client := &models.Client{
+			client = &models.Client{
 				Hub:    hub,
 				Conn:   conn,
 				Send:   make(chan []byte, 256),
@@ -97,7 +99,23 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 					}
 				}
 			}()
-
+		case models.KeyDown:
+			key := ""
+			err := json.Unmarshal(message.Data, &key)
+			if err != nil {
+				return
+			}
+			switch key {
+			case "ArrowLeft":
+				*client.Player.PositionX = *client.Player.PositionX - models.WalkStep
+			case models.ArrowUp:
+				*client.Player.PositionY = *client.Player.PositionX + models.WalkStep
+			case models.ArrowRight:
+				*client.Player.PositionX = *client.Player.PositionX + models.WalkStep
+			case models.ArrowDown:
+				*client.Player.PositionY = *client.Player.PositionY - models.WalkStep
+			}
+			hub.Broadcast <- true
 		}
 	}
 }

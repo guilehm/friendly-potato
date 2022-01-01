@@ -33,17 +33,20 @@ func (h *Hub) Start() {
 		select {
 		case client := <-h.Register:
 			fmt.Println("registering client", client.Player.Username)
-			*h.Clients = append(*h.Clients, *client)
+			h.Clients[client] = true
 		case client := <-h.Unregister:
-			// TODO: remove client from hub
+			if _, ok := h.Clients[client]; ok {
+				delete(h.Clients, client)
+				close(client.Send)
+			}
 			fmt.Println("this client should be removed", client.Player.Username)
 		case <-h.Broadcast:
 			var players []Player
-			for _, client := range *h.Clients {
+			for client := range h.Clients {
 				players = append(players, *client.Player)
 			}
 
-			for _, client := range *h.Clients {
+			for client := range h.Clients {
 				err := client.Conn.WriteJSON(RPGBroadcast{Broadcast, players})
 				if err != nil {
 					fmt.Println("Could not send message:", err)

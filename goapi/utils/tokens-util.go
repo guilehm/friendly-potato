@@ -14,7 +14,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var SECRET_KEY = os.Getenv("JWT_SECRET_KEY")
+var SecretKey = os.Getenv("JWT_SECRET_KEY")
 
 type SignedDetails struct {
 	Email string
@@ -42,7 +42,7 @@ func GenerateTokens(email string, uid string) (signedToken string, signedRefresh
 
 	token, err := jwt.NewWithClaims(
 		jwt.SigningMethodHS256, claims,
-	).SignedString([]byte(SECRET_KEY))
+	).SignedString([]byte(SecretKey))
 	if err != nil {
 		log.Panic(err)
 		return
@@ -50,7 +50,7 @@ func GenerateTokens(email string, uid string) (signedToken string, signedRefresh
 
 	refreshToken, err := jwt.NewWithClaims(
 		jwt.SigningMethodHS256, refreshClaims,
-	).SignedString([]byte(SECRET_KEY))
+	).SignedString([]byte(SecretKey))
 	if err != nil {
 		log.Panic(err)
 		return
@@ -109,7 +109,7 @@ func ValidateToken(signedToken string) (claims *SignedDetails, msg string) {
 		signedToken,
 		&SignedDetails{},
 		func(token *jwt.Token) (interface{}, error) {
-			return []byte(SECRET_KEY), nil
+			return []byte(SecretKey), nil
 		},
 	)
 

@@ -17,11 +17,13 @@ const RPG = (): JSX.Element => {
     if (!ctx) return
 
     const image = new Image()
-    image.onload = () => ctx.drawImage(image, 50, 50, 80, 80)
+    image.onload = () => ctx.drawImage(
+      image, 900, 400, CHARACTER_SIZE, CHARACTER_SIZE
+    )
     image.src = `${window.location.origin}/img/assets/characters/tile096.png`
 
-    canvas.width = 1000
-    canvas.height = 500
+    canvas.width = CANVAS_WIDTH
+    canvas.height = CANVAS_HEIGHT
 
     ctx.font = "40px serif"
     ctx.fillText("gui", 50, 40)

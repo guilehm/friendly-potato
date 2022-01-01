@@ -1,4 +1,4 @@
-import { KeyboardEvent, useEffect, useRef } from "react"
+import { KeyboardEvent, useEffect, useMemo, useRef, useState } from "react"
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, CharacterSpriteMap } from "../../constants"
 import { Player } from "../../types/rpg-types"
 import { WSMessage } from "../../types/ws-types"
@@ -10,14 +10,15 @@ const CANVAS_HEIGHT = 800
 
 
 const RPG = (): JSX.Element => {
-
+  const [ws, setWs] = useState<WebSocket | null>(null)
   const canvasRef = useRef<HTMLCanvasElement>()
 
-  const location = "ws://localhost:8080/ws/rpg/"
-  const webSocket = new WebSocket(location)
 
   useEffect(() => {
     // TODO: remove hardcoded url
+    const location = "ws://localhost:8080/ws/rpg/"
+    const webSocket = new WebSocket(location)
+    setWs(webSocket)
 
     const message: WSMessage = {
       type: "game-join",
@@ -59,10 +60,9 @@ const RPG = (): JSX.Element => {
     }
 
 
-  }, [webSocket])
+  }, [])
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-
     const validKeys = [
       ARROW_LEFT,
       ARROW_UP,
@@ -75,8 +75,7 @@ const RPG = (): JSX.Element => {
       type: "key-down",
       data: event.key,
     }
-    webSocket.send(JSON.stringify(msg))
-
+    ws && ws.send(JSON.stringify(msg))
   }
 
   return (

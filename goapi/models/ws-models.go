@@ -22,7 +22,7 @@ type Client struct {
 }
 
 type Hub struct {
-	Clients    *[]Client
+	Clients    map[*Client]bool
 	Broadcast  chan bool
 	Register   chan *Client
 	Unregister chan *Client

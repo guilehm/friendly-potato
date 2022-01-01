@@ -59,7 +59,7 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 				models.Skeleton,
 				models.Archer,
 				models.Vampire,
-				models.Berzerker,
+				models.Berserker,
 			}
 
 			posMinX := 0 + borderOffset

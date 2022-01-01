@@ -7,10 +7,9 @@ type CharacterType string
 var WalkStep = 40
 
 var (
-	GameJoin        WSMessageType = "game-join"
-	LoginSuccessful WSMessageType = "login-successful"
-	Broadcast       WSMessageType = "broadcast"
-	KeyDown         WSMessageType = "key-down"
+	GameJoin  WSMessageType = "game-join"
+	Broadcast WSMessageType = "broadcast"
+	KeyDown   WSMessageType = "key-down"
 )
 
 var (
@@ -26,7 +25,7 @@ var (
 	Skeleton  CharacterType = "skeleton"
 	Archer    CharacterType = "archer"
 	Vampire   CharacterType = "vampire"
-	Berzerker CharacterType = "berzerker"
+	Berserker CharacterType = "berserker"
 )
 
 type Player struct {

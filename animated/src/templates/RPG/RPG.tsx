@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { CharacterSpriteMap } from "../../constants"
 import { Player } from "../../types/rpg-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RPG.styles"
@@ -51,7 +52,8 @@ const RPG = (): JSX.Element => {
             image, player["position_x"], player["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
           )
           // TODO: remove hardcoded image
-          image.src = `${window.location.origin}/img/assets/characters/tile096.png`
+
+          image.src = `${window.location.origin}${CharacterSpriteMap.get(player.type)}`
           ctx.fillText(player["username"], player["position_x"], player["position_y"] - 15)
         })
 

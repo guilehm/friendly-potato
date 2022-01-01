@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react"
 import { useEffect, useRef, useState } from "react"
+import { Player } from "../../types/rpg-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RPG.styles"
 
@@ -22,33 +22,37 @@ const RPG = (): JSX.Element => {
       // TODO: remove hardcoded username
       data: { "username": "guilehm" },
     }
-
     webSocket.onopen = () => {
       webSocket.send(JSON.stringify(message))
     }
 
+
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    canvas.width = CANVAS_WIDTH
+    canvas.height = CANVAS_HEIGHT
+
+    ctx.font = "40px serif"
+    ctx.imageSmoothingEnabled = false
+
     webSocket.onmessage = (event) => {
+
       const data = JSON.parse(event.data)
-      if (data.type === "login-successful" || data.type === "update") {
-        const data = JSON.parse(event.data).data
 
-        const canvas = canvasRef.current
-        if (!canvas) return
-        const ctx = canvas.getContext("2d")
-        if (!ctx) return
+      if (data.type === "broadcast") {
+        data.players.forEach((player: Player) => {
+          const image = new Image()
+          image.onload = () => ctx.drawImage(
+            image, player["position_x"], player["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
+          )
+          // TODO: remove hardcoded image
+          image.src = `${window.location.origin}/img/assets/characters/tile096.png`
+          ctx.fillText(player["username"], player["position_x"], player["position_y"] - 15)
+        })
 
-        const image = new Image()
-        image.onload = () => ctx.drawImage(
-          image, data["position_x"], data["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
-        )
-        image.src = `${window.location.origin}/img/assets/characters/tile096.png`
-
-        canvas.width = CANVAS_WIDTH
-        canvas.height = CANVAS_HEIGHT
-
-        ctx.font = "40px serif"
-        ctx.fillText(data["username"], data["position_x"], data["position_y"] - 15)
-        ctx.imageSmoothingEnabled = false
       }
     }
 

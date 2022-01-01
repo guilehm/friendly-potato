@@ -1,5 +1,5 @@
 import { KeyboardEvent, useEffect, useRef, useState } from "react"
-import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, CharacterSpriteMap } from "../../constants"
+import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, CharacterSpriteMap, getCharacterSprite } from "../../constants"
 import { Player } from "../../types/rpg-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RPG.styles"
@@ -52,7 +52,7 @@ const RPG = (): JSX.Element => {
           image.onload = () => ctx.drawImage(
             image, player["position_x"], player["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
           )
-          image.src = `${window.location.origin}${CharacterSpriteMap.get(player.type)}`
+          image.src = `${window.location.origin}${getCharacterSprite(player["type"], player["last_direction"])}`
           ctx.fillText(player["username"], player["position_x"], player["position_y"] - 15)
         })
 

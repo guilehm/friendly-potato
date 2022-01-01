@@ -1,11 +1,10 @@
-export const CharacterSpriteMap = new Map([
-  ["human", "/img/assets/characters/human.png"],
-  ["orc", "/img/assets/characters/orc.png"],
-  ["skeleton", "/img/assets/characters/skeleton.png"],
-  ["archer", "/img/assets/characters/archer.png"],
-  ["vampire", "/img/assets/characters/vampire.png"],
-  ["berserker", "/img/assets/characters/berserker.png"],
-])
+export const getCharacterSprite = (character: string, direction: string) => {
+  let d = ""
+  if (direction === "ArrowLeft") {
+    d = "_b"
+  }
+  return `/img/assets/characters/${character}${d}.png`
+}
 
 export const ARROW_LEFT = "ArrowLeft"
 export const ARROW_UP = "ArrowUp"

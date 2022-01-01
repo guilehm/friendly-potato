@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react"
+import { render } from "@testing-library/react"
+import { useEffect, useRef, useState } from "react"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RPG.styles"
 
@@ -18,6 +19,7 @@ const RPG = (): JSX.Element => {
 
     const message: WSMessage = {
       type: "game-join",
+      // TODO: remove hardcoded username
       data: { "username": "guilehm" },
     }
 
@@ -27,8 +29,27 @@ const RPG = (): JSX.Element => {
 
     webSocket.onmessage = (event) => {
       const data = JSON.parse(event.data)
-      if (data.type === "login-successful") {
-        console.log(event.data)
+      if (data.type === "login-successful" || data.type === "update") {
+        const data = JSON.parse(event.data).data
+
+        const canvas = canvasRef.current
+        if (!canvas) return
+        const ctx = canvas.getContext("2d")
+        if (!ctx) return
+
+        const image = new Image()
+        image.onload = () => ctx.drawImage(
+          image, data["position_x"], data["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
+        )
+        image.src = `${window.location.origin}/img/assets/characters/tile096.png`
+
+        canvas.width = CANVAS_WIDTH
+        canvas.height = CANVAS_HEIGHT
+
+        ctx.font = "40px serif"
+        ctx.fillText(data["username"], data["position_x"], data["position_y"] - 15)
+        console.log("drawing", data)
+        ctx.imageSmoothingEnabled = false
       }
     }
 
@@ -42,21 +63,10 @@ const RPG = (): JSX.Element => {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    const image = new Image()
-    image.onload = () => ctx.drawImage(
-      image, 10, 60, CHARACTER_SIZE, CHARACTER_SIZE
-    )
-    image.src = `${window.location.origin}/img/assets/characters/tile096.png`
 
-    canvas.width = CANVAS_WIDTH
-    canvas.height = CANVAS_HEIGHT
-
-    ctx.font = "40px serif"
-    ctx.fillText("gui", 10, 40)
-
-    ctx.imageSmoothingEnabled = false
   }, [])
 
+  console.log("rendering")
 
   return (
     <S.Canvas id="clock" width="150" height="150" ref={canvasRef}>

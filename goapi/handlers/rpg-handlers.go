@@ -58,20 +58,20 @@ func RPGHandler(w http.ResponseWriter, r *http.Request) {
 				models.Archer,
 			}
 
-			posMinX := 0 + borderOffset
+			// posMinX := 0 + borderOffset
 			posMinY := 50 + borderOffset
 
 			posMaxX := 900 - borderOffset
 			posMaxY := 700 - borderOffset
 
 			rand.Seed(time.Now().UnixNano())
-			posX := rand.Intn(posMaxX-posMinX+1) + posMinX
+			// posX := rand.Intn(posMaxX-posMinX+1) + posMinX
 			posY := rand.Intn(posMaxY-posMinY+1) + posMinY
 
 			np := models.Player{
 				Type:      ctChoices[rand.Int()%len(ctChoices)],
 				Username:  data.Username,
-				PositionX: posX,
+				PositionX: 20,
 				PositionY: posY,
 			}
 

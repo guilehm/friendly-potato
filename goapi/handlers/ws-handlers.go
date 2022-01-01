@@ -1,4 +1,4 @@
-package ws
+package handlers
 
 import (
 	"context"
@@ -15,7 +15,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-var usersCollection = db.OpenCollection("users", "")
 var lumberCollection = db.OpenCollection("lumber", "")
 var upgrader = websocket.Upgrader{}
 

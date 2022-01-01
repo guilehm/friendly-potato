@@ -15,7 +15,7 @@ import (
 
 const borderOffset = 10
 
-func RPGHandler(w http.ResponseWriter, r *http.Request) {
+func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 	// TODO: do not allow all origins
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 

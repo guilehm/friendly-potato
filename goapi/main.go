@@ -31,7 +31,17 @@ func main() {
 	r.StrictSlash(true).HandleFunc("/users/validate/", handlers.ValidateToken).Methods("POST")
 
 	r.HandleFunc("/ws/lumber/", handlers.SocketLumberHandler)
-	r.HandleFunc("/ws/rpg/", handlers.RPGHandler)
+
+	hub := models.Hub{
+		Broadcast:  make(chan []byte),
+		Register:   make(chan *models.Client),
+		Unregister: make(chan *models.Client),
+		Clients:    make(map[*models.Client]bool),
+	}
+	go hub.Start()
+	r.HandleFunc("/ws/rpg/", func(w http.ResponseWriter, r *http.Request) {
+		handlers.RPGHandler(&hub, w, r)
+	})
 
 	_ = http.ListenAndServe(":"+os.Getenv("PORT"), middlewares.SetHeaders(middlewares.LogRequest(handler)))
 }

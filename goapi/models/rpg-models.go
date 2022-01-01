@@ -29,10 +29,12 @@ var (
 )
 
 type Player struct {
-	Type      CharacterType `json:"type"`
-	Username  string        `json:"username"`
-	PositionX *int          `json:"position_x"`
-	PositionY *int          `json:"position_y"`
+	Type          CharacterType `json:"type"`
+	Username      string        `json:"username"`
+	PositionX     *int          `json:"position_x"`
+	PositionY     *int          `json:"position_y"`
+	LastKey       string        `json:"last_key"`
+	LastDirection string        `json:"last_direction"`
 }
 
 type GameJoinMessage struct {

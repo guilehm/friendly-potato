@@ -5,7 +5,6 @@ import (
 	"goapi/db"
 	"goapi/handlers"
 	"goapi/middlewares"
-	"goapi/ws"
 	"net/http"
 	"os"
 
@@ -31,7 +30,7 @@ func main() {
 	r.StrictSlash(true).HandleFunc("/users/refresh/", handlers.RefreshToken).Methods("POST")
 	r.StrictSlash(true).HandleFunc("/users/validate/", handlers.ValidateToken).Methods("POST")
 
-	r.HandleFunc("/ws/lumber/", ws.SocketLumberHandler)
+	r.HandleFunc("/ws/lumber/", handlers.SocketLumberHandler)
 
 	_ = http.ListenAndServe(":"+os.Getenv("PORT"), middlewares.SetHeaders(middlewares.LogRequest(handler)))
 }

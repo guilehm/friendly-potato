@@ -50,6 +50,13 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 				break
 			}
 
+			client := &models.Client{
+				Hub:  hub,
+				Conn: conn,
+				Send: make(chan []byte, 256),
+			}
+			hub.Register <- client
+
 			rand.Seed(time.Now().Unix())
 			ctChoices := []models.CharacterType{
 				models.Human,

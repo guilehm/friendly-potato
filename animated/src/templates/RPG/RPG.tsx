@@ -48,25 +48,12 @@ const RPG = (): JSX.Element => {
 
         ctx.font = "40px serif"
         ctx.fillText(data["username"], data["position_x"], data["position_y"] - 15)
-        console.log("drawing", data)
         ctx.imageSmoothingEnabled = false
       }
     }
 
 
   }, [])
-
-  useEffect(() => {
-
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
-
-
-  }, [])
-
-  console.log("rendering")
 
   return (
     <S.Canvas id="clock" width="150" height="150" ref={canvasRef}>

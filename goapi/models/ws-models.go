@@ -34,14 +34,15 @@ func (h *Hub) Start() {
 		case client := <-h.Unregister:
 			if _, ok := h.Clients[client]; ok {
 				delete(h.Clients, client)
-				close(client.send)
+				close(client.Send)
 			}
 		case message := <-h.Broadcast:
 			for client := range h.Clients {
 				select {
-				case client.send <- message:
+				case client.Send <- message:
 				default:
-					close(client.send)
+					fmt.Println("default for select. Closing client.send. Removing client from Clients.")
+					close(client.Send)
 					delete(h.Clients, client)
 				}
 			}

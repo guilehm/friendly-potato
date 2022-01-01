@@ -83,8 +83,8 @@ func RPGHandler(w http.ResponseWriter, r *http.Request) {
 				Data: []byte(fmt.Sprintf(`{
 					"username": "%s",
 					"character_type": "%s",
-					"position_x": "%s",
-					"position_y": "%s"
+					"position_x": %s,
+					"position_y": %s
 				}`, np.Username, np.Type, positionX, positionY)),
 			})
 			if err != nil {

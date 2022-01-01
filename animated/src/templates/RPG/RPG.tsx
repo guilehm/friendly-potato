@@ -7,7 +7,6 @@ const RPG = (): JSX.Element => {
 
   useEffect(() => {
 
-
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
@@ -16,6 +15,13 @@ const RPG = (): JSX.Element => {
     const image = new Image()
     image.onload = () => ctx.drawImage(image, 50, 50, 80, 80)
     image.src = `${window.location.origin}/img/assets/characters/tile096.png`
+
+    canvas.width = 1000
+    canvas.height = 500
+
+    ctx.font = "40px serif"
+    ctx.fillText("gui", 50, 40)
+
     ctx.imageSmoothingEnabled = false
   }, [])
 

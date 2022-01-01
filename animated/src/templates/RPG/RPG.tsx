@@ -51,8 +51,6 @@ const RPG = (): JSX.Element => {
           image.onload = () => ctx.drawImage(
             image, player["position_x"], player["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
           )
-          // TODO: remove hardcoded image
-
           image.src = `${window.location.origin}${CharacterSpriteMap.get(player.type)}`
           ctx.fillText(player["username"], player["position_x"], player["position_y"] - 15)
         })
@@ -64,7 +62,7 @@ const RPG = (): JSX.Element => {
   }, [])
 
   return (
-    <S.Canvas id="clock" width="150" height="150" ref={canvasRef}>
+    <S.Canvas id="rpg" width="150" height="150" ref={canvasRef}>
     </S.Canvas>
   )
 

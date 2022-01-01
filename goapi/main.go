@@ -5,6 +5,7 @@ import (
 	"goapi/db"
 	"goapi/handlers"
 	"goapi/middlewares"
+	"goapi/models"
 	"net/http"
 	"os"
 

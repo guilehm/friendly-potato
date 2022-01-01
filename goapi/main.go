@@ -31,7 +31,7 @@ func main() {
 	r.StrictSlash(true).HandleFunc("/users/refresh/", handlers.RefreshToken).Methods("POST")
 	r.StrictSlash(true).HandleFunc("/users/validate/", handlers.ValidateToken).Methods("POST")
 
-	r.HandleFunc("/socket/", ws.SocketHandler)
+	r.HandleFunc("/ws/lumber/", ws.SocketLumberHandler)
 
 	_ = http.ListenAndServe(":"+os.Getenv("PORT"), middlewares.SetHeaders(middlewares.LogRequest(handler)))
 }

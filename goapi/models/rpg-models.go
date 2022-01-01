@@ -4,10 +4,20 @@ import "encoding/json"
 
 type CharacterType string
 
+var WalkStep = 40
+
 var (
 	GameJoin        WSMessageType = "game-join"
 	LoginSuccessful WSMessageType = "login-successful"
 	Broadcast       WSMessageType = "broadcast"
+	KeyDown         WSMessageType = "key-down"
+)
+
+var (
+	ArrowLeft  = "ArrowLeft"
+	ArrowUp    = "ArrowUp"
+	ArrowRight = "ArrowRight"
+	ArrowDown  = "ArrowDown"
 )
 
 var (
@@ -22,8 +32,8 @@ var (
 type Player struct {
 	Type      CharacterType `json:"type"`
 	Username  string        `json:"username"`
-	PositionX int           `json:"position_x"`
-	PositionY int           `json:"position_y"`
+	PositionX *int          `json:"position_x"`
+	PositionY *int          `json:"position_y"`
 }
 
 type GameJoinMessage struct {

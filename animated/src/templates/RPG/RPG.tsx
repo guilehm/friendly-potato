@@ -3,7 +3,7 @@ import * as S from "./RPG.styles"
 
 const RPG = (): JSX.Element => {
 
-  const canvasRef = useRef()
+  const canvasRef = useRef<HTMLCanvasElement>()
 
   useEffect(() => {
 

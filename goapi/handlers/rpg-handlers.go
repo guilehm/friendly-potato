@@ -7,7 +7,6 @@ import (
 	"goapi/models"
 	"math/rand"
 	"net/http"
-	"strconv"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -50,13 +49,6 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 				break
 			}
 
-			client := &models.Client{
-				Hub:  hub,
-				Conn: conn,
-				Send: make(chan []byte, 256),
-			}
-			hub.Register <- client
-
 			rand.Seed(time.Now().Unix())
 			ctChoices := []models.CharacterType{
 				models.Human,
@@ -65,53 +57,31 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 				models.Archer,
 			}
 
-			// posMinX := 0 + borderOffset
+			posMinX := 0 + borderOffset
 			posMinY := 50 + borderOffset
 
 			posMaxX := 900 - borderOffset
 			posMaxY := 700 - borderOffset
 
 			rand.Seed(time.Now().UnixNano())
-			// posX := rand.Intn(posMaxX-posMinX+1) + posMinX
+			posX := rand.Intn(posMaxX-posMinX+1) + posMinX
 			posY := rand.Intn(posMaxY-posMinY+1) + posMinY
 
-			np := models.Player{
+			np := &models.Player{
 				Type:      ctChoices[rand.Int()%len(ctChoices)],
 				Username:  data.Username,
-				PositionX: 20,
+				PositionX: posX,
 				PositionY: posY,
 			}
-
-			positionX := strconv.Itoa(np.PositionX)
-			positionY := strconv.Itoa(np.PositionY)
-
-			err = conn.WriteJSON(models.RPGMessage{
-				Type: models.LoginSuccessful,
-				Data: []byte(fmt.Sprintf(`{
-					"username": "%s",
-					"character_type": "%s",
-					"position_x": %s,
-					"position_y": %s
-				}`, np.Username, np.Type, positionX, positionY)),
-			})
-			if err != nil {
-				fmt.Println("Could not send message", err)
+			client := &models.Client{
+				Hub:    hub,
+				Conn:   conn,
+				Send:   make(chan []byte, 256),
+				Player: np,
 			}
-			for i := 0; i <= posMaxX-20; i += 30 {
+			hub.Register <- client
+			hub.Broadcast <- true
 
-				pX := strconv.Itoa(np.PositionX + i)
-
-				time.Sleep(500 * time.Millisecond)
-				err = conn.WriteJSON(models.RPGMessage{
-					Type: models.LoginSuccessful,
-					Data: []byte(fmt.Sprintf(`{
-					"username": "%s",
-					"character_type": "%s",
-					"position_x": "%s",
-					"position_y": "%s"
-				}`, np.Username, np.Type, pX, positionY)),
-				})
-			}
 		}
 	}
 }

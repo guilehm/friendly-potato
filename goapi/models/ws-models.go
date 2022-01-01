@@ -14,9 +14,9 @@ type WSMessage struct {
 }
 
 type Client struct {
-	hub  *Hub
-	conn *websocket.Conn
-	send chan []byte
+	Hub  *Hub
+	Conn *websocket.Conn
+	Send chan []byte
 }
 
 type Hub struct {

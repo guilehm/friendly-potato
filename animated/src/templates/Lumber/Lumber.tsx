@@ -29,7 +29,8 @@ const Lumber = ({ history }: RouteComponentProps): JSX.Element => {
   }, [history])
 
   useEffect(() => {
-    const location = "ws://localhost:8080/socket/"
+    // TODO: remove hardcoded url
+    const location = "ws://localhost:8080/ws/lumber/"
     const webSocket = new WebSocket(location)
 
     const message: WSMessage = {

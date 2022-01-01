@@ -91,6 +91,7 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 					select {
 					case <-quit:
 						hub.Unregister <- client
+						hub.Broadcast <- true
 					}
 				}
 			}()

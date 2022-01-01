@@ -77,14 +77,15 @@ func RPGHandler(w http.ResponseWriter, r *http.Request) {
 
 			positionX := strconv.Itoa(np.PositionX)
 			positionY := strconv.Itoa(np.PositionY)
-			fmt.Println("vai mandar !!!!!")
+
 			err = conn.WriteJSON(models.RPGMessage{
 				Type: models.LoginSuccessful,
 				Data: []byte(fmt.Sprintf(`{
+					"username": "%s",
 					"character_type": "%s",
 					"position_x": "%s",
 					"position_y": "%s"
-				}`, np.Type, positionX, positionY)),
+				}`, np.Username, np.Type, positionX, positionY)),
 			})
 			if err != nil {
 				fmt.Println("Could not send message", err)

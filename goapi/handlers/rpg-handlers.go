@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"goapi/models"
+	"goapi/utils"
 	"math/rand"
 	"net/http"
 	"time"
@@ -13,6 +14,11 @@ import (
 )
 
 const borderOffset = 10
+const characterSize = 100
+const maxPosX = 1000 - characterSize - borderOffset
+const maxPosY = 800 - characterSize - borderOffset
+const minPosX = 0 + borderOffset
+const minPosY = 50 + borderOffset
 
 func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 	// TODO: do not allow all origins
@@ -62,15 +68,9 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 				models.Berserker,
 			}
 
-			posMinX := 0 + borderOffset
-			posMinY := 50 + borderOffset
-
-			posMaxX := 900 - borderOffset
-			posMaxY := 700 - borderOffset
-
 			rand.Seed(time.Now().UnixNano())
-			posX := rand.Intn(posMaxX-posMinX+1) + posMinX
-			posY := rand.Intn(posMaxY-posMinY+1) + posMinY
+			posX := rand.Intn(maxPosX-minPosX+1) + minPosX
+			posY := rand.Intn(maxPosY-minPosY+1) + minPosY
 
 			np := &models.Player{
 				Type:      ctChoices[rand.Int()%len(ctChoices)],
@@ -108,13 +108,13 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 
 			switch key {
 			case models.ArrowLeft:
-				*client.Player.PositionX = *client.Player.PositionX - models.WalkStep
+				*client.Player.PositionX = utils.Max(*client.Player.PositionX-models.WalkStep, minPosX)
 			case models.ArrowUp:
-				*client.Player.PositionY = *client.Player.PositionY - models.WalkStep
+				*client.Player.PositionY = utils.Max(*client.Player.PositionY-models.WalkStep, minPosY)
 			case models.ArrowRight:
-				*client.Player.PositionX = *client.Player.PositionX + models.WalkStep
+				*client.Player.PositionX = utils.Min(*client.Player.PositionX+models.WalkStep, maxPosX)
 			case models.ArrowDown:
-				*client.Player.PositionY = *client.Player.PositionY + models.WalkStep
+				*client.Player.PositionY = utils.Min(*client.Player.PositionY+models.WalkStep, maxPosY)
 			}
 			hub.Broadcast <- true
 		}

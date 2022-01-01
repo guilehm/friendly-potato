@@ -7,4 +7,7 @@ export const CharacterSpriteMap = new Map([
   ["berzerker", "/img/assets/characters/berzerker.png"],
 ])
 
-
+export const ARROW_LEFT = "ArrowLeft"
+export const ARROW_UP = "ArrowUp"
+export const ARROW_RIGHT = "ArrowRight"
+export const ARROW_DOWN = "ArrowDown"

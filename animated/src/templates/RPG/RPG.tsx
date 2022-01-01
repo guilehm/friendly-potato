@@ -9,7 +9,9 @@ const RPG = (): JSX.Element => {
 
 
     const canvas = canvasRef.current
+    if (!canvas) return
     const ctx = canvas.getContext("2d")
+    if (!ctx) return
 
     const image = new Image()
     image.onload = () => ctx.drawImage(image, 50, 50, 8, 8)

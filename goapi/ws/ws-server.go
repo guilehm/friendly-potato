@@ -19,7 +19,7 @@ var usersCollection = db.OpenCollection("users", "")
 var lumberCollection = db.OpenCollection("lumber", "")
 var upgrader = websocket.Upgrader{}
 
-func SocketHandler(w http.ResponseWriter, r *http.Request) {
+func SocketLumberHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: do not allow all origins
 	upgrader.CheckOrigin = func(r *http.Request) bool { return true }
 

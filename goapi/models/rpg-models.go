@@ -7,6 +7,7 @@ type CharacterType string
 var (
 	GameJoin        WSMessageType = "game-join"
 	LoginSuccessful WSMessageType = "login-successful"
+	Broadcast       WSMessageType = "broadcast"
 )
 
 var (
@@ -31,4 +32,9 @@ type GameJoinMessage struct {
 type RPGMessage struct {
 	Type WSMessageType   `json:"type"`
 	Data json.RawMessage `json:"data"`
+}
+
+type RPGBroadcast struct {
+	Type    WSMessageType `json:"type"`
+	Players []Player      `json:"players"`
 }

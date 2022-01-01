@@ -4,6 +4,7 @@ import styled from "styled-components"
 export const Canvas = styled.canvas`
   border: 1px solid black;
   /* box-shadow: 0px 0px 10px -3px #000000; */
+  margin: auto;
   width: 100%;
   max-width: 80vh;
   max-height: 80vh;

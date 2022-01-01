@@ -37,7 +37,7 @@ func main() {
 		Broadcast:  make(chan bool),
 		Register:   make(chan *models.Client),
 		Unregister: make(chan *models.Client),
-		Clients:    &[]models.Client{},
+		Clients:    make(map[*models.Client]bool),
 	}
 	go hub.Start()
 	r.HandleFunc("/ws/rpg/", func(w http.ResponseWriter, r *http.Request) {

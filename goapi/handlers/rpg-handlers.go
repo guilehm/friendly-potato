@@ -86,7 +86,7 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 
 			// TODO: do I need a go func here?
 			go func() {
-				fmt.Println("starting a new go routine here!!!!")
+				fmt.Println("Starting a new go routine to listen quit channel")
 				for {
 					select {
 					case <-quit:

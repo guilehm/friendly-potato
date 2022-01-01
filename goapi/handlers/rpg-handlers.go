@@ -105,15 +105,16 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				return
 			}
+
 			switch key {
-			case "ArrowLeft":
+			case models.ArrowLeft:
 				*client.Player.PositionX = *client.Player.PositionX - models.WalkStep
 			case models.ArrowUp:
-				*client.Player.PositionY = *client.Player.PositionX + models.WalkStep
+				*client.Player.PositionY = *client.Player.PositionY - models.WalkStep
 			case models.ArrowRight:
 				*client.Player.PositionX = *client.Player.PositionX + models.WalkStep
 			case models.ArrowDown:
-				*client.Player.PositionY = *client.Player.PositionY - models.WalkStep
+				*client.Player.PositionY = *client.Player.PositionY + models.WalkStep
 			}
 			hub.Broadcast <- true
 		}

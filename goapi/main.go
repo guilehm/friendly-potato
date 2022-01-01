@@ -31,6 +31,7 @@ func main() {
 	r.StrictSlash(true).HandleFunc("/users/validate/", handlers.ValidateToken).Methods("POST")
 
 	r.HandleFunc("/ws/lumber/", handlers.SocketLumberHandler)
+	r.HandleFunc("/ws/rpg/", handlers.RPGHandler)
 
 	_ = http.ListenAndServe(":"+os.Getenv("PORT"), middlewares.SetHeaders(middlewares.LogRequest(handler)))
 }

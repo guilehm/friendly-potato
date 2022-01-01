@@ -19,7 +19,7 @@ const RPG = (): JSX.Element => {
 
     const image = new Image()
     image.onload = () => ctx.drawImage(
-      image, 10, 50, CHARACTER_SIZE, CHARACTER_SIZE
+      image, 10, 60, CHARACTER_SIZE, CHARACTER_SIZE
     )
     image.src = `${window.location.origin}/img/assets/characters/tile096.png`
 

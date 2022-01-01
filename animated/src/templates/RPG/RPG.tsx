@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react"
-import { CharacterSpriteMap } from "../../constants"
+import { KeyboardEvent, useEffect, useRef } from "react"
+import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, CharacterSpriteMap } from "../../constants"
 import { Player } from "../../types/rpg-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RPG.styles"
@@ -13,10 +13,11 @@ const RPG = (): JSX.Element => {
 
   const canvasRef = useRef<HTMLCanvasElement>()
 
+  const location = "ws://localhost:8080/ws/rpg/"
+  const webSocket = new WebSocket(location)
+
   useEffect(() => {
     // TODO: remove hardcoded url
-    const location = "ws://localhost:8080/ws/rpg/"
-    const webSocket = new WebSocket(location)
 
     const message: WSMessage = {
       type: "game-join",
@@ -26,7 +27,6 @@ const RPG = (): JSX.Element => {
     webSocket.onopen = () => {
       webSocket.send(JSON.stringify(message))
     }
-
 
     const canvas = canvasRef.current
     if (!canvas) return
@@ -59,11 +59,33 @@ const RPG = (): JSX.Element => {
     }
 
 
-  }, [])
+  }, [webSocket])
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+
+    const validKeys = [
+      ARROW_LEFT,
+      ARROW_UP,
+      ARROW_RIGHT,
+      ARROW_DOWN,
+    ]
+
+    if (!validKeys.includes(event.key)) return
+    const msg: WSMessage = {
+      type: "key-down",
+      data: event.key,
+    }
+    webSocket.send(JSON.stringify(msg))
+
+  }
 
   return (
-    <S.Canvas id="rpg" width="150" height="150" ref={canvasRef}>
-    </S.Canvas>
+    <>
+      <S.Container tabIndex="0" onKeyDown={handleKeyDown}>
+      </S.Container>
+      <S.Canvas id="rpg" width="150" height="150" ref={canvasRef}>
+      </S.Canvas>
+    </>
   )
 
 }

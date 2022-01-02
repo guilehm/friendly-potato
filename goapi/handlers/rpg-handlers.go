@@ -9,6 +9,7 @@ import (
 	"goapi/utils"
 	"math/rand"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -66,9 +67,17 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			posX := rand.Intn(constants.MaxPosX-constants.MinPosX+1) + constants.MinPosX
 			posY := rand.Intn(constants.MaxPosY-constants.MinPosY+1) + constants.MinPosY
 
+			username := data.Username
+			for c, _ := range hub.Clients {
+				if data.Username == c.Player.Username {
+					randomId := strconv.Itoa(rand.Intn(999) + 100)
+					username = data.Username + "_" + randomId
+				}
+			}
+
 			np := &models.Player{
 				Type:         ctChoices[rand.Int()%len(ctChoices)],
-				Username:     data.Username,
+				Username:     username,
 				PositionX:    &posX,
 				PositionY:    &posY,
 				LastMoveTime: now,

@@ -1,4 +1,4 @@
-import { KeyboardEvent, useEffect, useRef, useState } from "react"
+import { KeyboardEvent, MutableRefObject, useEffect, useRef, useState } from "react"
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, getCharacterSprite } from "../../constants"
 import { Player } from "../../types/rpg-types"
 import { WSMessage } from "../../types/ws-types"
@@ -11,7 +11,7 @@ const CANVAS_HEIGHT = 800
 
 const RPG = (): JSX.Element => {
   const [ws, setWs] = useState<WebSocket | null>(null)
-  const canvasRef = useRef<HTMLCanvasElement>()
+  const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
 
 
   useEffect(() => {

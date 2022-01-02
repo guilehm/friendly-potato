@@ -53,16 +53,25 @@ func (h *Hub) Start() {
 					if cX && cY {
 						if client.Player.LastMoveTime.Before(client2.Player.LastMoveTime) {
 							*client.Player.Wins = append(*client.Player.Wins, Win{client2.Player.Username})
+						}
 
-							x := constants.MinPosX
-							x2 := constants.MaxPosX
-							if *client.Player.PositionX > *client2.Player.PositionX {
-								client.Player.PositionX = &x2
-								client2.Player.PositionX = &x
-							} else {
-								client.Player.PositionX = &x
-								client2.Player.PositionX = &x2
-							}
+						x := constants.MinPosX
+						x2 := constants.MaxPosX
+						y := constants.MinPosY
+						y2 := constants.MaxPosY
+						if *client.Player.PositionX > *client2.Player.PositionX {
+							client.Player.PositionX = &x2
+							client2.Player.PositionX = &x
+						} else {
+							client.Player.PositionX = &x
+							client2.Player.PositionX = &x2
+						}
+						if *client.Player.PositionY > *client2.Player.PositionY {
+							client.Player.PositionY = &y2
+							client2.Player.PositionY = &y
+						} else {
+							client.Player.PositionY = &y
+							client2.Player.PositionY = &y2
 						}
 					}
 				}

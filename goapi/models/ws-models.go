@@ -39,7 +39,6 @@ func (h *Hub) Start() {
 				delete(h.Clients, client)
 				close(client.Send)
 			}
-			fmt.Println("this client should be removed", client.Player.Username)
 		case <-h.Broadcast:
 			var players []Player
 			for client := range h.Clients {

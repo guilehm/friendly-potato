@@ -146,7 +146,7 @@ const RPG = (): JSX.Element => {
             </S.GameContainer>
             <S.Canvas id="rpg" width="150" height="150" ref={canvasRef}>
             </S.Canvas>
-            <span>{playerCount} player{playerCount > 1 ? "s" : ""} online</span>
+            <span>{playerCount} player{!playerCount || playerCount > 1 ? "s" : ""} online</span>
             <S.KeysContainer>
               <ArrowUpIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_UP)} />
               <br />

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"goapi/constants"
 	"goapi/models"
 	"goapi/utils"
 	"math/rand"
@@ -61,8 +62,8 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			}
 
 			rand.Seed(time.Now().UnixNano())
-			posX := rand.Intn(maxPosX-minPosX+1) + minPosX
-			posY := rand.Intn(maxPosY-minPosY+1) + minPosY
+			posX := rand.Intn(constants.MaxPosX-constants.MinPosX+1) + constants.MinPosX
+			posY := rand.Intn(constants.MaxPosY-constants.MinPosY+1) + constants.MinPosY
 
 			np := &models.Player{
 				Type:      ctChoices[rand.Int()%len(ctChoices)],
@@ -100,18 +101,18 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 
 			switch key {
 			case models.ArrowLeft:
-				*client.Player.PositionX = utils.Max(*client.Player.PositionX-walkStep, minPosX)
+				*client.Player.PositionX = utils.Max(*client.Player.PositionX-constants.WalkStep, constants.MinPosX)
 				client.Player.LastKey = key
 				client.Player.LastDirection = key
 			case models.ArrowUp:
-				*client.Player.PositionY = utils.Max(*client.Player.PositionY-walkStep, minPosY)
+				*client.Player.PositionY = utils.Max(*client.Player.PositionY-constants.WalkStep, constants.MinPosY)
 				client.Player.LastKey = key
 			case models.ArrowRight:
-				*client.Player.PositionX = utils.Min(*client.Player.PositionX+walkStep, maxPosX)
+				*client.Player.PositionX = utils.Min(*client.Player.PositionX+constants.WalkStep, constants.MaxPosX)
 				client.Player.LastKey = key
 				client.Player.LastDirection = key
 			case models.ArrowDown:
-				*client.Player.PositionY = utils.Min(*client.Player.PositionY+walkStep, maxPosY)
+				*client.Player.PositionY = utils.Min(*client.Player.PositionY+constants.WalkStep, constants.MaxPosY)
 				client.Player.LastKey = key
 			}
 			hub.Broadcast <- true

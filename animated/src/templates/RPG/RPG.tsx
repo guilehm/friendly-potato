@@ -15,7 +15,7 @@ const RPG = (): JSX.Element => {
 
 
   useEffect(() => {
-    const location = process.env.REACT_APP_BE_LOCATION || "ws://localhost:8080/ws/rpg/"
+    const location = process.env.REACT_APP_WS_LOCATION || "ws://localhost:8080/ws/rpg/"
     const webSocket = new WebSocket(location)
     setWs(webSocket)
 

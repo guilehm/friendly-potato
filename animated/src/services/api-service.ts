@@ -3,7 +3,7 @@ import { Cookies } from "react-cookie"
 import { getRandomInt } from "../helpers"
 import { ACCESS_TOKEN_LIFTIME, REFRESH_TOKEN_LIFTIME } from "../settings"
 
-const API_URL = process.env.API_URL || "http://localhost:8080"
+const REACT_APP_API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080"
 
 type LoginResponse = {
   id: string
@@ -15,7 +15,7 @@ class ApiService {
   baseUrl: string
   client: AxiosInstance
 
-  constructor(baseUrl: string = API_URL) {
+  constructor(baseUrl: string = REACT_APP_API_URL) {
     this.baseUrl = `${baseUrl}`
     this.client = this.getClient()
   }

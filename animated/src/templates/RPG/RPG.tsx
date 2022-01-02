@@ -25,19 +25,27 @@ const RPG = (): JSX.Element => {
   const [ws, setWs] = useState<WebSocket | null>(null)
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
 
-  useEffect(() => {
+
+  const { register, handleSubmit, formState: { errors } } = useForm<GameStartInputs>({
+    mode: "onBlur",
+    resolver: yupResolver(schema),
+  })
+
+  const onStart = async (values: GameStartInputs) => {
+    setUsername(values.username)
+
     const location = process.env.REACT_APP_WS_LOCATION || "ws://localhost:8080/ws/rpg/"
     const webSocket = new WebSocket(location)
     setWs(webSocket)
 
     const message: WSMessage = {
       type: "game-join",
-      // TODO: remove hardcoded username
-      data: { "username": "guilehm" },
+      data: { "username": values.username },
     }
     webSocket.onopen = () => {
       webSocket.send(JSON.stringify(message))
     }
+
 
     const canvas = canvasRef.current
     if (!canvas) return
@@ -68,9 +76,8 @@ const RPG = (): JSX.Element => {
 
       }
     }
+  }
 
-
-  }, [])
 
   const handleKeyDown = (key: string) => {
     const validKeys = [

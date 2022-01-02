@@ -82,7 +82,7 @@ const RPG = (): JSX.Element => {
             image, player["position_x"], player["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
           )
           image.src = `${window.location.origin}${getCharacterSprite(player["type"], player["last_direction"])}`
-          ctx.fillText(player["username"], player["position_x"], player["position_y"] - 10)
+          ctx.fillText(player["username"] + `  ⚔️ (${player.wins.length})`, player["position_x"], player["position_y"] - 10)
         })
         setPlayerCount(data.players.length)
 

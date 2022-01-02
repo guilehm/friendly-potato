@@ -35,6 +35,7 @@ const schema = yup.object().shape({
 
 const RPG = (): JSX.Element => {
   const [username, setUsername] = useState("")
+  const [playerCount, setPlayerCount] = useState(0)
   const [ws, setWs] = useState<WebSocket | null>(null)
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
 
@@ -83,7 +84,7 @@ const RPG = (): JSX.Element => {
           image.src = `${window.location.origin}${getCharacterSprite(player["type"], player["last_direction"])}`
           ctx.fillText(player["username"], player["position_x"], player["position_y"] - 10)
         })
-
+        setPlayerCount(data.players.length)
       }
     }
   }
@@ -144,6 +145,7 @@ const RPG = (): JSX.Element => {
             </S.GameContainer>
             <S.Canvas id="rpg" width="150" height="150" ref={canvasRef}>
             </S.Canvas>
+            <span>{playerCount} player{playerCount > 1 ? "s" : ""} online</span>
             <S.KeysContainer>
               <ArrowUpIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_UP)} />
               <br />

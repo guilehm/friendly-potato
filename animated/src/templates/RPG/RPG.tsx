@@ -1,5 +1,5 @@
 import { KeyboardEvent, useEffect, useRef, useState } from "react"
-import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, CharacterSpriteMap, getCharacterSprite } from "../../constants"
+import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, getCharacterSprite } from "../../constants"
 import { Player } from "../../types/rpg-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RPG.styles"
@@ -15,8 +15,7 @@ const RPG = (): JSX.Element => {
 
 
   useEffect(() => {
-    // TODO: remove hardcoded url
-    const location = "ws://localhost:8080/ws/rpg/"
+    const location = process.env.REACT_APP_BE_LOCATION || "ws://localhost:8080/ws/rpg/"
     const webSocket = new WebSocket(location)
     setWs(webSocket)
 

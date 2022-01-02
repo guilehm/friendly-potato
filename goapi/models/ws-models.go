@@ -52,8 +52,9 @@ func (h *Hub) Start() {
 
 					cX, cY := player.GetCollisions(player2)
 					if cX && cY {
-						player.CollisionTo = &player2
-						player2.CollisionTo = &player
+						if player.LastMoveTime.After(player2.LastMoveTime) {
+							*player.Wins = append(*player.Wins, Win{player2})
+						}
 					}
 				}
 				players = append(players, player)

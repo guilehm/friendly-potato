@@ -46,7 +46,7 @@ func (h *Hub) Start() {
 			Validation:
 				for client2, _ := range h.Clients {
 					player2 := *client2.Player
-					if player == player2 {
+					if player.Username == player2.Username {
 						continue Validation
 					}
 

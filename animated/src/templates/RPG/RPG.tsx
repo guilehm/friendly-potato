@@ -4,6 +4,9 @@ import { Player } from "../../types/rpg-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RPG.styles"
 
+import { ArrowBackIcon, ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon, CircleIcon } from "@chakra-ui/icons"
+
+
 const CHARACTER_SIZE = 100 / 2
 const CANVAS_WIDTH = 1000 / 2
 const CANVAS_HEIGHT = 800 / 2
@@ -61,7 +64,7 @@ const RPG = (): JSX.Element => {
 
   }, [])
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyDown = (key: string) => {
     const validKeys = [
       ARROW_LEFT,
       ARROW_UP,
@@ -69,20 +72,27 @@ const RPG = (): JSX.Element => {
       ARROW_DOWN,
     ]
 
-    if (!validKeys.includes(event.key)) return
+    if (!validKeys.includes(key)) return
     const msg: WSMessage = {
       type: "key-down",
-      data: event.key,
+      data: key,
     }
     ws && ws.send(JSON.stringify(msg))
   }
 
   return (
     <>
-      <S.Container tabIndex={0} onKeyDown={handleKeyDown}>
+      <S.Container tabIndex={0} onKeyDown={(e) => handleKeyDown(e.key)}>
       </S.Container>
       <S.Canvas id="rpg" width="150" height="150" ref={canvasRef}>
       </S.Canvas>
+      <S.KeysContainer>
+        <ArrowUpIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_UP)} />
+        <br />
+        <ArrowBackIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_LEFT)} />
+        <ArrowDownIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_DOWN)} />
+        <ArrowForwardIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_RIGHT)} />
+      </S.KeysContainer>
     </>
   )
 

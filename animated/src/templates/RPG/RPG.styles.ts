@@ -1,6 +1,9 @@
 import styled from "styled-components"
+import { Container as ChakraContainer } from "@chakra-ui/react"
 
-export const Container = styled.div`
+export const Container = styled(ChakraContainer)``
+
+export const GameContainer = styled.div`
   position: absolute;
   left: 0;
   top: 0;
@@ -31,4 +34,14 @@ export const KeysContainer = styled.div`
   left: 0;
   width: 100%;
   z-index: 20;
+`
+
+export const Title = styled.h2`
+  font-size: 3.4rem;
+  line-height: 60px;
+  padding-bottom: 20px;
+`
+
+export const Paragraph = styled.p`
+  font-size: 1.8rem;
 `

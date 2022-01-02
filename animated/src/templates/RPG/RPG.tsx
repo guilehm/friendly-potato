@@ -116,7 +116,7 @@ const RPG = (): JSX.Element => {
             </header>
 
             <main>
-              <FormControl isInvalid={!!errors.username}>
+              <FormControl isInvalid={!!errors.username} onSubmit={handleSubmit(onStart)}>
                 <form>
                   <Stack spacing={2}>
                     <FormLabel display="none">Username</FormLabel>

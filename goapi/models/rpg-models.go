@@ -36,7 +36,6 @@ type Player struct {
 	PositionY     *int          `json:"position_y"`
 	LastKey       string        `json:"last_key"`
 	LastDirection string        `json:"last_direction"`
-	CollisionTo   *Player       `json:"collision_to"`
 }
 
 type GameJoinMessage struct {

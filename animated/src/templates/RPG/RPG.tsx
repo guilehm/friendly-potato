@@ -79,7 +79,7 @@ const RPG = (): JSX.Element => {
 
   return (
     <>
-      <S.Container tabIndex="0" onKeyDown={handleKeyDown}>
+      <S.Container tabIndex={0} onKeyDown={handleKeyDown}>
       </S.Container>
       <S.Canvas id="rpg" width="150" height="150" ref={canvasRef}>
       </S.Canvas>

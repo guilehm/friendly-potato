@@ -86,7 +86,9 @@ class ApiService {
   }
 
   getRandomGameList(): Promise<AxiosResponse> {
-    return this.client.get(`${this.baseUrl}/games/?page=${getRandomInt(1, 29325)}`)
+    return this.client.get(
+      `${this.baseUrl}/games/?page=${getRandomInt(1, 29325)}`
+    )
   }
 
   getGameList(): Promise<AxiosResponse> {

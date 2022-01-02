@@ -16,7 +16,7 @@ type GameStartInputs = {
 }
 
 const schema = yup.object().shape({
-  username: yup.string().min(3).max(20).required(),
+  username: yup.string().min(3).max(15).required(),
 })
 
 

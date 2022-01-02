@@ -1,3 +1,7 @@
+export type Win = {
+  defeated: Player
+}
+
 export type Player = {
   type: string
   username: string
@@ -5,6 +9,7 @@ export type Player = {
   position_y: number
   last_key: string
   last_direction: string
+  wins: Array<Win>
 }
 
 export type BroadcastMessage = {

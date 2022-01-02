@@ -6,8 +6,7 @@ export const Container = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  z-index: 100;
-  /* background-color: yellow; */
+  /* z-index: 10; */
 `
 
 export const Canvas = styled.canvas`
@@ -24,4 +23,12 @@ export const Canvas = styled.canvas`
   image-rendering: pixelated; /* Chrome */
   image-rendering: optimize-contrast; /* CSS3 Proposed                  */
   -ms-interpolation-mode: nearest-neighbor;
+`
+
+export const KeysContainer = styled.div`
+  position: absolute;
+  text-align: center;
+  left: 0;
+  width: 100%;
+  z-index: 20;
 `

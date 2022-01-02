@@ -31,7 +31,7 @@ var (
 )
 
 type Win struct {
-	Defeated Player `json:"defeated"`
+	Defeated string `json:"defeated"`
 }
 
 type Player struct {

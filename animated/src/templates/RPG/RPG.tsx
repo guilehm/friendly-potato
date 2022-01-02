@@ -36,7 +36,7 @@ const RPG = (): JSX.Element => {
     canvas.width = CANVAS_WIDTH
     canvas.height = CANVAS_HEIGHT
 
-    ctx.font = "40px serif"
+    ctx.font = "20px serif"
     ctx.imageSmoothingEnabled = false
 
     webSocket.onmessage = (event) => {

@@ -1,10 +1,9 @@
-import { KeyboardEvent, MutableRefObject, useEffect, useRef, useState } from "react"
+import { ArrowBackIcon, ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon } from "@chakra-ui/icons"
+import { MutableRefObject, useEffect, useRef, useState } from "react"
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, getCharacterSprite } from "../../constants"
 import { Player } from "../../types/rpg-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RPG.styles"
-
-import { ArrowBackIcon, ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon, CircleIcon } from "@chakra-ui/icons"
 
 
 const CHARACTER_SIZE = 100 / 2
@@ -15,7 +14,6 @@ const CANVAS_HEIGHT = 800 / 2
 const RPG = (): JSX.Element => {
   const [ws, setWs] = useState<WebSocket | null>(null)
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
-
 
   useEffect(() => {
     const location = process.env.REACT_APP_WS_LOCATION || "ws://localhost:8080/ws/rpg/"

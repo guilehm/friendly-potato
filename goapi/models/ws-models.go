@@ -42,27 +42,31 @@ func (h *Hub) Start() {
 			var players []Player
 
 			for client, _ := range h.Clients {
-				player := *client.Player
 
 			Validation:
 				for client2, _ := range h.Clients {
-					player2 := *client2.Player
-					if player.Username == player2.Username {
+					if client.Player.Username == client2.Player.Username {
 						continue Validation
 					}
 
-					cX, cY := player.GetCollisions(player2)
+					cX, cY := client.Player.GetCollisions(*client2.Player)
 					if cX && cY {
-						if player.LastMoveTime.Before(player2.LastMoveTime) {
-							*player.Wins = append(*player.Wins, Win{player2.Username})
+						if client.Player.LastMoveTime.Before(client2.Player.LastMoveTime) {
+							*client.Player.Wins = append(*client.Player.Wins, Win{client2.Player.Username})
+
 							x := constants.MinPosX
 							x2 := constants.MaxPosX
-							player.PositionX = &x
-							player2.PositionX = &x2
+							if *client.Player.PositionX > *client2.Player.PositionX {
+								client.Player.PositionX = &x2
+								client2.Player.PositionX = &x
+							} else {
+								client.Player.PositionX = &x
+								client2.Player.PositionX = &x2
+							}
 						}
 					}
 				}
-				players = append(players, player)
+				players = append(players, *client.Player)
 			}
 
 			for client := range h.Clients {

@@ -56,6 +56,7 @@ export const Credits = styled.div`
   transform: translate(-50%, 0);
   & a {
     font-weight: bold;
+    text-decoration: underline;
   }
 `
 

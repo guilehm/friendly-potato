@@ -155,8 +155,8 @@ const RPG = (): JSX.Element => {
         )
       }
       <S.Credits>
-        developed by
-        <a target="_blank" rel="noopener noreferrer" href="https://github.com/Guilehm"> guilherme luis</a>
+        {"developed by "}
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/Guilehm">guilherme luis</a>
       </S.Credits>
     </>
   )

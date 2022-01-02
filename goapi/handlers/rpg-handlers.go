@@ -59,7 +59,6 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 				break
 			}
 
-			rand.Seed(time.Now().Unix())
 			ctChoices := []models.CharacterType{
 				models.Human,
 				models.Orc,

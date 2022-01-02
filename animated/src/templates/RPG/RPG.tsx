@@ -95,19 +95,61 @@ const RPG = (): JSX.Element => {
     ws && ws.send(JSON.stringify(msg))
   }
 
+
   return (
     <>
-      <S.Container tabIndex={0} onKeyDown={(e) => handleKeyDown(e.key)}>
-      </S.Container>
-      <S.Canvas id="rpg" width="150" height="150" ref={canvasRef}>
-      </S.Canvas>
-      <S.KeysContainer>
-        <ArrowUpIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_UP)} />
-        <br />
-        <ArrowBackIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_LEFT)} />
-        <ArrowDownIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_DOWN)} />
-        <ArrowForwardIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_RIGHT)} />
-      </S.KeysContainer>
+      {!username ?
+
+        <S.Container maxW="xl" centerContent>
+          <section>
+
+            <header>
+              <S.Title>{"Let's play the game"}</S.Title>
+              <S.Paragraph>Welcome!</S.Paragraph>
+            </header>
+
+            <main>
+              <FormControl isInvalid={!!errors.username}>
+                <form>
+
+                  <Stack spacing={2}>
+
+                    <FormLabel display="none">Username</FormLabel>
+                    <Input
+                      id="username"
+                      placeholder="username"
+                      isInvalid={!!errors.username}
+                      {...register("username")}
+                    />
+                    {errors.username && <FormErrorMessage>{errors.username.message}</FormErrorMessage>}
+                    <FormHelperText>{"Type your username here"}</FormHelperText>
+
+                    <HStack>
+                      <Button onClick={handleSubmit(onStart)} size="sm">Start</Button>
+                    </HStack>
+
+                  </Stack>
+                </form>
+              </FormControl>
+            </main>
+
+          </section>
+        </S.Container > : (
+          <>
+            <S.GameContainer tabIndex={0} onKeyDown={(e) => handleKeyDown(e.key)}>
+            </S.GameContainer>
+            <S.Canvas id="rpg" width="150" height="150" ref={canvasRef}>
+            </S.Canvas>
+            <S.KeysContainer>
+              <ArrowUpIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_UP)} />
+              <br />
+              <ArrowBackIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_LEFT)} />
+              <ArrowDownIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_DOWN)} />
+              <ArrowForwardIcon w={16} h={16} onClick={() => handleKeyDown(ARROW_RIGHT)} />
+            </S.KeysContainer>
+          </>
+        )
+      }
     </>
   )
 

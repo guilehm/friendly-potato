@@ -45,3 +45,17 @@ export const Title = styled.h2`
 export const Paragraph = styled.p`
   font-size: 1.8rem;
 `
+
+export const Credits = styled.div`
+  position: absolute;
+  bottom: 10px;
+  font-size: 0.8rem;
+  width: 170px;
+  left: 50%;
+
+  transform: translate(-50%, 0);
+  & a {
+    font-weight: bold;
+  }
+`
+

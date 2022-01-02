@@ -4,7 +4,7 @@ import { Player } from "../../types/rpg-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RPG.styles"
 
-const CHARACTER_SIZE = 100
+const CHARACTER_SIZE = 100 / 2
 const CANVAS_WIDTH = 1000 / 2
 const CANVAS_HEIGHT = 800 / 2
 
@@ -52,7 +52,7 @@ const RPG = (): JSX.Element => {
             image, player["position_x"], player["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
           )
           image.src = `${window.location.origin}${getCharacterSprite(player["type"], player["last_direction"])}`
-          ctx.fillText(player["username"], player["position_x"], player["position_y"] - 15)
+          ctx.fillText(player["username"], player["position_x"], player["position_y"] - 10)
         })
 
       }

@@ -43,6 +43,7 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
+		now := time.Now()
 		switch message.MessageType {
 		case models.GameJoin:
 			data := models.GameJoinMessage{}
@@ -66,10 +67,12 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			posY := rand.Intn(constants.MaxPosY-constants.MinPosY+1) + constants.MinPosY
 
 			np := &models.Player{
-				Type:      ctChoices[rand.Int()%len(ctChoices)],
-				Username:  data.Username,
-				PositionX: &posX,
-				PositionY: &posY,
+				Type:         ctChoices[rand.Int()%len(ctChoices)],
+				Username:     data.Username,
+				PositionX:    &posX,
+				PositionY:    &posY,
+				LastMoveTime: now,
+				Wins:         &[]models.Win{},
 			}
 			client = &models.Client{
 				Hub:    hub,
@@ -114,6 +117,8 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 				*client.Player.PositionY = utils.Min(*client.Player.PositionY+constants.WalkStep, constants.MaxPosY)
 				client.Player.LastKey = key
 			}
+
+			client.Player.LastMoveTime = now
 			hub.Broadcast <- true
 		}
 	}

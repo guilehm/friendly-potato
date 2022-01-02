@@ -38,7 +38,6 @@ const RPG = (): JSX.Element => {
   const [ws, setWs] = useState<WebSocket | null>(null)
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
 
-
   const { register, handleSubmit, formState: { errors } } = useForm<GameStartInputs>({
     mode: "onBlur",
     resolver: yupResolver(schema),
@@ -59,7 +58,6 @@ const RPG = (): JSX.Element => {
       webSocket.send(JSON.stringify(message))
     }
 
-
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
@@ -76,7 +74,6 @@ const RPG = (): JSX.Element => {
       const data = JSON.parse(event.data)
 
       if (data.type === "broadcast") {
-
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         data.players.forEach((player: Player) => {
           const image = new Image()
@@ -90,7 +87,6 @@ const RPG = (): JSX.Element => {
       }
     }
   }
-
 
   const handleKeyDown = (key: string) => {
     const validKeys = [
@@ -108,11 +104,9 @@ const RPG = (): JSX.Element => {
     ws && ws.send(JSON.stringify(msg))
   }
 
-
   return (
     <>
       {!username ?
-
         <S.Container maxW="xl" centerContent>
           <section>
 
@@ -124,9 +118,7 @@ const RPG = (): JSX.Element => {
             <main>
               <FormControl isInvalid={!!errors.username}>
                 <form>
-
                   <Stack spacing={2}>
-
                     <FormLabel display="none">Username</FormLabel>
                     <Input
                       id="username"
@@ -140,7 +132,6 @@ const RPG = (): JSX.Element => {
                     <HStack>
                       <Button onClick={handleSubmit(onStart)} size="sm">Start</Button>
                     </HStack>
-
                   </Stack>
                 </form>
               </FormControl>
@@ -165,7 +156,6 @@ const RPG = (): JSX.Element => {
       }
     </>
   )
-
 }
 
 

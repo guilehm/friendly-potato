@@ -51,8 +51,10 @@ func (h *Hub) Start() {
 
 					cX, cY := client.Player.GetCollisions(*client2.Player)
 					if cX && cY {
-						if client.Player.LastMoveTime.Before(client2.Player.LastMoveTime) {
+						if client.Player.LastMoveTime.After(client2.Player.LastMoveTime) {
 							*client.Player.Wins = append(*client.Player.Wins, Win{client2.Player.Username})
+						} else {
+							*client2.Player.Wins = append(*client2.Player.Wins, Win{client.Player.Username})
 						}
 
 						x := constants.MinPosX

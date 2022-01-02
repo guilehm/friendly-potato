@@ -17,7 +17,6 @@ type WSMessage struct {
 type Client struct {
 	Hub    *Hub
 	Conn   *websocket.Conn
-	Send   chan []byte
 	Player *Player `json:"player"`
 }
 
@@ -37,7 +36,6 @@ func (h *Hub) Start() {
 		case client := <-h.Unregister:
 			if _, ok := h.Clients[client]; ok {
 				delete(h.Clients, client)
-				close(client.Send)
 			}
 		case <-h.Broadcast:
 			var players []Player

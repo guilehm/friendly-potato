@@ -39,8 +39,24 @@ func (h *Hub) Start() {
 			}
 		case <-h.Broadcast:
 			var players []Player
-			for client := range h.Clients {
-				players = append(players, *client.Player)
+
+			for client, _ := range h.Clients {
+				player := *client.Player
+
+			Validation:
+				for client2, _ := range h.Clients {
+					player2 := *client2.Player
+					if player == player2 {
+						continue Validation
+					}
+
+					cX, cY := player.GetCollisions(player2)
+					if cX && cY {
+						player.CollisionTo = &player2
+						player2.CollisionTo = &player
+					}
+				}
+				players = append(players, player)
 			}
 
 			for client := range h.Clients {

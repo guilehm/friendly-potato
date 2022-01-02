@@ -44,7 +44,11 @@ func (h *Hub) Start() {
 			}
 
 			for client := range h.Clients {
-				err := client.Conn.WriteJSON(RPGBroadcast{Broadcast, players})
+				err := client.Conn.WriteJSON(RPGBroadcast{
+					Broadcast,
+					players,
+					len(players),
+				})
 				if err != nil {
 					fmt.Println("Could not send message:", err)
 					return

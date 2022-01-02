@@ -46,6 +46,7 @@ type RPGMessage struct {
 }
 
 type RPGBroadcast struct {
-	Type    WSMessageType `json:"type"`
-	Players []Player      `json:"players"`
+	Type        WSMessageType `json:"type"`
+	Players     []Player      `json:"players"`
+	PlayerCount int           `json:"player_count"`
 }

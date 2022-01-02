@@ -50,3 +50,27 @@ type RPGBroadcast struct {
 	Players     []Player      `json:"players"`
 	PlayerCount int           `json:"player_count"`
 }
+
+func (p *Player) GetCollisions(player2 Player) (bool, bool) {
+	collisionX := false
+	collisionY := false
+
+	startXp1 := *p.PositionX
+	endXp1 := startXp1 + constants.CharacterSize
+	startYp1 := *p.PositionY
+	endYp1 := startYp1 + constants.CharacterSize
+
+	startXp2 := *player2.PositionX
+	endXp2 := startXp2 + constants.CharacterSize
+	startYp2 := *player2.PositionY
+	endYp2 := startYp2 + constants.CharacterSize
+
+	if startXp2 < endXp1 && endXp2 > startXp1 {
+		collisionY = true
+	}
+
+	if startYp2 < endYp1 && endYp2 > startYp1 {
+		collisionX = true
+	}
+	return collisionX, collisionY
+}

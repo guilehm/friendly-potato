@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"goapi/constants"
+	"time"
 )
 
 type CharacterType string
@@ -29,6 +30,10 @@ var (
 	Berserker CharacterType = "berserker"
 )
 
+type Win struct {
+	Defeated Player `json:"defeated"`
+}
+
 type Player struct {
 	Type          CharacterType `json:"type"`
 	Username      string        `json:"username"`
@@ -36,6 +41,8 @@ type Player struct {
 	PositionY     *int          `json:"position_y"`
 	LastKey       string        `json:"last_key"`
 	LastDirection string        `json:"last_direction"`
+	LastMoveTime  time.Time     `json:"last_move_time"`
+	Wins          *[]Win        `json:"wins"`
 }
 
 type GameJoinMessage struct {

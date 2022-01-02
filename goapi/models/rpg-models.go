@@ -4,8 +4,6 @@ import "encoding/json"
 
 type CharacterType string
 
-var WalkStep = 40
-
 var (
 	GameJoin  WSMessageType = "game-join"
 	Broadcast WSMessageType = "broadcast"

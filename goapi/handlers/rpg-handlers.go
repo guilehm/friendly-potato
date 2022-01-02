@@ -13,10 +13,11 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+const walkStep = 20
 const borderOffset = 10
-const characterSize = 100
-const maxPosX = 1000 - characterSize - borderOffset
-const maxPosY = 800 - characterSize - borderOffset
+const characterSize = 50
+const maxPosX = 1000/2 - characterSize*2 - borderOffset
+const maxPosY = 800/2 - characterSize*2 - borderOffset
 const minPosX = 0 + borderOffset
 const minPosY = 40 + borderOffset
 
@@ -108,18 +109,18 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 
 			switch key {
 			case models.ArrowLeft:
-				*client.Player.PositionX = utils.Max(*client.Player.PositionX-models.WalkStep, minPosX)
+				*client.Player.PositionX = utils.Max(*client.Player.PositionX-walkStep, minPosX)
 				client.Player.LastKey = key
 				client.Player.LastDirection = key
 			case models.ArrowUp:
-				*client.Player.PositionY = utils.Max(*client.Player.PositionY-models.WalkStep, minPosY)
+				*client.Player.PositionY = utils.Max(*client.Player.PositionY-walkStep, minPosY)
 				client.Player.LastKey = key
 			case models.ArrowRight:
-				*client.Player.PositionX = utils.Min(*client.Player.PositionX+models.WalkStep, maxPosX)
+				*client.Player.PositionX = utils.Min(*client.Player.PositionX+walkStep, maxPosX)
 				client.Player.LastKey = key
 				client.Player.LastDirection = key
 			case models.ArrowDown:
-				*client.Player.PositionY = utils.Min(*client.Player.PositionY+models.WalkStep, maxPosY)
+				*client.Player.PositionY = utils.Min(*client.Player.PositionY+walkStep, maxPosY)
 				client.Player.LastKey = key
 			}
 			hub.Broadcast <- true

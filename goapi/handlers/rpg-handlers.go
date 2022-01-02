@@ -74,7 +74,6 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			client = &models.Client{
 				Hub:    hub,
 				Conn:   conn,
-				Send:   make(chan []byte, 256),
 				Player: np,
 			}
 

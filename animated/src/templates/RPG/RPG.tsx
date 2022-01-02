@@ -11,7 +11,17 @@ const CANVAS_WIDTH = 1000 / 2
 const CANVAS_HEIGHT = 800 / 2
 
 
+type GameStartInputs = {
+  username: string
+}
+
+const schema = yup.object().shape({
+  username: yup.string().min(3).max(20).required(),
+})
+
+
 const RPG = (): JSX.Element => {
+  const [username, setUsername] = useState("")
   const [ws, setWs] = useState<WebSocket | null>(null)
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
 

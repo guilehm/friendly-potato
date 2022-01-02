@@ -13,13 +13,13 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-const walkStep = 20
+const walkStep = 10
 const borderOffset = 10
 const characterSize = 50
-const maxPosX = 1000/2 - characterSize*2 - borderOffset
-const maxPosY = 800/2 - characterSize*2 - borderOffset
+const maxPosX = 1000/2 - characterSize - borderOffset
+const maxPosY = 800/2 - characterSize - borderOffset
 const minPosX = 0 + borderOffset
-const minPosY = 40 + borderOffset
+const minPosY = 20 + borderOffset
 
 func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 	// TODO: do not allow all origins

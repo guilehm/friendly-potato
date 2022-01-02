@@ -85,6 +85,7 @@ const RPG = (): JSX.Element => {
           ctx.fillText(player["username"], player["position_x"], player["position_y"] - 10)
         })
         setPlayerCount(data.players.length)
+
       }
     }
   }
@@ -121,6 +122,7 @@ const RPG = (): JSX.Element => {
                 <form>
                   <Stack spacing={2}>
                     <FormLabel display="none">Username</FormLabel>
+                    <FormHelperText>{"Type your username here:"}</FormHelperText>
                     <Input
                       id="username"
                       placeholder="username"
@@ -128,7 +130,6 @@ const RPG = (): JSX.Element => {
                       {...register("username")}
                     />
                     {errors.username && <FormErrorMessage>{errors.username.message}</FormErrorMessage>}
-                    <FormHelperText>{"Type your username here"}</FormHelperText>
 
                     <HStack>
                       <Button onClick={handleSubmit(onStart)} size="sm">Start</Button>

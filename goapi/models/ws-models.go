@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"fmt"
+	"goapi/constants"
 
 	"github.com/gorilla/websocket"
 )
@@ -52,8 +53,12 @@ func (h *Hub) Start() {
 
 					cX, cY := player.GetCollisions(player2)
 					if cX && cY {
-						if player.LastMoveTime.After(player2.LastMoveTime) {
-							*player.Wins = append(*player.Wins, Win{player2})
+						if player.LastMoveTime.Before(player2.LastMoveTime) {
+							*player.Wins = append(*player.Wins, Win{player2.Username})
+							x := constants.MinPosX
+							x2 := constants.MaxPosX
+							player.PositionX = &x
+							player2.PositionX = &x2
 						}
 					}
 				}

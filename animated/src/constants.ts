@@ -6,7 +6,6 @@ export const getCharacterSprite = (character: string, direction: string) => {
   return `/img/assets/characters/${character}${d}.png`
 }
 
-
 export const ARROW_LEFT = "ArrowLeft"
 export const ARROW_UP = "ArrowUp"
 export const ARROW_RIGHT = "ArrowRight"

@@ -9,6 +9,7 @@ import {
   Input,
   Stack
 } from "@chakra-ui/react"
+import { ThemeContext } from "@emotion/react"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { MutableRefObject, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
@@ -104,11 +105,12 @@ const RPG = (): JSX.Element => {
     ctx.font = "20px serif"
     ctx.imageSmoothingEnabled = false
 
+    startAnimating(FPS)
 
     webSocket.onmessage = (event) => {
       const data = JSON.parse(event.data)
       if (data.type === "broadcast") {
-        animate(data.players)
+        PLAYERS_DATA = data.players
         setPlayerCount(data.players.length)
       }
     }

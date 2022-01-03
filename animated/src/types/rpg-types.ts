@@ -9,6 +9,7 @@ export type Player = {
   position_y: number
   last_key: string
   last_direction: string
+  steps: number
   wins: Array<Win>
 }
 

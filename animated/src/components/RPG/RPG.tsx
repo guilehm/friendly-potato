@@ -33,7 +33,6 @@ const schema = yup.object().shape({
   username: yup.string().min(3).max(15).required(),
 })
 
-
 const RPG = (): JSX.Element => {
   const [username, setUsername] = useState("")
   const [playerCount, setPlayerCount] = useState(0)
@@ -44,6 +43,26 @@ const RPG = (): JSX.Element => {
     mode: "onBlur",
     resolver: yupResolver(schema),
   })
+
+  function animate(playersData: Array<Player>) {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
+
+    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+    playersData.forEach((player) => {
+      const image = new Image()
+      image.src = `${window.location.origin}${getCharacterSprite(
+        player["type"], player["last_direction"], player["steps"],
+      )}`
+      ctx.drawImage(
+        image, player["position_x"], player["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
+      )
+      ctx.fillText(player["username"] + `  ⚔️ (${player.wins.length})`, player["position_x"], player["position_y"] - 10)
+    })
+    requestAnimationFrame(() => animate(playersData))
+  }
 
   const onStart = async (values: GameStartInputs) => {
     setUsername(values.username)
@@ -71,24 +90,12 @@ const RPG = (): JSX.Element => {
     ctx.font = "20px serif"
     ctx.imageSmoothingEnabled = false
 
+
     webSocket.onmessage = (event) => {
-
       const data = JSON.parse(event.data)
-
       if (data.type === "broadcast") {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        data.players.forEach((player: Player) => {
-          const image = new Image()
-          image.onload = () => ctx.drawImage(
-            image, player["position_x"], player["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
-          )
-          image.src = `${window.location.origin}${getCharacterSprite(
-            player["type"], player["last_direction"], player["steps"],
-          )}`
-          ctx.fillText(player["username"] + `  ⚔️ (${player.wins.length})`, player["position_x"], player["position_y"] - 10)
-        })
+        animate(data.players)
         setPlayerCount(data.players.length)
-
       }
     }
   }

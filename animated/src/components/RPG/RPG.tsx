@@ -45,14 +45,28 @@ const RPG = (): JSX.Element => {
     resolver: yupResolver(schema),
   })
 
-  function animate(playersData: Array<Player>) {
+  function startAnimating(fps: number) {
+    const fpsInterval = 1000 / fps
+    const then = Date.now()
+    const startTime = then
+    animate(fpsInterval, startTime, then)
+  }
+
+  let PLAYERS_DATA: Array<Player> = []
+
+  function animate(fpsInterval: number, startTime: number, then: number) {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
+    const now = Date.now()
+    requestAnimationFrame(() => animate(fpsInterval, startTime, then))
+    const elapsed = now - then
+    if (elapsed < fpsInterval) return
+    then = now - (elapsed % fpsInterval)
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
-    playersData.forEach((player) => {
+    PLAYERS_DATA.forEach((player) => {
       const image = new Image()
       image.src = `${window.location.origin}${getCharacterSprite(
         player["type"], player["last_direction"], player["steps"],

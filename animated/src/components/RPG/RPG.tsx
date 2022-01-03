@@ -76,7 +76,6 @@ const RPG = (): JSX.Element => {
       )
       ctx.fillText(player["username"] + `  ⚔️ (${player.wins.length})`, player["position_x"], player["position_y"] - 10)
     })
-    requestAnimationFrame(() => animate(playersData))
   }
 
   const onStart = async (values: GameStartInputs) => {

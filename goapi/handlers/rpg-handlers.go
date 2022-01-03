@@ -55,7 +55,7 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			}
 
 			ctChoices := []models.CharacterType{
-				models.Human,
+				models.Mage,
 				models.Orc,
 				models.Skeleton,
 				models.Archer,

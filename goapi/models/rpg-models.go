@@ -22,7 +22,7 @@ var (
 )
 
 var (
-	Human     CharacterType = "human"
+	Mage      CharacterType = "mage"
 	Orc       CharacterType = "orc"
 	Skeleton  CharacterType = "skeleton"
 	Archer    CharacterType = "archer"
@@ -43,6 +43,7 @@ type Player struct {
 	LastDirection string        `json:"last_direction"`
 	LastMoveTime  time.Time     `json:"last_move_time"`
 	Wins          *[]Win        `json:"wins"`
+	Steps         int           `json:"steps"`
 }
 
 type GameJoinMessage struct {

@@ -22,3 +22,15 @@ export const makeToastData = ({
 
 export const getRandomInt = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1)) + min
+
+
+export const getCharacterSprite = (character: string, direction: string, step: number) => {
+  let suffix = ""
+  if (step % 2) {
+    suffix += "_w"
+  }
+  if (direction === "ArrowLeft") {
+    suffix += "_b"
+  }
+  return `/img/assets/characters/${character}${suffix}.png`
+}

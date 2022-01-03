@@ -66,6 +66,9 @@ const RPG = (): JSX.Element => {
     if (elapsed < fpsInterval) return
     then = now - (elapsed % fpsInterval)
     ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+    const background = new Image()
+    background.src = `${window.location.origin}/img/assets/backgrounds/mountains.png`
+    ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
     PLAYERS_DATA.forEach((player) => {
       const image = new Image()
       image.src = `${window.location.origin}${getCharacterSprite(

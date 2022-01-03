@@ -13,7 +13,8 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import { MutableRefObject, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
-import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, getCharacterSprite } from "../../constants"
+import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP } from "../../constants"
+import { getCharacterSprite } from "../../helpers"
 import { Player } from "../../types/rpg-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RPG.styles"
@@ -81,7 +82,9 @@ const RPG = (): JSX.Element => {
           image.onload = () => ctx.drawImage(
             image, player["position_x"], player["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
           )
-          image.src = `${window.location.origin}${getCharacterSprite(player["type"], player["last_direction"])}`
+          image.src = `${window.location.origin}${getCharacterSprite(
+            player["type"], player["last_direction"], player["steps"],
+          )}`
           ctx.fillText(player["username"] + `  ⚔️ (${player.wins.length})`, player["position_x"], player["position_y"] - 10)
         })
         setPlayerCount(data.players.length)

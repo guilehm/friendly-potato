@@ -23,6 +23,7 @@ import * as S from "./RPG.styles"
 const CHARACTER_SIZE = 100 / 2
 const CANVAS_WIDTH = 1000 / 2
 const CANVAS_HEIGHT = 800 / 2
+const FPS = 40
 
 
 type GameStartInputs = {

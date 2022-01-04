@@ -49,7 +49,7 @@ func (h *Hub) Start() {
 						continue Validation
 					}
 
-					cX, cY := client.Player.GetCollisions(*client2.Player)
+					cX, cY := client.Player.GetCollisions(*client2.Player, 0)
 					if cX && cY {
 						if client.Player.LastMoveTime.After(client2.Player.LastMoveTime) {
 							*client.Player.Wins = append(*client.Player.Wins, Win{client2.Player.Username})

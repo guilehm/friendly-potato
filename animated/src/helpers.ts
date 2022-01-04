@@ -34,3 +34,14 @@ export const getCharacterSprite = (character: string, direction: string, step: n
   }
   return `/img/assets/characters/${character}${suffix}.png`
 }
+
+export const getMovingCharacterSprite = (character: string, direction: string, move: boolean) => {
+  let suffix = ""
+  if (move) {
+    suffix += "_w"
+  }
+  if (direction === "ArrowLeft") {
+    suffix += "_b"
+  }
+  return `/img/assets/characters/${character}${suffix}.png`
+}

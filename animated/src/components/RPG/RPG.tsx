@@ -172,7 +172,7 @@ const RPG = (): JSX.Element => {
           <>
             <S.GameContainer tabIndex={0} onKeyDown={(e) => handleKeyDown(e.key)}>
             </S.GameContainer>
-            <S.Canvas id="rpg" width="150" height="150" ref={canvasRef}>
+            <S.Canvas id="rpg" ref={canvasRef}>
             </S.Canvas>
             <span>{playerCount} player{!playerCount || playerCount > 1 ? "s" : ""} online</span>
             <S.KeysContainer>

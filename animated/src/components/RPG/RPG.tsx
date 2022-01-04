@@ -14,7 +14,7 @@ import { MutableRefObject, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP } from "../../constants"
-import { getCharacterSprite } from "../../helpers"
+import { getCharacterSprite, getMovingCharacterSprite } from "../../helpers"
 import { Player } from "../../types/rpg-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RPG.styles"
@@ -54,6 +54,10 @@ const RPG = (): JSX.Element => {
 
   let PLAYERS_DATA: Array<Player> = []
 
+  const movingTimeRate = 0.5
+  let movingTime = Date.now()
+  let move = false
+
   function animate(fpsInterval: number, startTime: number, then: number) {
     const canvas = canvasRef.current
     if (!canvas) return
@@ -69,10 +73,17 @@ const RPG = (): JSX.Element => {
     const background = new Image()
     background.src = `${window.location.origin}/img/assets/backgrounds/mountains.png`
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
+
+    if ((now % movingTime) / 1000 >= movingTimeRate) {
+      console.log("changing")
+      move = !move
+      movingTime = Date.now()
+    }
+
     PLAYERS_DATA.forEach((player) => {
       const image = new Image()
-      image.src = `${window.location.origin}${getCharacterSprite(
-        player["type"], player["last_direction"], player["steps"],
+      image.src = `${window.location.origin}${getMovingCharacterSprite(
+        player["type"], player["last_direction"], move,
       )}`
       ctx.drawImage(
         image, player["position_x"], player["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
@@ -150,7 +161,7 @@ const RPG = (): JSX.Element => {
                 <form>
                   <Stack spacing={2}>
                     <FormLabel display="none">Username</FormLabel>
-                    <FormHelperText>{"Type your username here:"}</FormHelperText>
+                    <FormHelperText>{"Choose your username here:"}</FormHelperText>
                     <Input
                       id="username"
                       placeholder="username"

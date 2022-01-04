@@ -75,7 +75,6 @@ const RPG = (): JSX.Element => {
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height)
 
     if ((now % movingTime) / 1000 >= movingTimeRate) {
-      console.log("changing")
       move = !move
       movingTime = Date.now()
     }

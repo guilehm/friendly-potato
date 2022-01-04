@@ -54,7 +54,7 @@ const RPG = (): JSX.Element => {
 
   let PLAYERS_DATA: Array<Player> = []
 
-  const movingTimeRate = 0.5
+  const movingTimeRate = 0.2
   let movingTime = Date.now()
   let move = false
 

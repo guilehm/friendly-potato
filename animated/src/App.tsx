@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components"
 import Layout from "./templates/Layout"
-import Home from "./templates/Home"
+import Games from "./templates/Games"
 import Lumber from "./templates/Lumber"
 import RPG from "./components/RPG"
 import Login from "./templates/Login"

@@ -132,7 +132,7 @@ func (h *Hub) Start() {
 				})
 				if err != nil {
 					fmt.Println("Could not send message:", err)
-					return
+					continue
 				}
 			}
 		}

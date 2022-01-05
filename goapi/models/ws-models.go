@@ -40,6 +40,7 @@ func (h *Hub) FindEmptyAreas(checkStep int) []Area {
 	posX := constants.MinPosX
 	for posY := constants.MinPosY; posY <= constants.MaxPosY; posY += constants.WalkStep {
 		empty := true
+	CheckClient:
 		for client := range h.Clients {
 			cX, cY := HasCollision(
 				posX,
@@ -50,6 +51,7 @@ func (h *Hub) FindEmptyAreas(checkStep int) []Area {
 			)
 			if cX && cY {
 				empty = false
+				continue CheckClient
 			}
 		}
 		if empty {

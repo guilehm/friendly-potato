@@ -119,6 +119,8 @@ const RPG = (): JSX.Element => {
 
     startAnimating(FPS)
 
+    canvasRef.current.focus()
+
     webSocket.onmessage = (event) => {
       const data = JSON.parse(event.data)
       if (data.type === "broadcast") {

@@ -1,10 +1,10 @@
 import styled from "styled-components"
 
-export const HomeContainer = styled.div`
+export const GamesContainer = styled.div`
   padding-bottom: 20px;
 `
 
-export const HomeSection = styled.section`
+export const GamesSection = styled.section`
   margin: auto;
   max-width: 980px;
   display: grid;

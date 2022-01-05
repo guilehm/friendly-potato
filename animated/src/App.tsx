@@ -47,15 +47,15 @@ const App = (): JSX.Element => (
             </Layout>}>
           </Route>
 
-          <Route path="/rpg/">
+          <Route path="/games/">
             <Layout>
-              <RPG />
+              <Games />
             </Layout>
           </Route>
 
           <Route path="/">
             <Layout>
-              <Home />
+              <RPG />
             </Layout>
           </Route>
 

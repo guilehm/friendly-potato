@@ -99,6 +99,7 @@ func (h *Hub) Start() {
 						}
 
 						emptyAreas := h.FindEmptyAreas(constants.WalkStep + 2)
+						fmt.Println("areas found:", len(emptyAreas))
 
 						if len(emptyAreas) < 2 {
 							// TODO: Fix this condition. Max players exceeded.

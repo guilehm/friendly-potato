@@ -35,6 +35,40 @@ type Area struct {
 	PosEndY   int
 }
 
+func (h *Hub) FindEmptyAreas(checkStep int) []Area {
+	var emptyAreas []Area
+	posX := constants.MinPosX
+	for posY := constants.MinPosY; posY <= constants.MaxPosY; posY += constants.WalkStep {
+		empty := true
+		for client := range h.Clients {
+			cX, cY := HasCollision(
+				posX,
+				posY,
+				*client.Player.PositionX,
+				*client.Player.PositionY,
+				constants.SecurityOffset,
+			)
+			if cX && cY {
+				empty = false
+			}
+		}
+		if empty {
+			emptyArea := Area{
+				PosStartX: posX,
+				PosEndX:   posX + constants.CharacterSize,
+				PosStartY: posY,
+				PosEndY:   posY + constants.CharacterSize,
+			}
+			emptyAreas = append(emptyAreas, emptyArea)
+		}
+		if posY == constants.MaxPosY && (posX+checkStep) <= constants.MaxPosX {
+			posY = constants.MinPosY
+			posX += checkStep
+		}
+	}
+	return emptyAreas
+}
+
 func (h *Hub) Start() {
 	for {
 		select {
@@ -57,7 +91,6 @@ func (h *Hub) Start() {
 					}
 
 					cX, cY := client.Player.GetCollisions(*client2.Player, 0)
-					// Reposition collided players
 					if cX && cY {
 						if client.Player.LastMoveTime.After(client2.Player.LastMoveTime) {
 							*client.Player.Wins = append(*client.Player.Wins, Win{client2.Player.Username})
@@ -65,25 +98,21 @@ func (h *Hub) Start() {
 							*client2.Player.Wins = append(*client2.Player.Wins, Win{client.Player.Username})
 						}
 
-						x := constants.MinPosX
-						x2 := constants.MaxPosX
-						y := constants.MinPosY
-						y2 := constants.MaxPosY
-						if *client.Player.PositionX > *client2.Player.PositionX {
-							client.Player.PositionX = &x2
-							client2.Player.PositionX = &x
-						} else {
-							client.Player.PositionX = &x
-							client2.Player.PositionX = &x2
+						emptyAreas := h.FindEmptyAreas(constants.WalkStep + 2)
+
+						if len(emptyAreas) < 2 {
+							// TODO: Fix this condition. Max players exceeded.
+							continue FindWinner
 						}
-						if *client.Player.PositionY > *client2.Player.PositionY {
-							client.Player.PositionY = &y2
-							client2.Player.PositionY = &y
-						} else {
-							client.Player.PositionY = &y
-							client2.Player.PositionY = &y2
-						}
+						// Reposition collided players
+						first := emptyAreas[0]
+						last := emptyAreas[len(emptyAreas)-1]
+						*client.Player.PositionX = first.PosStartX
+						*client.Player.PositionY = first.PosStartY
+						*client2.Player.PositionX = last.PosStartX
+						*client2.Player.PositionY = last.PosStartY
 					}
+
 				}
 				players = append(players, *client.Player)
 			}

@@ -23,11 +23,11 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 
 	quit := make(chan bool)
 	conn, err := upgrader.Upgrade(w, r, nil)
+	defer conn.Close()
 	if err != nil {
 		fmt.Println("Error during connection upgrade:", err)
 		return
 	}
-	defer conn.Close()
 
 	for {
 		message := models.WSMessage{}

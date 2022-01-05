@@ -4,7 +4,7 @@ import AlertComposition from "../../components/AlertComposition"
 import Card from "../../components/Card/Card"
 import Spinner from "../../components/Spinner"
 import ApiService from "../../services/api-service"
-import * as S from "./Home.styles"
+import * as S from "./Games.styles"
 
 type GameListResult = {
   id: number
@@ -15,7 +15,7 @@ type GameListResult = {
 
 const Api = new ApiService()
 
-const Home = (): JSX.Element => {
+const Games = (): JSX.Element => {
   const [error, setError] = useState(false)
   const [gameList, setGameList] = useState<GameListResult[]>([])
 
@@ -34,8 +34,8 @@ const Home = (): JSX.Element => {
   }, [])
 
   return (
-    <S.HomeContainer>
-      <S.HomeSection>
+    <S.GamesContainer>
+      <S.GamesSection>
         {gameList.length ? (
           gameList.map((game) => (
             <Card
@@ -52,10 +52,10 @@ const Home = (): JSX.Element => {
             description={"Please try again"} /> :
           <Spinner />
         }
-      </S.HomeSection>
-    </S.HomeContainer>
+      </S.GamesSection>
+    </S.GamesContainer>
   )
 }
 
 
-export default Home
+export default Games

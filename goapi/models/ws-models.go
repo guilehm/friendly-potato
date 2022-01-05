@@ -43,13 +43,14 @@ func (h *Hub) Start() {
 
 			for client, _ := range h.Clients {
 
-			Validation:
+			FindWinner:
 				for client2, _ := range h.Clients {
 					if client.Player.Username == client2.Player.Username {
-						continue Validation
+						continue FindWinner
 					}
 
 					cX, cY := client.Player.GetCollisions(*client2.Player, 0)
+					// Reposition collided players
 					if cX && cY {
 						if client.Player.LastMoveTime.After(client2.Player.LastMoveTime) {
 							*client.Player.Wins = append(*client.Player.Wins, Win{client2.Player.Username})

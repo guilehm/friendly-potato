@@ -7,4 +7,4 @@ const MaxPosX = 1000/2 - CharacterSize - borderOffset
 const MaxPosY = 800/2 - CharacterSize - borderOffset
 const MinPosX = 0 + borderOffset
 const MinPosY = 20 + borderOffset
-const SecurityOffset = 40
+const SecurityOffset = 80

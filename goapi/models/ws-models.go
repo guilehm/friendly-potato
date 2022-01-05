@@ -28,6 +28,13 @@ type Hub struct {
 	Unregister chan *Client
 }
 
+type Area struct {
+	PosStartX int
+	PosEndX   int
+	PosStartY int
+	PosEndY   int
+}
+
 func (h *Hub) Start() {
 	for {
 		select {

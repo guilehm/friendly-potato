@@ -26,10 +26,7 @@ type LayoutProps = {
 }
 
 
-interface MobileProps extends FlexProps {
-  onOpen: () => void
-}
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+const MobileNav = ({ ...rest }: FlexProps) => {
   const [cookies, , removeCookie] = useCookies(["access", "refresh"])
   const toast = useToast()
 
@@ -139,7 +136,7 @@ const Layout: React.FC<LayoutProps> = ({ children }): JSX.Element => {
   // const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <Box minH="100vh">
-      <MobileNav onOpen={() => ""} />
+      <MobileNav />
       <Box ml={{ base: 0, md: 0 }} p="4">
         {children}
       </Box>

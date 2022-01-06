@@ -85,26 +85,12 @@ func HasCollision(startXp1, startYp1, startXp2, startYp2, offset int) (bool, boo
 	return collisionX, collisionY
 }
 
-func (p *Player) GetCollisions(player2 Player, offset int) (bool, bool) {
-	collisionX := false
-	collisionY := false
-
-	startXp1 := *p.PositionX - offset
-	endXp1 := startXp1 + constants.CharacterSize + offset
-	startYp1 := *p.PositionY - offset
-	endYp1 := startYp1 + constants.CharacterSize + offset
-
-	startXp2 := *player2.PositionX - offset
-	endXp2 := startXp2 + constants.CharacterSize + offset
-	startYp2 := *player2.PositionY - offset
-	endYp2 := startYp2 + constants.CharacterSize + offset
-
-	if startXp2 < endXp1 && endXp2 > startXp1 {
-		collisionY = true
-	}
-
-	if startYp2 < endYp1 && endYp2 > startYp1 {
-		collisionX = true
-	}
-	return collisionX, collisionY
+func (p *Player) GetCollisionsTo(player2 Player, offset int) (bool, bool) {
+	return HasCollision(
+		*p.PositionX,
+		*p.PositionY,
+		*player2.PositionX,
+		*player2.PositionY,
+		offset,
+	)
 }

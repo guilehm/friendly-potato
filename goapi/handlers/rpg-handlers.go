@@ -64,10 +64,6 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			}
 
 			rand.Seed(time.Now().UnixNano())
-			// TODO: cannot be random, must be in empty area
-			posX := rand.Intn(constants.MaxPosX-constants.MinPosX+1) + constants.MinPosX
-			posY := rand.Intn(constants.MaxPosY-constants.MinPosY+1) + constants.MinPosY
-
 			username := data.Username
 			for c, _ := range hub.Clients {
 				if data.Username == c.Player.Username {

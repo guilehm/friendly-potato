@@ -5,13 +5,13 @@ export type Win = {
 export type Player = {
   type: string
   username: string
-  position_x: number
-  position_y: number
-  last_key: string
-  last_direction: string
+  positionX: number
+  positionY: number
+  lastKey: string
+  lastDirection: string
   steps: number
   wins: Array<Win>
-  hp_total: number,
+  hpTotal: number,
   hp: number,
 }
 

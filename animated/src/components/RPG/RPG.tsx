@@ -135,7 +135,7 @@ const RPG = (): JSX.Element => {
       const data = JSON.parse(event.data)
       if (data.type === "broadcast") {
         PLAYERS_DATA = data.players
-        setPlayerCount(data.players.length)
+        setPlayerCount(data.playersCount)
       }
     }
   }

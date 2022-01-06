@@ -11,6 +11,8 @@ export type Player = {
   last_direction: string
   steps: number
   wins: Array<Win>
+  hp_total: number,
+  hp: number,
 }
 
 export type BroadcastMessage = {

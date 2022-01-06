@@ -87,10 +87,10 @@ func HasCollision(startXp1, startYp1, startXp2, startYp2, offset int) (bool, boo
 
 func (p *Player) GetCollisionsTo(player2 Player, offset int) (bool, bool) {
 	return HasCollision(
-		p.PositionX,
-		p.PositionY,
-		player2.PositionX,
-		player2.PositionY,
+		*p.PositionX,
+		*p.PositionY,
+		*player2.PositionX,
+		*player2.PositionY,
 		offset,
 	)
 }

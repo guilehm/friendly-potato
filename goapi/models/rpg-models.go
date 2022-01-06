@@ -50,7 +50,7 @@ type Player struct {
 
 type GameJoinMessage struct {
 	Username      string `json:"username"`
-	CharacterType string `json:"character_type,omitempty"`
+	CharacterType string `json:"characterType,omitempty"`
 }
 
 type RPGMessage struct {

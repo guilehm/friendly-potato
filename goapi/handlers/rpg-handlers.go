@@ -73,8 +73,8 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			}
 
 			emptyAreas := hub.FindEmptyAreas(constants.WalkStep + 2)
-			posX := &emptyAreas[rand.Int()%len(emptyAreas)].PosStartX
-			posY := &emptyAreas[rand.Int()%len(emptyAreas)].PosStartY
+			posX := emptyAreas[rand.Int()%len(emptyAreas)].PosStartX
+			posY := emptyAreas[rand.Int()%len(emptyAreas)].PosStartY
 
 			np := &models.Player{
 				Type:         ctChoices[rand.Int()%len(ctChoices)],

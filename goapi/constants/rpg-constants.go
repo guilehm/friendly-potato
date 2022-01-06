@@ -8,3 +8,6 @@ const MaxPosY = 800/2 - CharacterSize - borderOffset
 const MinPosX = 0 + borderOffset
 const MinPosY = 20 + borderOffset
 const SecurityOffset = 80
+const MaxHP = 100
+const HPLostByHit = 20
+const HPWonByHit = 10

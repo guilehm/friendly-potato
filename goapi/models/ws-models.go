@@ -101,12 +101,10 @@ func (h *Hub) Start() {
 					if cX && cY {
 						if client.Player.LastMoveTime.After(client2.Player.LastMoveTime) {
 							*client.Player.Wins = append(*client.Player.Wins, Win{client2.Player.Username})
-							client.Player.HP = helpers.Min(client.Player.HP, client.Player.HP+constants.HPWonByHit)
 							client2.Player.HP = helpers.Max(0, client2.Player.HP-constants.HPLostByHit)
 
 						} else {
 							*client2.Player.Wins = append(*client2.Player.Wins, Win{client.Player.Username})
-							client2.Player.HP = helpers.Min(client2.Player.HP, client2.Player.HP+constants.HPWonByHit)
 							client.Player.HP = helpers.Max(0, client.Player.HP-constants.HPLostByHit)
 						}
 

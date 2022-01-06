@@ -53,3 +53,26 @@ export const getCursorPosition = (canvas: HTMLCanvasElement, event: MouseEvent) 
   const y = event.clientY - rect.top
   return [x, y]
 }
+
+export const drawHealthbar = (
+  ctx: CanvasRenderingContext2D,
+  x: number,
+  y: number,
+  percentage: number,
+  width: number,
+  thickness: number,
+) => {
+  ctx.beginPath()
+  ctx.rect(x, y, width * (percentage / 100), thickness)
+  if (percentage >= 80) {
+    ctx.fillStyle = "green"
+  } else if (percentage >= 60) {
+    ctx.fillStyle = "gold"
+  } else if (percentage >= 40) {
+    ctx.fillStyle = "orange"
+  } else {
+    ctx.fillStyle = "red"
+  }
+  ctx.closePath()
+  ctx.fill()
+}

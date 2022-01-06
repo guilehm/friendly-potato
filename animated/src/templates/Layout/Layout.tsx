@@ -45,13 +45,27 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
       justifyContent={{ base: "space-between" }}
       {...rest}>
-      <IconButton
-        display={{ base: "flex" }}
-        onClick={onOpen}
-        variant="outline"
-        aria-label="open menu"
-        icon={<FiMenu />}
-      />
+
+      <Menu>
+        <MenuButton
+          as={IconButton}
+          aria-label='Options'
+          icon={<HamburgerIcon />}
+          variant='outline'
+        />
+        <MenuList>
+          <Link to="/">
+            <MenuItem icon={<GrGamepad />}>
+              Game
+            </MenuItem>
+          </Link>
+          <Link to="/games">
+            <MenuItem icon={<GrList />}>
+              Game List
+            </MenuItem>
+          </Link>
+        </MenuList>
+      </Menu>
 
       <Text
         display={{ base: "flex" }}

@@ -36,7 +36,6 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			if errors.Is(err.(*websocket.CloseError), err) {
 				fmt.Println("Connection closed")
 				quit <- true
-				// TODO: the client must be removed from hub here
 				return
 			} else {
 				fmt.Println("Could not read message:", err)

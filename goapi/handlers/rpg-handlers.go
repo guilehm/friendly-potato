@@ -92,7 +92,6 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			hub.Register <- client
 			hub.Broadcast <- true
 
-			// TODO: do I need a go func here?
 			go func() {
 				fmt.Println("Starting a new go routine to listen quit channel")
 				for {

@@ -37,8 +37,8 @@ type Win struct {
 type Player struct {
 	Type          CharacterType `json:"type"`
 	Username      string        `json:"username"`
-	PositionX     *int          `json:"position_x"`
-	PositionY     *int          `json:"position_y"`
+	PositionX     int           `json:"position_x"`
+	PositionY     int           `json:"position_y"`
 	LastKey       string        `json:"last_key"`
 	LastDirection string        `json:"last_direction"`
 	LastMoveTime  time.Time     `json:"last_move_time"`

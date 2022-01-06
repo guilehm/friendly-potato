@@ -59,9 +59,9 @@ type RPGMessage struct {
 }
 
 type RPGBroadcast struct {
-	Type        WSMessageType `json:"type"`
-	Players     []Player      `json:"players"`
-	PlayerCount int           `json:"player_count"`
+	Type         WSMessageType `json:"type"`
+	Players      []Player      `json:"players"`
+	PlayersCount int           `json:"playersCount"`
 }
 
 func HasCollision(startXp1, startYp1, startXp2, startYp2, offset int) (bool, bool) {

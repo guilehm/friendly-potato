@@ -5,8 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"goapi/constants"
+	"goapi/helpers"
 	"goapi/models"
-	"goapi/utils"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -114,7 +114,7 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 			switch key {
 			case models.ArrowLeft:
 				oldPosition := *client.Player.PositionX
-				*client.Player.PositionX = utils.Max(*client.Player.PositionX-constants.WalkStep, constants.MinPosX)
+				*client.Player.PositionX = helpers.Max(*client.Player.PositionX-constants.WalkStep, constants.MinPosX)
 				if oldPosition != *client.Player.PositionX {
 					client.Player.Steps += 1
 				}
@@ -122,14 +122,14 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 				client.Player.LastDirection = key
 			case models.ArrowUp:
 				oldPosition := *client.Player.PositionY
-				*client.Player.PositionY = utils.Max(*client.Player.PositionY-constants.WalkStep, constants.MinPosY)
+				*client.Player.PositionY = helpers.Max(*client.Player.PositionY-constants.WalkStep, constants.MinPosY)
 				if oldPosition != *client.Player.PositionY {
 					client.Player.Steps += 1
 				}
 				client.Player.LastKey = key
 			case models.ArrowRight:
 				oldPosition := *client.Player.PositionX
-				*client.Player.PositionX = utils.Min(*client.Player.PositionX+constants.WalkStep, constants.MaxPosX)
+				*client.Player.PositionX = helpers.Min(*client.Player.PositionX+constants.WalkStep, constants.MaxPosX)
 				if oldPosition != *client.Player.PositionX {
 					client.Player.Steps += 1
 				}
@@ -137,7 +137,7 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 				client.Player.LastDirection = key
 			case models.ArrowDown:
 				oldPosition := *client.Player.PositionY
-				*client.Player.PositionY = utils.Min(*client.Player.PositionY+constants.WalkStep, constants.MaxPosY)
+				*client.Player.PositionY = helpers.Min(*client.Player.PositionY+constants.WalkStep, constants.MaxPosY)
 				if oldPosition != *client.Player.PositionY {
 					client.Player.Steps += 1
 				}

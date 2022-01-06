@@ -87,7 +87,17 @@ const RPG = (): JSX.Element => {
       ctx.drawImage(
         image, player["position_x"], player["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
       )
-      ctx.fillText(player["username"] + `  ⚔️ (${player.wins.length})`, player["position_x"], player["position_y"] - 10)
+      ctx.fillStyle = "black"
+      ctx.fillText(player["username"] + `  ⚔️ (${player.wins.length})`, player["position_x"], player["position_y"] - 20)
+      drawHealthbar(
+        ctx,
+        player.position_x,
+        player.position_y - 10,
+        (player.hp / player.hp_total) * 100,
+        CHARACTER_SIZE,
+        5,
+      )
+
     })
   }
 

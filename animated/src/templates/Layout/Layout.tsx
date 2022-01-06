@@ -83,7 +83,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                   src={`${window.location.origin}/img/default-avatar.png`}
                 />
                 {/* <VStack
-                  display={{ base: 'none', md: 'flex' }}
+                  display={{ base: "none", md: "flex" }}
                   alignItems="flex-start"
                   spacing="1px"
                   ml="2">
@@ -92,7 +92,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                     User
                   </Text>
                 </VStack>
-                <Box display={{ base: 'none', md: 'flex' }}>
+                <Box display={{ base: "none", md: "flex" }}>
                   <FiChevronDown />
                 </Box> */}
               </HStack>

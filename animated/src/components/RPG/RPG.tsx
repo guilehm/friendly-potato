@@ -82,18 +82,18 @@ const RPG = (): JSX.Element => {
     PLAYERS_DATA.forEach((player) => {
       const image = new Image()
       image.src = `${window.location.origin}${getMovingCharacterSprite(
-        player["type"], player["last_direction"], move,
+        player.type, player.lastDirection, move,
       )}`
       ctx.drawImage(
-        image, player["position_x"], player["position_y"], CHARACTER_SIZE, CHARACTER_SIZE
+        image, player.positionX, player.positionY, CHARACTER_SIZE, CHARACTER_SIZE
       )
       ctx.fillStyle = "black"
-      ctx.fillText(player["username"] + `  ⚔️ (${player.wins.length})`, player["position_x"], player["position_y"] - 20)
+      ctx.fillText(player.username + `  ⚔️ (${player.wins.length})`, player.positionX, player.positionY - 20)
       drawHealthbar(
         ctx,
-        player.position_x,
-        player.position_y - 10,
-        (player.hp / player.hp_total) * 100,
+        player.positionX,
+        player.positionY - 10,
+        (player.hp / player.hpTotal) * 100,
         CHARACTER_SIZE,
         5,
       )

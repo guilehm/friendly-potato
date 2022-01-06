@@ -45,3 +45,11 @@ export const getMovingCharacterSprite = (character: string, direction: string, m
   }
   return `/img/assets/characters/${character}${suffix}.png`
 }
+
+
+export const getCursorPosition = (canvas: HTMLCanvasElement, event: MouseEvent) => {
+  const rect = canvas.getBoundingClientRect()
+  const x = event.clientX - rect.left
+  const y = event.clientY - rect.top
+  return [x, y]
+}

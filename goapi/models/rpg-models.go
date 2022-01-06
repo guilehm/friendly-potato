@@ -37,15 +37,15 @@ type Win struct {
 type Player struct {
 	Type          CharacterType `json:"type"`
 	Username      string        `json:"username"`
-	PositionX     *int          `json:"position_x"`
-	PositionY     *int          `json:"position_y"`
-	LastKey       string        `json:"last_key"`
-	LastDirection string        `json:"last_direction"`
-	LastMoveTime  time.Time     `json:"last_move_time"`
+	PositionX     *int          `json:"positionX"`
+	PositionY     *int          `json:"positionY"`
+	LastKey       string        `json:"lastKey"`
+	LastDirection string        `json:"lastDirection"`
+	LastMoveTime  time.Time     `json:"lastMoveTime"`
 	Wins          *[]Win        `json:"wins"`
 	Steps         int           `json:"steps"`
 	HP            int           `json:"hp"`
-	HPTotal       int           `json:"hp_total"`
+	HPTotal       int           `json:"hpTotal"`
 }
 
 type GameJoinMessage struct {

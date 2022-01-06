@@ -82,6 +82,8 @@ func RPGHandler(hub *models.Hub, w http.ResponseWriter, r *http.Request) {
 				PositionY:    posY,
 				LastMoveTime: now,
 				Wins:         &[]models.Win{},
+				HP:           constants.MaxHP,
+				HPTotal:      constants.MaxHP,
 			}
 			client = &models.Client{
 				Hub:    hub,

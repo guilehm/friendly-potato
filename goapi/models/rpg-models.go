@@ -44,6 +44,8 @@ type Player struct {
 	LastMoveTime  time.Time     `json:"last_move_time"`
 	Wins          *[]Win        `json:"wins"`
 	Steps         int           `json:"steps"`
+	HP            int           `json:"hp"`
+	HPTotal       int           `json:"hp_total"`
 }
 
 type GameJoinMessage struct {

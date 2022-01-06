@@ -49,8 +49,8 @@ func (h *Hub) FindEmptyAreas(checkStep int) []Area {
 			cX, cY := HasCollision(
 				posX,
 				posY,
-				client.Player.PositionX,
-				client.Player.PositionY,
+				*client.Player.PositionX,
+				*client.Player.PositionY,
 				constants.SecurityOffset,
 			)
 			if cX && cY {
@@ -114,10 +114,10 @@ func (h *Hub) Start() {
 						// Reposition collided players
 						first := emptyAreas[0]
 						last := emptyAreas[len(emptyAreas)-1]
-						client.Player.PositionX = first.PosStartX
-						client.Player.PositionY = first.PosStartY
-						client2.Player.PositionX = last.PosStartX
-						client2.Player.PositionY = last.PosStartY
+						*client.Player.PositionX = first.PosStartX
+						*client.Player.PositionY = first.PosStartY
+						*client2.Player.PositionX = last.PosStartX
+						*client2.Player.PositionY = last.PosStartY
 					}
 
 				}

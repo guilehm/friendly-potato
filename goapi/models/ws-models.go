@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"goapi/constants"
+	"goapi/helpers"
 
 	"github.com/gorilla/websocket"
 )
@@ -100,13 +101,13 @@ func (h *Hub) Start() {
 					if cX && cY {
 						if client.Player.LastMoveTime.After(client2.Player.LastMoveTime) {
 							*client.Player.Wins = append(*client.Player.Wins, Win{client2.Player.Username})
-							client.Player.HP += constants.HPWonByHit
-							client2.Player.HP -= constants.HPLostByHit
+							client.Player.HP = helpers.Min(client.Player.HP, client.Player.HP+constants.HPWonByHit)
+							client2.Player.HP = helpers.Max(0, client2.Player.HP-constants.HPLostByHit)
 
 						} else {
 							*client2.Player.Wins = append(*client2.Player.Wins, Win{client.Player.Username})
-							client2.Player.HP += constants.HPWonByHit
-							client.Player.HP -= constants.HPLostByHit
+							client2.Player.HP = helpers.Min(client.Player.HP, client.Player.HP+constants.HPWonByHit)
+							client.Player.HP = helpers.Max(0, client2.Player.HP-constants.HPLostByHit)
 						}
 
 						emptyAreas := h.FindEmptyAreas(constants.WalkStep + 2)

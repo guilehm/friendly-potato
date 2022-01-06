@@ -1,3 +1,4 @@
+import { HamburgerIcon } from "@chakra-ui/icons"
 import {
   Avatar,
   Box,
@@ -12,15 +13,12 @@ import {
   MenuList,
   Text,
   useColorModeValue,
-  useToast,
-  VStack,
+  useToast
 } from "@chakra-ui/react"
-import { FiBell, FiChevronDown, FiMenu } from "react-icons/fi"
+import { useCookies } from "react-cookie"
 import { GrGamepad, GrList } from "react-icons/gr"
 import { Link } from "react-router-dom"
-import { useCookies } from "react-cookie"
 import { makeToastData } from "../../helpers"
-import { AddIcon, EditIcon, ExternalLinkIcon, HamburgerIcon, RepeatIcon } from "@chakra-ui/icons"
 
 
 type LayoutProps = {

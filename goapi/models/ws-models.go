@@ -106,8 +106,8 @@ func (h *Hub) Start() {
 
 						} else {
 							*client2.Player.Wins = append(*client2.Player.Wins, Win{client.Player.Username})
-							client2.Player.HP = helpers.Min(client.Player.HP, client.Player.HP+constants.HPWonByHit)
-							client.Player.HP = helpers.Max(0, client2.Player.HP-constants.HPLostByHit)
+							client2.Player.HP = helpers.Min(client2.Player.HP, client2.Player.HP+constants.HPWonByHit)
+							client.Player.HP = helpers.Max(0, client.Player.HP-constants.HPLostByHit)
 						}
 
 						emptyAreas := h.FindEmptyAreas(constants.WalkStep + 2)

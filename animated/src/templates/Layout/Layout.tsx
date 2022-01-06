@@ -13,11 +13,14 @@ import {
   Text,
   useColorModeValue,
   useToast,
+  VStack,
 } from "@chakra-ui/react"
-import { FiMenu } from "react-icons/fi"
+import { FiBell, FiChevronDown, FiMenu } from "react-icons/fi"
+import { GrGamepad, GrList } from "react-icons/gr"
 import { Link } from "react-router-dom"
 import { useCookies } from "react-cookie"
 import { makeToastData } from "../../helpers"
+import { AddIcon, EditIcon, ExternalLinkIcon, HamburgerIcon, RepeatIcon } from "@chakra-ui/icons"
 
 
 type LayoutProps = {

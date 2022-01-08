@@ -8,14 +8,16 @@ export const Characters: TileSet = "characters"
 
 type Sprite = {
   name: CharacterType
-  attackRange: number
-  hp: number
-  moveRange: number
+  tileSet: TileSet
   spriteX: 0
   spriteY: 0
-  spriteHeight: number
   spriteWidth: number
-  tileSet: TileSet
+  spriteHeight: number
+  hp: number
+  moveRange: number
+  attackRange: number
+  xOffset: number
+  yOffset: number
 }
 
 export type Player = {

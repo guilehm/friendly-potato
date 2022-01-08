@@ -1,4 +1,9 @@
 import styled from "styled-components"
-import { Container as ChakraContainer } from "@chakra-ui/react"
 
-export const Container = styled(ChakraContainer)``
+export const Container = styled.div`
+`
+
+export const Canvas = styled.canvas`
+  border: 10px solid black;
+  margin: auto;
+`

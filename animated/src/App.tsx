@@ -11,6 +11,7 @@ import {
 } from "react-router-dom"
 import { ChakraProvider } from "@chakra-ui/react"
 import GameDetail from "./templates/GameDetail"
+import RogueLike from "./components/RogueLike"
 
 
 const GlobalStyle = createGlobalStyle`
@@ -51,6 +52,10 @@ const App = (): JSX.Element => (
             <Layout>
               <Games />
             </Layout>
+          </Route>
+
+          <Route path="/rogue/">
+            <RogueLike />
           </Route>
 
           <Route path="/">

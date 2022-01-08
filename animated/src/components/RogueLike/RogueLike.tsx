@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react"
+import { MutableRefObject, useCallback, useEffect, useRef, useState } from "react"
 import { Warrior } from "../../types/rogue-types"
 import * as S from "./RogueLike.styles"
 

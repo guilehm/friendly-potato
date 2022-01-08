@@ -58,8 +58,17 @@ const RogueLike = (): JSX.Element => {
     const image = new Image()
     image.src = `${window.location.origin}/img/assets/rogue/sprites/${player.sprite.tileSet}.png`
     const sprite = player.sprite
+    // sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number
     ctx.drawImage(
-      image, sprite.spriteX, sprite.spriteY, sprite.spriteWidth, sprite.spriteHeight
+      image,
+      sprite.spriteX,
+      sprite.spriteY,
+      sprite.spriteWidth,
+      sprite.spriteHeight,
+      player.positionX,
+      player.positionY,
+      sprite.spriteWidth,
+      sprite.spriteHeight,
     )
 
   }

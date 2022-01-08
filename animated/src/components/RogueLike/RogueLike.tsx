@@ -29,6 +29,7 @@ const RogueLike = (): JSX.Element => {
     if (!canvas) return
     const ctx = canvas.getContext("2d")
     if (!ctx) return
+    ctx.imageSmoothingEnabled = false
 
     requestAnimationFrame(animate)
 

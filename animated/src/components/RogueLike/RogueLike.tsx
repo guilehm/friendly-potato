@@ -80,13 +80,34 @@ const RogueLike = (): JSX.Element => {
 
   }
 
+  const handleKeyDown = (key: string) => {
+    const validKeys = [
+      ARROW_LEFT,
+      ARROW_UP,
+      ARROW_RIGHT,
+      ARROW_DOWN,
+    ]
+
+    if (!validKeys.includes(key)) return
+    const msg: WSMessage = {
+      type: "key-down",
+      data: key,
+    }
+    ws && ws.send(JSON.stringify(msg))
+  }
+
 
   return (
     <S.Container>
       <button onClick={connect}>start</button>
-      <S.Canvas width={8 * 15} height={8 * 10} ref={canvasRef}>
+      <S.Canvas
+        tabIndex={0}
+        width={8 * 15}
+        height={8 * 10}
+        ref={canvasRef}
+        onKeyDown={(e) => handleKeyDown(e.key)}>
       </S.Canvas>
-    </S.Container>
+    </S.Container >
   )
 }
 

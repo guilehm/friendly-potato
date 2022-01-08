@@ -20,12 +20,13 @@ const RogueLike = (): JSX.Element => {
         data: { "sprite": Warrior },
       }))
     }
-  }, [])
+    animate()
+  }, [animate])
 
 
   return (
     <S.Container>
-      <S.Canvas width={720} height={480}>
+      <S.Canvas width={720} height={480} ref={canvasRef}>
       </S.Canvas>
     </S.Container>
   )

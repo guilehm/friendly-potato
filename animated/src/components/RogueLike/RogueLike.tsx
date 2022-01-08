@@ -1,10 +1,13 @@
 import { MutableRefObject, useRef, useState } from "react"
+import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP } from "../../constants"
 import { Player, Warrior } from "../../types/rogue-types"
+import { WSMessage } from "../../types/ws-types"
 import * as S from "./RogueLike.styles"
 
 
 const RogueLike = (): JSX.Element => {
 
+  const [ws, setWs] = useState<WebSocket | null>(null)
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
 
   let PLAYERS_DATA: Array<Player> = []
@@ -12,6 +15,7 @@ const RogueLike = (): JSX.Element => {
   const connect = () => {
     const location = process.env.REACT_APP_ROGUE_WS_LOCATION || "ws://localhost:8080/ws/rogue/"
     const webSocket = new WebSocket(location)
+    setWs(webSocket)
 
     webSocket.onopen = () => {
       webSocket.send(JSON.stringify({

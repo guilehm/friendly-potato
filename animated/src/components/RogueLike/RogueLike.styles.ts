@@ -10,7 +10,7 @@ export const Canvas = styled.canvas`
   border: 5px solid black;
   box-shadow: 0px 0px 20px -3px #000000;
   margin: auto;
-  width: 50%;
+  width: 80%;
   image-rendering: optimizeSpeed; /* STOP SMOOTHING, GIVE ME SPEED  */
   image-rendering: -moz-crisp-edges; /* Firefox                        */
   image-rendering: -o-crisp-edges; /* Opera                          */

@@ -1,5 +1,5 @@
 import { MutableRefObject, useCallback, useEffect, useRef, useState } from "react"
-import { Warrior } from "../../types/rogue-types"
+import { Player, Warrior } from "../../types/rogue-types"
 import * as S from "./RogueLike.styles"
 
 
@@ -16,11 +16,22 @@ const RogueLike = (): JSX.Element => {
     dw: number,
     dh: number,
   ) {
-
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     const background = new Image()
     background.src = `${window.location.origin}/img/assets/rogue/sprites/background.png`
     ctx.drawImage(background, dx, dy, dw, dh)
+  }
+
+  function drawPlayer(
+    ctx: CanvasRenderingContext2D,
+    player: Player,
+  ) {
+    const image = new Image()
+    image.src = `${window.location.origin}/img/assets/rogue/sprites/${player.sprite.name}.png`
+    const sprite = player.sprite
+    ctx.drawImage(
+      image, sprite.spriteX, sprite.spriteY, sprite.spriteWidth, sprite.spriteHeight
+    )
 
   }
 

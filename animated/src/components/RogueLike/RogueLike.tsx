@@ -64,7 +64,7 @@ const RogueLike = (): JSX.Element => {
 
   }
 
-  const animate = useCallback(() => {
+  const animate = () => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
@@ -76,28 +76,15 @@ const RogueLike = (): JSX.Element => {
     const dx = 0
     const dy = 0
     drawBackground(canvas, ctx, dx, dy, canvas.width, canvas.height)
+    PLAYERS_DATA.forEach((player) => drawPlayer(ctx, player))
 
-  }, [])
-
-  useEffect(() => {
-    const location = process.env.REACT_APP_ROGUE_WS_LOCATION || "ws://localhost:8080/ws/rogue/"
-    const webSocket = new WebSocket(location)
-    setWs(webSocket)
-
-    webSocket.onopen = () => {
-      webSocket.send(JSON.stringify({
-        type: "user-joins",
-        // TODO: sprite should not be hardcoded
-        data: { "sprite": Warrior },
-      }))
-    }
-    animate()
-  }, [animate])
+  }
 
 
   return (
     <S.Container>
-      <S.Canvas width={720} height={480} ref={canvasRef}>
+      <button onClick={onStart}>start</button>
+      <S.Canvas width={8 * 15} height={8 * 10} ref={canvasRef}>
       </S.Canvas>
     </S.Container>
   )

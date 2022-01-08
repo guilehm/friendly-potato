@@ -1,12 +1,10 @@
-import { MutableRefObject, useCallback, useEffect, useRef, useState } from "react"
+import { MutableRefObject, useRef, useState } from "react"
 import { Player, Warrior } from "../../types/rogue-types"
 import * as S from "./RogueLike.styles"
 
 
 const RogueLike = (): JSX.Element => {
 
-  const [start, setStart] = useState(false)
-  const [ws, setWs] = useState<WebSocket | null>(null)
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
 
   let PLAYERS_DATA: Array<Player> = []
@@ -14,7 +12,6 @@ const RogueLike = (): JSX.Element => {
   const connect = () => {
     const location = process.env.REACT_APP_ROGUE_WS_LOCATION || "ws://localhost:8080/ws/rogue/"
     const webSocket = new WebSocket(location)
-    setWs(webSocket)
 
     webSocket.onopen = () => {
       webSocket.send(JSON.stringify({
@@ -30,11 +27,6 @@ const RogueLike = (): JSX.Element => {
       }
     }
     animate()
-  }
-
-  const onStart = () => {
-    setStart(true)
-    connect()
   }
 
   const drawBackground = (
@@ -58,7 +50,6 @@ const RogueLike = (): JSX.Element => {
     const image = new Image()
     image.src = `${window.location.origin}/img/assets/rogue/sprites/${player.sprite.tileSet}.png`
     const sprite = player.sprite
-    // sx: number, sy: number, sw: number, sh: number, dx: number, dy: number, dw: number, dh: number
     ctx.drawImage(
       image,
       sprite.spriteX,
@@ -92,7 +83,7 @@ const RogueLike = (): JSX.Element => {
 
   return (
     <S.Container>
-      <button onClick={onStart}>start</button>
+      <button onClick={connect}>start</button>
       <S.Canvas width={8 * 15} height={8 * 10} ref={canvasRef}>
       </S.Canvas>
     </S.Container>

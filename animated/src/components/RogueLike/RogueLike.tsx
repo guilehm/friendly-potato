@@ -13,7 +13,6 @@ const RogueLike = (): JSX.Element => {
   let PLAYERS_DATA: Array<Player> = []
   let LAST_INTERACTION = Date.now()
 
-
   const connect = () => {
     const location = process.env.REACT_APP_ROGUE_WS_LOCATION || "ws://localhost:8080/ws/rogue/"
     const webSocket = new WebSocket(location)
@@ -33,6 +32,12 @@ const RogueLike = (): JSX.Element => {
       }
     }
     animate()
+  }
+
+  const drawCooldown = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
+    const clock = new Image()
+    clock.src = `${window.location.origin}/img/assets/rogue/clock.png`
+    ctx.drawImage(clock, canvas.width - 7, canvas.height - 7, 6, 6)
   }
 
   const drawBackground = (
@@ -125,7 +130,7 @@ const RogueLike = (): JSX.Element => {
           player.moving = false
         }
       }
-
+      player.moving && drawCooldown(canvas, ctx)
       drawPlayer(ctx, player, sprite)
     })
 

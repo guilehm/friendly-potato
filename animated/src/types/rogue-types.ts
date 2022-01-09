@@ -27,7 +27,7 @@ export type Sprite = {
   xOffset: number
   yOffset: number
   animationPeriod: number
-  animations: Array<Animation>
+  animation: Animation
 }
 
 export interface Positions {
@@ -44,7 +44,7 @@ export type Player = {
   positionX: number
   positionY: number
   sprite: Sprite
-  animationIndex: number
+  animation: boolean
   lastAnimationTime: number
 }
 

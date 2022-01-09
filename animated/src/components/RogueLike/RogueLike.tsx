@@ -1,5 +1,5 @@
 import { MutableRefObject, useRef, useState } from "react"
-import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP } from "../../constants"
+import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, INTERACTION_COOLDOWN } from "../../constants"
 import { Player, Positions, Sprite, Warrior } from "../../types/rogue-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RogueLike.styles"
@@ -11,6 +11,8 @@ const RogueLike = (): JSX.Element => {
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
 
   let PLAYERS_DATA: Array<Player> = []
+  let LAST_INTERACTION = Date.now()
+
 
   const connect = () => {
     const location = process.env.REACT_APP_ROGUE_WS_LOCATION || "ws://localhost:8080/ws/rogue/"
@@ -118,7 +120,6 @@ const RogueLike = (): JSX.Element => {
             if (player.movingPosition.positionX > player.positionX) player.movingPosition.positionX -= 1
             if (player.movingPosition.positionY < player.positionY) player.movingPosition.positionY += 1
             if (player.movingPosition.positionY > player.positionY) player.movingPosition.positionY -= 1
-
           }
         } else {
           player.moving = false
@@ -131,6 +132,9 @@ const RogueLike = (): JSX.Element => {
   }
 
   const handleKeyDown = (key: string) => {
+    const now = Date.now()
+    if (!(now > LAST_INTERACTION + INTERACTION_COOLDOWN)) return
+    LAST_INTERACTION = now
     const validKeys = [
       ARROW_LEFT,
       ARROW_UP,

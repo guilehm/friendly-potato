@@ -1,5 +1,6 @@
 import { MutableRefObject, useRef, useState } from "react"
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, INTERACTION_COOLDOWN } from "../../constants"
+import { handleAnimations } from "../../services/game-service"
 import { Player, Positions, Sprite, Warrior } from "../../types/rogue-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RogueLike.styles"
@@ -11,6 +12,7 @@ const RogueLike = (): JSX.Element => {
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
 
   let PLAYERS_DATA: Array<Player> = []
+  let ENEMIES_DATA: Array<Player> = []
   let LAST_INTERACTION = Date.now()
 
   const connect = () => {
@@ -29,6 +31,7 @@ const RogueLike = (): JSX.Element => {
       const data = JSON.parse(event.data)
       if (data.type === "broadcast") {
         PLAYERS_DATA = data.players
+        ENEMIES_DATA = data.enemies
       }
     }
     animate()

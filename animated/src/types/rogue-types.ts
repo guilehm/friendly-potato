@@ -5,8 +5,16 @@ export const Warrior: CharacterType = "warrior"
 export const Background: TileSet = "background"
 export const Characters: TileSet = "characters"
 
+type Animation = {
+  spriteX: number
+  spriteY: number
+  spriteWidth: number
+  spriteHeight: number
+  xOffset: number
+  yOffset: number
+}
 
-type Sprite = {
+export type Sprite = {
   name: CharacterType
   tileSet: TileSet
   spriteX: 0
@@ -18,6 +26,17 @@ type Sprite = {
   attackRange: number
   xOffset: number
   yOffset: number
+  animationPeriod: number
+  animations: Array<Animation>
+}
+
+export interface Positions {
+  spriteX: number
+  spriteY: number
+  spriteWidth: number
+  spriteHeight: number
+  xOffset: number
+  yOffset: number
 }
 
 export type Player = {
@@ -25,5 +44,7 @@ export type Player = {
   positionX: number
   positionY: number
   sprite: Sprite
+  animationIndex: number
+  lastAnimationTime: number
 }
 

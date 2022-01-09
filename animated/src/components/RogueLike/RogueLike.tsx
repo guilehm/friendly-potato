@@ -103,6 +103,7 @@ const RogueLike = (): JSX.Element => {
       }
 
       if (
+        player.lastInteraction === true &&
         (player.lastPosition.positionX !== player.positionX) ||
         (player.lastPosition.positionY !== player.positionY)
       ) {

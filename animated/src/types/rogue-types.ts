@@ -50,6 +50,7 @@ export type Player = {
   positionY: number
   sprite: Sprite
   lastPosition: Position
+  lastInteraction: boolean
   // frontend only
   animation: boolean
   lastAnimationTime: number

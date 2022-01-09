@@ -39,7 +39,7 @@ export interface Positions {
   yOffset: number
 }
 
-type LastPosition = {
+type Position = {
   positionX: number
   positionY: number
 }
@@ -49,8 +49,12 @@ export type Player = {
   positionX: number
   positionY: number
   sprite: Sprite
+  lastPosition: Position
+  // frontend only
   animation: boolean
   lastAnimationTime: number
-  lastPosition: LastPosition
+  moving: boolean
+  movingPosition: Position
+  lastMovingTime: number
 }
 

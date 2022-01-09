@@ -58,4 +58,3 @@ export type Player = {
   movingPosition: Position
   lastMovingTime: number
 }
-

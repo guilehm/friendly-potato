@@ -60,8 +60,8 @@ const RogueLike = (): JSX.Element => {
       sprite.spriteY,
       sprite.spriteWidth,
       sprite.spriteHeight,
-      player.positionX + sprite.xOffset || 0,
-      player.positionY + sprite.yOffset || 0,
+      player.moving ? player.movingPosition.positionX + sprite.xOffset || 0 : player.positionX + sprite.xOffset || 0,
+      player.moving ? player.movingPosition.positionY + sprite.yOffset || 0 : player.positionY + sprite.yOffset || 0,
       sprite.spriteWidth,
       sprite.spriteHeight,
     )

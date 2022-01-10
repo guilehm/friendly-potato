@@ -11,6 +11,7 @@ export const Canvas = styled.canvas`
   box-shadow: 0px 0px 20px -3px #000000;
   margin: auto;
   width: 80%;
+  max-width: 720px;
   image-rendering: optimizeSpeed; /* STOP SMOOTHING, GIVE ME SPEED  */
   image-rendering: -moz-crisp-edges; /* Firefox                        */
   image-rendering: -o-crisp-edges; /* Opera                          */

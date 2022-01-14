@@ -77,7 +77,6 @@ const RogueLike = (): JSX.Element => {
     sprite: Positions,
     dw: number,
     dh: number,
-    print: boolean,
   ) => {
     const image = new Image()
     image.src = `${window.location.origin}/img/assets/rogue/sprites/${player.sprite.tileSet}.png`
@@ -92,9 +91,6 @@ const RogueLike = (): JSX.Element => {
       sprite.spriteWidth,
       sprite.spriteHeight,
     )
-    if (print) {
-      console.log(dw, dh)
-    }
 
   }
 
@@ -119,12 +115,12 @@ const RogueLike = (): JSX.Element => {
     PLAYERS_DATA.forEach((player) => {
       const sprite = handleAnimations(player, now)
       player.moving && drawCooldown(canvas, ctx)
-      drawPlayer(ctx, player, sprite, p1.positionX, p1.positionY, true)
+      drawPlayer(ctx, player, sprite, p1.positionX, p1.positionY)
     })
     ENEMIES_DATA.forEach((enemy) => {
       const sprite = handleAnimations(enemy, now)
       enemy.moving && drawCooldown(canvas, ctx)
-      drawPlayer(ctx, enemy, sprite, p1.positionX, p1.positionY, false)
+      drawPlayer(ctx, enemy, sprite, p1.positionX, p1.positionY)
     })
 
   }

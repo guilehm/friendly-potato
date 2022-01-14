@@ -5,6 +5,8 @@ import { Player, Positions, Sprite, Warrior } from "../../types/rogue-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RogueLike.styles"
 
+const CANVAS_WIDTH = 8 * 16
+const CANVAS_HEIGHT = 8 * 10
 
 const RogueLike = (): JSX.Element => {
 
@@ -54,13 +56,25 @@ const RogueLike = (): JSX.Element => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     const background = new Image()
     background.src = `${window.location.origin}/img/assets/rogue/sprites/background.png`
-    ctx.drawImage(background, dx, dy, dw, dh)
+    ctx.drawImage(
+      background,
+      dx + dw,
+      dy + dh,
+      canvas.width,
+      canvas.height,
+      dx,
+      dy,
+      canvas.width,
+      canvas.height,
+    )
   }
 
   const drawPlayer = (
     ctx: CanvasRenderingContext2D,
     player: Player,
     sprite: Positions,
+    dw: number,
+    dh: number,
   ) => {
     const image = new Image()
     image.src = `${window.location.origin}/img/assets/rogue/sprites/${player.sprite.tileSet}.png`
@@ -70,8 +84,8 @@ const RogueLike = (): JSX.Element => {
       sprite.spriteY,
       sprite.spriteWidth,
       sprite.spriteHeight,
-      player.moving ? player.movingPosition.positionX + sprite.xOffset || 0 : player.positionX + sprite.xOffset || 0,
-      player.moving ? player.movingPosition.positionY + sprite.yOffset || 0 : player.positionY + sprite.yOffset || 0,
+      ((player.positionX + sprite.xOffset || 0) - dw) + CANVAS_WIDTH / 2,
+      ((player.positionY + sprite.yOffset || 0) - dh) + CANVAS_HEIGHT / 2,
       sprite.spriteWidth,
       sprite.spriteHeight,
     )
@@ -87,20 +101,22 @@ const RogueLike = (): JSX.Element => {
 
     requestAnimationFrame(animate)
 
+    const p1 = PLAYERS_DATA[0]
+
     const dx = 0
     const dy = 0
-    drawBackground(canvas, ctx, dx, dy, canvas.width, canvas.height)
+    drawBackground(canvas, ctx, dx, dy, p1.positionX, p1.positionY)
 
     const now = Date.now()
     PLAYERS_DATA.forEach((player) => {
       const sprite = handleAnimations(player, now)
       player.moving && drawCooldown(canvas, ctx)
-      drawPlayer(ctx, player, sprite)
+      drawPlayer(ctx, player, sprite, p1.positionX, p1.positionY)
     })
     ENEMIES_DATA.forEach((enemy) => {
       const sprite = handleAnimations(enemy, now)
       enemy.moving && drawCooldown(canvas, ctx)
-      drawPlayer(ctx, enemy, sprite)
+      drawPlayer(ctx, enemy, sprite, p1.positionX, p1.positionY)
     })
 
   }
@@ -130,8 +146,8 @@ const RogueLike = (): JSX.Element => {
       <button onClick={connect}>start</button>
       <S.Canvas
         tabIndex={0}
-        width={8 * 15}
-        height={8 * 10}
+        width={CANVAS_WIDTH}
+        height={CANVAS_HEIGHT}
         ref={canvasRef}
         onKeyDown={(e) => handleKeyDown(e.key)}>
       </S.Canvas>

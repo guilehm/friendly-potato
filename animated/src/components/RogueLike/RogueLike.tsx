@@ -56,10 +56,11 @@ const RogueLike = (): JSX.Element => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     const background = new Image()
     background.src = `${window.location.origin}/img/assets/rogue/sprites/background.png`
+
     ctx.drawImage(
       background,
-      dx + dw,
-      dy + dh,
+      (dx + dw) >= 0 ? dx + dw : 0,
+      (dy + dh) >= 0 ? dy + dh : 0,
       canvas.width,
       canvas.height,
       dx,
@@ -67,6 +68,7 @@ const RogueLike = (): JSX.Element => {
       canvas.width,
       canvas.height,
     )
+
   }
 
   const drawPlayer = (

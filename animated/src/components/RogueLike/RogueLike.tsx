@@ -59,6 +59,7 @@ const RogueLike = (): JSX.Element => {
 
     ctx.drawImage(
       background,
+      // TODO: set limit wor x+ and y+
       (dx + dw) >= 0 ? dx + dw : 0,
       (dy + dh) >= 0 ? dy + dh : 0,
       canvas.width,
@@ -86,6 +87,7 @@ const RogueLike = (): JSX.Element => {
       sprite.spriteY,
       sprite.spriteWidth,
       sprite.spriteHeight,
+      // TODO: simplify this condition
       dw >= 0 ? ((player.positionX + sprite.xOffset || 0) - dw) + CANVAS_WIDTH / 2 : ((player.positionX + sprite.xOffset || 0) - dw) + CANVAS_WIDTH / 2 + dw,
       dh >= 0 ? ((player.positionY + sprite.yOffset || 0) - dh) + CANVAS_HEIGHT / 2 : ((player.positionY + sprite.yOffset || 0) - dh) + CANVAS_HEIGHT / 2 + dh,
       sprite.spriteWidth,

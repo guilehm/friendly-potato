@@ -77,6 +77,7 @@ const RogueLike = (): JSX.Element => {
     sprite: Positions,
     dw: number,
     dh: number,
+    print: boolean,
   ) => {
     const image = new Image()
     image.src = `${window.location.origin}/img/assets/rogue/sprites/${player.sprite.tileSet}.png`
@@ -106,7 +107,9 @@ const RogueLike = (): JSX.Element => {
 
     requestAnimationFrame(animate)
 
-    const p1 = PLAYERS_DATA[0]
+    // TODO: hardcoded from now. Send and retrieve ID from server.
+    const p1 = PLAYERS_DATA.find(p => p.sprite.name === Warrior)
+    if (!p1) return
 
     const dx = 0
     const dy = 0
@@ -116,12 +119,12 @@ const RogueLike = (): JSX.Element => {
     PLAYERS_DATA.forEach((player) => {
       const sprite = handleAnimations(player, now)
       player.moving && drawCooldown(canvas, ctx)
-      drawPlayer(ctx, player, sprite, p1.positionX, p1.positionY)
+      drawPlayer(ctx, player, sprite, p1.positionX, p1.positionY, true)
     })
     ENEMIES_DATA.forEach((enemy) => {
       const sprite = handleAnimations(enemy, now)
       enemy.moving && drawCooldown(canvas, ctx)
-      drawPlayer(ctx, enemy, sprite, p1.positionX, p1.positionY)
+      drawPlayer(ctx, enemy, sprite, p1.positionX, p1.positionY, false)
     })
 
   }

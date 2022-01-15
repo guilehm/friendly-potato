@@ -39,12 +39,6 @@ const RogueLike = (): JSX.Element => {
     animate()
   }
 
-  const drawCooldown = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
-    const clock = new Image()
-    clock.src = `${window.location.origin}/img/assets/rogue/clock.png`
-    ctx.drawImage(clock, canvas.width - 7, canvas.height - 7, 6, 6)
-  }
-
   const drawBackground = (
     canvas: HTMLCanvasElement,
     ctx: CanvasRenderingContext2D,
@@ -116,12 +110,10 @@ const RogueLike = (): JSX.Element => {
     const now = Date.now()
     PLAYERS_DATA.forEach((player) => {
       const sprite = handleAnimations(player, now)
-      player.moving && drawCooldown(canvas, ctx)
       drawPlayer(ctx, player, sprite, p1.positionX, p1.positionY)
     })
     ENEMIES_DATA.forEach((enemy) => {
       const sprite = handleAnimations(enemy, now)
-      enemy.moving && drawCooldown(canvas, ctx)
       drawPlayer(ctx, enemy, sprite, p1.positionX, p1.positionY)
     })
 

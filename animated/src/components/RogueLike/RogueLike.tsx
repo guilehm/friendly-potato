@@ -75,6 +75,7 @@ const RogueLike = (): JSX.Element => {
   ) => {
     const image = new Image()
     image.src = `${window.location.origin}/img/assets/rogue/sprites/${player.sprite.tileSet}.png`
+
     ctx.drawImage(
       image,
       sprite.spriteX,
@@ -82,8 +83,8 @@ const RogueLike = (): JSX.Element => {
       sprite.spriteWidth,
       sprite.spriteHeight,
       // TODO: simplify this condition
-      dw >= 0 ? ((player.positionX + sprite.xOffset || 0) - dw - player.sprite.spriteWidth - player.sprite.xOffset) + CANVAS_WIDTH / 2 : ((player.positionX + sprite.xOffset || 0) - dw - player.sprite.spriteWidth - player.sprite.xOffset) + CANVAS_WIDTH / 2 + dw,
-      dh >= 0 ? ((player.positionY + sprite.yOffset || 0) - dh - player.sprite.spriteHeight - player.sprite.yOffset) + CANVAS_HEIGHT / 2 : ((player.positionY + sprite.yOffset || 0) - dh - player.sprite.spriteHeight - player.sprite.yOffset) + CANVAS_HEIGHT / 2 + dh,
+      (dw >= 0 ? ((player.positionX + sprite.xOffset || 0) - dw - player.sprite.spriteWidth - player.sprite.xOffset) : ((player.positionX + sprite.xOffset || 0) - player.sprite.spriteWidth - player.sprite.xOffset)) + CANVAS_WIDTH / 2,
+      (dh >= 0 ? ((player.positionY + sprite.yOffset || 0) - dh - player.sprite.spriteHeight - player.sprite.yOffset) : ((player.positionY + sprite.yOffset || 0) - player.sprite.spriteHeight - player.sprite.yOffset)) + CANVAS_HEIGHT / 2,
       sprite.spriteWidth,
       sprite.spriteHeight,
     )

@@ -21,11 +21,13 @@ const RogueLike = (): JSX.Element => {
     const location = process.env.REACT_APP_ROGUE_WS_LOCATION || "ws://localhost:8080/ws/rogue/"
     const webSocket = new WebSocket(location)
     setWs(webSocket)
+    // TODO: generate a better ID
+    const userId = Date.now()
 
     webSocket.onopen = () => {
       webSocket.send(JSON.stringify({
         type: "user-joins",
-        data: { "sprite": Warrior },
+        data: { "sprite": Warrior, "id": userId },
       }))
     }
 
@@ -36,7 +38,7 @@ const RogueLike = (): JSX.Element => {
         ENEMIES_DATA = data.enemies
       }
     }
-    animate()
+    animate(userId)
   }
 
   const drawBackground = (
@@ -89,7 +91,7 @@ const RogueLike = (): JSX.Element => {
       sprite.spriteY,
       sprite.spriteWidth,
       sprite.spriteHeight,
-      // TODO: simplify this condition
+      // TODO: consider end of map
       dw >= 0 ? posX - dw : posX,
       dh >= 0 ? posY - dh : posY,
       sprite.spriteWidth,
@@ -98,17 +100,16 @@ const RogueLike = (): JSX.Element => {
 
   }
 
-  const animate = () => {
+  const animate = (userId: number) => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
     if (!ctx) return
     ctx.imageSmoothingEnabled = false
 
-    requestAnimationFrame(animate)
+    requestAnimationFrame(() => animate(userId))
 
-    // TODO: hardcoded from now. Send and retrieve ID from server.
-    const p1 = PLAYERS_DATA.find(p => p.sprite.name === Warrior)
+    const p1 = PLAYERS_DATA.find(p => p.id === userId)
     if (!p1) return
 
     const dx = 0

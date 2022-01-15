@@ -45,7 +45,8 @@ type Position = {
 }
 
 export type Player = {
-  health: number,
+  id: number
+  health: number
   positionX: number
   positionY: number
   sprite: Sprite

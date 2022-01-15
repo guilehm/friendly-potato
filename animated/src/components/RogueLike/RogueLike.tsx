@@ -121,7 +121,7 @@ const RogueLike = (): JSX.Element => {
       const sprite = handleAnimations(player, now)
       drawPlayer(ctx, player, sprite, p1.positionX, p1.positionY)
     })
-    ENEMIES_DATA.forEach((enemy) => {
+    ENEMIES_DATA?.forEach((enemy) => {
       const sprite = handleAnimations(enemy, now)
       drawPlayer(ctx, enemy, sprite, p1.positionX, p1.positionY)
     })

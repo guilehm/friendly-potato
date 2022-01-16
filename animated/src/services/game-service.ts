@@ -9,8 +9,11 @@ const lastAnimationMap: AnimationTime = {}
 export const handleAnimations = (player: Player, now: number) => {
   // TODO: improve performance
   let sprite
-  const animationData = lastAnimationMap[player.id.toString()]
-  if (!animationData) lastAnimationMap[player.id.toString()] = [now, false]
+  let animationData = lastAnimationMap[player.id.toString()]
+  if (!animationData) {
+    lastAnimationMap[player.id.toString()] = [now, false]
+    animationData = [now, false]
+  }
   const [lastAnimation, animated] = animationData
   if (animated) {
     sprite = player.sprite.animation

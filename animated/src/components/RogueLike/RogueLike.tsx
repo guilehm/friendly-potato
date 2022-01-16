@@ -55,7 +55,7 @@ const RogueLike = (): JSX.Element => {
 
     ctx.drawImage(
       background,
-      // TODO: set limit wor x+ and y+
+      // TODO: set limit for x+ and y+
       (dx + dw) >= 0 ? dx + dw : 0,
       (dy + dh) >= 0 ? dy + dh : 0,
       canvas.width,

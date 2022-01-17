@@ -52,6 +52,7 @@ export type Player = {
   positionY: number
   sprite: Sprite
   lastPosition: Position
+  dead: boolean
 
   // frontend only
   animation: boolean

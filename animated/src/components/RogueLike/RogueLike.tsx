@@ -85,18 +85,22 @@ const RogueLike = (): JSX.Element => {
       (player.positionY + sprite.yOffset || 0) - player.sprite.spriteHeight - player.sprite.yOffset
     ) + CANVAS_HEIGHT / 2
 
+    // TODO: consider end of map
+    const px = dw >= 0 ? posX - dw : posX
+    const py = dh >= 0 ? posY - dh : posY
     ctx.drawImage(
       image,
       sprite.spriteX,
       sprite.spriteY,
       sprite.spriteWidth,
       sprite.spriteHeight,
-      // TODO: consider end of map
-      dw >= 0 ? posX - dw : posX,
-      dh >= 0 ? posY - dh : posY,
+      px,
+      py,
       sprite.spriteWidth,
       sprite.spriteHeight,
     )
+
+    drawHealthbar(ctx, px, py - 1, (player.health / player.sprite.hp) * 100, player.sprite.spriteWidth, 1)
 
   }
 

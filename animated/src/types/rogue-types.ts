@@ -17,12 +17,13 @@ type Animation = {
 export type Sprite = {
   name: CharacterType
   tileSet: TileSet
-  spriteX: 0
-  spriteY: 0
+  spriteX: number
+  spriteY: number
   spriteWidth: number
   spriteHeight: number
   hp: number
-  moveRange: number
+  // moveRange: number
+  damage: number
   attackRange: number
   xOffset: number
   yOffset: number

@@ -1,5 +1,5 @@
 import { MutableRefObject, useRef, useState } from "react"
-import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, INTERACTION_COOLDOWN } from "../../constants"
+import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, INTERACTION_COOLDOWN, KEY_A, KEY_D, KEY_S, KEY_W } from "../../constants"
 import { drawHealthbar } from "../../helpers"
 import { handleAnimations } from "../../services/game-service"
 import { Player, Positions, Warrior } from "../../types/rogue-types"
@@ -142,6 +142,10 @@ const RogueLike = (): JSX.Element => {
       ARROW_UP,
       ARROW_RIGHT,
       ARROW_DOWN,
+      KEY_A,
+      KEY_W,
+      KEY_D,
+      KEY_S,
     ]
 
     if (!validKeys.includes(key)) return

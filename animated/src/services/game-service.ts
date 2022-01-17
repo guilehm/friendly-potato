@@ -15,11 +15,10 @@ export const handleAnimations = (player: Player, now: number) => {
     animationData = [now, false]
   }
   const [lastAnimation, animated] = animationData
-  if (animated) {
-    sprite = player.sprite.animation
-  } else {
-    sprite = player.sprite
-  }
+
+  if (animated) sprite = player.sprite.animation
+  else sprite = player.sprite
+
   if (now > (lastAnimation + player.sprite.animationPeriod)) {
     lastAnimationMap[player.id.toString()] = [now, !animated]
   }

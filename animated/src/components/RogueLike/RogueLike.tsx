@@ -1,5 +1,6 @@
 import { MutableRefObject, useRef, useState } from "react"
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, INTERACTION_COOLDOWN } from "../../constants"
+import { drawHealthbar } from "../../helpers"
 import { handleAnimations } from "../../services/game-service"
 import { Player, Positions, Warrior } from "../../types/rogue-types"
 import { WSMessage } from "../../types/ws-types"

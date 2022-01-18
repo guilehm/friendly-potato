@@ -81,8 +81,8 @@ const RogueLike = (): JSX.Element => {
     const image = new Image()
     image.src = `${window.location.origin}/img/assets/rogue/sprites/${drop.sprite.tileSet}.png`
 
-    const posX = drop.positionX - drop.sprite.spriteWidth + CANVAS_WIDTH / 2
-    const posY = drop.positionY - drop.sprite.spriteHeight + CANVAS_HEIGHT / 2
+    const posX = drop.positionX - drop.sprite.spriteWidth - drop.sprite.xOffset + CANVAS_WIDTH / 2
+    const posY = drop.positionY - drop.sprite.spriteHeight - drop.sprite.yOffset + CANVAS_HEIGHT / 2
 
     // TODO: consider end of map
     const px = dw >= 0 ? posX - dw : posX

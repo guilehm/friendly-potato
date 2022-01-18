@@ -1,3 +1,4 @@
+import { ArrowBackIcon, ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon } from "@chakra-ui/icons"
 import { MutableRefObject, useRef, useState } from "react"
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, INTERACTION_COOLDOWN, KEY_A, KEY_D, KEY_S, KEY_W } from "../../constants"
 import { drawHealthbar } from "../../helpers"
@@ -5,7 +6,6 @@ import { handleAnimations } from "../../services/game-service"
 import { Drop, DropSprite, Player, Positions, Warrior } from "../../types/rogue-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RogueLike.styles"
-import { ArrowBackIcon, ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon } from "@chakra-ui/icons"
 const CANVAS_WIDTH = 8 * 16
 const CANVAS_HEIGHT = 8 * 10
 

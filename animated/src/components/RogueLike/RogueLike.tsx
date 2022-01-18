@@ -5,7 +5,7 @@ import { handleAnimations } from "../../services/game-service"
 import { Drop, DropSprite, Player, Positions, Warrior } from "../../types/rogue-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RogueLike.styles"
-
+import { ArrowBackIcon, ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon } from "@chakra-ui/icons"
 const CANVAS_WIDTH = 8 * 16
 const CANVAS_HEIGHT = 8 * 10
 
@@ -201,6 +201,13 @@ const RogueLike = (): JSX.Element => {
         ref={canvasRef}
         onKeyDown={(e) => handleKeyDown(e.key)}>
       </S.Canvas>
+      <S.ArrowContainer>
+        <ArrowUpIcon onClick={() => handleKeyDown(ARROW_UP)} w={16} h={16} />
+        <br />
+        <ArrowBackIcon onClick={() => handleKeyDown(ARROW_LEFT)} w={16} h={16} />
+        <ArrowDownIcon onClick={() => handleKeyDown(ARROW_DOWN)} w={16} h={16} />
+        <ArrowForwardIcon onClick={() => handleKeyDown(ARROW_RIGHT)} w={16} h={16} />
+      </S.ArrowContainer>
     </S.Container >
   )
 }

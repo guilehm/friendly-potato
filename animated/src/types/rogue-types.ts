@@ -21,6 +21,8 @@ export type DropSprite = {
   spriteY: number
   spriteWidth: number
   spriteHeight: number
+  xOffset: number
+  yOffset: number
 }
 
 export type Sprite = {

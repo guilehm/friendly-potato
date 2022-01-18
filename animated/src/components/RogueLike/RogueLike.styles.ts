@@ -3,13 +3,15 @@ import styled from "styled-components"
 export const Container = styled.div`
   display: flex;
   height: 100vh;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
 `
 
 export const Canvas = styled.canvas`
   border: 5px solid black;
   box-shadow: 0px 0px 20px -3px #000000;
-  margin: auto;
+  /* margin: auto; */
   width: 100%;
   max-width: 720px;
   image-rendering: optimizeSpeed; /* STOP SMOOTHING, GIVE ME SPEED  */

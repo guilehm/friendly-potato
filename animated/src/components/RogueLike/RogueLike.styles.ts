@@ -20,3 +20,8 @@ export const Canvas = styled.canvas`
   image-rendering: optimize-contrast; /* CSS3 Proposed                  */
   -ms-interpolation-mode: nearest-neighbor;
 `
+
+export const ArrowContainer = styled.div`
+  text-align: center;
+  cursor: pointer;
+`

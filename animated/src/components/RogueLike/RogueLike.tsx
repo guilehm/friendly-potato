@@ -16,6 +16,7 @@ const RogueLike = (): JSX.Element => {
 
   let PLAYERS_DATA: Array<Player> = []
   let ENEMIES_DATA: Array<Player> = []
+  let DROPS_DATA: Array<Drop> = []
   let LAST_INTERACTION = Date.now()
 
   const connect = () => {
@@ -37,6 +38,7 @@ const RogueLike = (): JSX.Element => {
       if (data.type === "broadcast") {
         PLAYERS_DATA = data.players
         ENEMIES_DATA = data.enemies
+        DROPS_DATA = data.drops
       }
     }
     animate(userId)

@@ -14,6 +14,15 @@ type Animation = {
   yOffset: number
 }
 
+export type DropSprite = {
+  name: CharacterType
+  tileSet: TileSet
+  spriteX: number
+  spriteY: number
+  spriteWidth: number
+  spriteHeight: number
+}
+
 export type Sprite = {
   name: CharacterType
   tileSet: TileSet
@@ -63,7 +72,7 @@ export type Player = {
 }
 
 export type Drop = {
-  sprite: Sprite
+  sprite: DropSprite
   positionX: number
   positionY: number
   consumed: boolean

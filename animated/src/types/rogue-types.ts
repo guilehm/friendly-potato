@@ -61,3 +61,10 @@ export type Player = {
   movingPosition: Position
   lastMovingTime: number
 }
+
+export type Drop = {
+  sprite: Sprite
+  positionX: number
+  positionY: number
+  consumed: boolean
+}

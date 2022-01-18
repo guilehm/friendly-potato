@@ -110,16 +110,12 @@ const RogueLike = (): JSX.Element => {
   ) => {
     const image = new Image()
     image.src = `${window.location.origin}/img/assets/rogue/sprites/${player.sprite.tileSet}.png`
-    const posX = (
-      (player.positionX + sprite.xOffset || 0) - player.sprite.spriteWidth - player.sprite.xOffset
-    ) + CANVAS_WIDTH / 2
-    const posY = (
-      (player.positionY + sprite.yOffset || 0) - player.sprite.spriteHeight - player.sprite.yOffset
-    ) + CANVAS_HEIGHT / 2
+    const posX = (player.positionX + sprite.xOffset || 0) + CANVAS_WIDTH / 2
+    const posY = (player.positionY + sprite.yOffset || 0) + CANVAS_HEIGHT / 2
 
     // TODO: consider end of map
-    const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw) + player.sprite.spriteWidth + player.sprite.xOffset
-    const py = (dh <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh) + player.sprite.spriteHeight + player.sprite.yOffset
+    const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw)
+    const py = (dh <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh)
     ctx.drawImage(
       image,
       sprite.spriteX,

@@ -6,8 +6,10 @@ import { handleAnimations } from "../../services/game-service"
 import { Drop, DropSprite, Player, Positions, Warrior } from "../../types/rogue-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RogueLike.styles"
+
 const CANVAS_WIDTH = 8 * 16
 const CANVAS_HEIGHT = 8 * 10
+const FPS = 60
 
 const RogueLike = (): JSX.Element => {
 
@@ -42,7 +44,11 @@ const RogueLike = (): JSX.Element => {
         DROPS_DATA = data.drops
       }
     }
-    animate(userId)
+
+    const fpsInterval = 1000 / FPS
+    const then = Date.now()
+    const startTime = then
+    animate(userId, fpsInterval, startTime, then)
     setGameState("started")
   }
 
@@ -132,21 +138,25 @@ const RogueLike = (): JSX.Element => {
 
   }
 
-  const animate = (userId: number) => {
+  const animate = (userId: number, fpsInterval: number, startTime: number, then: number) => {
     const canvas = canvasRef.current
     if (!canvas) return
     const ctx = canvas.getContext("2d")
     if (!ctx) return
     ctx.imageSmoothingEnabled = false
 
-    requestAnimationFrame(() => animate(userId))
+
+    const now = Date.now()
+    requestAnimationFrame(() => animate(userId, fpsInterval, startTime, then))
+    const elapsed = now - then
+    if (elapsed < fpsInterval) return
+    then = now - (elapsed % fpsInterval)
 
     const p1 = PLAYERS_DATA.find(p => p.id === userId)
     if (!p1) return
 
     drawBackground(canvas, ctx, p1.positionX, p1.positionY)
 
-    const now = Date.now()
     PLAYERS_DATA.forEach((player) => {
       const sprite = handleAnimations(player, now)
       drawPlayer(ctx, player, sprite, p1.positionX, p1.positionY)

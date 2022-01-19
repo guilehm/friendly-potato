@@ -49,8 +49,6 @@ const RogueLike = (): JSX.Element => {
   const drawBackground = (
     canvas: HTMLCanvasElement,
     ctx: CanvasRenderingContext2D,
-    dx: number,
-    dy: number,
     dw: number,
     dh: number,
   ) => {
@@ -61,12 +59,12 @@ const RogueLike = (): JSX.Element => {
     ctx.drawImage(
       background,
       // TODO: set limit for x+ and y+
-      (dx + dw) >= 0 ? dx + dw : 0,
-      (dy + dh) >= 0 ? dy + dh : 0,
+      dw >= CANVAS_WIDTH / 2 ? dw - CANVAS_WIDTH / 2 : 0,
+      dh >= CANVAS_HEIGHT / 2 ? dh - CANVAS_HEIGHT / 2 : 0,
       canvas.width,
       canvas.height,
-      dx,
-      dy,
+      0,
+      0,
       canvas.width,
       canvas.height,
     )

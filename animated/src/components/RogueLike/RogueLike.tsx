@@ -85,8 +85,8 @@ const RogueLike = (): JSX.Element => {
     const posY = drop.positionY - drop.sprite.spriteHeight - drop.sprite.yOffset + CANVAS_HEIGHT / 2
 
     // TODO: consider end of map
-    const px = dw >= 0 ? posX - dw : posX
-    const py = dh >= 0 ? posY - dh : posY
+    const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw) + drop.sprite.xOffset + drop.sprite.spriteWidth + drop.sprite.xOffset
+    const py = (dh <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh) + drop.sprite.yOffset + drop.sprite.spriteHeight + drop.sprite.yOffset
 
     ctx.drawImage(
       image,
@@ -110,7 +110,6 @@ const RogueLike = (): JSX.Element => {
   ) => {
     const image = new Image()
     image.src = `${window.location.origin}/img/assets/rogue/sprites/${player.sprite.tileSet}.png`
-
     const posX = (
       (player.positionX + sprite.xOffset || 0) - player.sprite.spriteWidth - player.sprite.xOffset
     ) + CANVAS_WIDTH / 2
@@ -119,8 +118,8 @@ const RogueLike = (): JSX.Element => {
     ) + CANVAS_HEIGHT / 2
 
     // TODO: consider end of map
-    const px = dw >= 0 ? posX - dw : posX
-    const py = dh >= 0 ? posY - dh : posY
+    const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw) + player.sprite.spriteWidth + player.sprite.xOffset
+    const py = (dh <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh) + player.sprite.spriteHeight + player.sprite.yOffset
     ctx.drawImage(
       image,
       sprite.spriteX,

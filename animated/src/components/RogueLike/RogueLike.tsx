@@ -13,6 +13,7 @@ const RogueLike = (): JSX.Element => {
 
   const [ws, setWs] = useState<WebSocket | null>(null)
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
+  const [gameState, setGameState] = useState("waiting")
 
   let PLAYERS_DATA: Array<Player> = []
   let ENEMIES_DATA: Array<Player> = []
@@ -42,6 +43,7 @@ const RogueLike = (): JSX.Element => {
       }
     }
     animate(userId)
+    setGameState("started")
   }
 
   const drawBackground = (
@@ -201,13 +203,16 @@ const RogueLike = (): JSX.Element => {
         ref={canvasRef}
         onKeyDown={(e) => handleKeyDown(e.key)}>
       </S.Canvas>
-      <S.ArrowContainer>
-        <ArrowUpIcon onClick={() => handleKeyDown(ARROW_UP)} w={16} h={16} />
-        <br />
-        <ArrowBackIcon onClick={() => handleKeyDown(ARROW_LEFT)} w={16} h={16} />
-        <ArrowDownIcon onClick={() => handleKeyDown(ARROW_DOWN)} w={16} h={16} />
-        <ArrowForwardIcon onClick={() => handleKeyDown(ARROW_RIGHT)} w={16} h={16} />
-      </S.ArrowContainer>
+      {
+        gameState == "started" &&
+        <S.ArrowContainer>
+          <ArrowUpIcon onClick={() => handleKeyDown(ARROW_UP)} w={16} h={16} />
+          <br />
+          <ArrowBackIcon onClick={() => handleKeyDown(ARROW_LEFT)} w={16} h={16} />
+          <ArrowDownIcon onClick={() => handleKeyDown(ARROW_DOWN)} w={16} h={16} />
+          <ArrowForwardIcon onClick={() => handleKeyDown(ARROW_RIGHT)} w={16} h={16} />
+        </S.ArrowContainer>
+      }
     </S.Container >
   )
 }

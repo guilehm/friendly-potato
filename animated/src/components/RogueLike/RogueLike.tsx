@@ -149,9 +149,7 @@ const RogueLike = (): JSX.Element => {
     const p1 = PLAYERS_DATA.find(p => p.id === userId)
     if (!p1) return
 
-    const dx = 0
-    const dy = 0
-    drawBackground(canvas, ctx, dx, dy, p1.positionX, p1.positionY)
+    drawBackground(canvas, ctx, p1.positionX, p1.positionY)
 
     const now = Date.now()
     PLAYERS_DATA.forEach((player) => {

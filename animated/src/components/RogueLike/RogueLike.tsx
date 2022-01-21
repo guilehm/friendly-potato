@@ -196,7 +196,7 @@ const RogueLike = (): JSX.Element => {
 
   return (
     <S.Container>
-      <button onClick={connect}>start</button>
+      {gameState === "waiting" && <button onClick={connect}>start</button>}
       <S.Canvas
         tabIndex={0}
         width={CANVAS_WIDTH}

@@ -93,8 +93,8 @@ const RogueLike = (): JSX.Element => {
     const posY = projectile.positionY + CANVAS_HEIGHT / 2
 
     // TODO: consider end of map
-    const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw)
-    const py = (dh <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh)
+    const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw) + projectile.sprite.xOffset
+    const py = (dh <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh) + projectile.sprite.yOffset
 
     ctx.drawImage(
       image,

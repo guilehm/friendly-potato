@@ -1,4 +1,4 @@
-import { ArrowBackIcon, ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon } from "@chakra-ui/icons"
+import { ArrowBackIcon, ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon, SmallCloseIcon } from "@chakra-ui/icons"
 import { MutableRefObject, useRef, useState } from "react"
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, INTERACTION_COOLDOWN, KEY_A, KEY_D, KEY_S, KEY_SPACE, KEY_W } from "../../constants"
 import { drawHealthbar } from "../../helpers"
@@ -211,8 +211,10 @@ const RogueLike = (): JSX.Element => {
           <ArrowUpIcon onClick={() => handleKeyDown(ARROW_UP)} w={16} h={16} />
           <br />
           <ArrowBackIcon onClick={() => handleKeyDown(ARROW_LEFT)} w={16} h={16} />
-          <ArrowDownIcon onClick={() => handleKeyDown(ARROW_DOWN)} w={16} h={16} />
+          <SmallCloseIcon onClick={() => handleKeyDown(KEY_SPACE)} w={16} h={16} />
           <ArrowForwardIcon onClick={() => handleKeyDown(ARROW_RIGHT)} w={16} h={16} />
+          <br />
+          <ArrowDownIcon onClick={() => handleKeyDown(ARROW_DOWN)} w={16} h={16} />
         </S.ArrowContainer>
       }
     </S.Container >

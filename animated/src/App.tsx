@@ -54,14 +54,14 @@ const App = (): JSX.Element => (
             </Layout>
           </Route>
 
-          <Route path="/rogue/">
-            <RogueLike />
-          </Route>
-
-          <Route path="/">
+          <Route path="/rpg/">
             <Layout>
               <RPG />
             </Layout>
+          </Route>
+
+          <Route path="/">
+            <RogueLike />
           </Route>
 
         </Switch>

@@ -1,6 +1,6 @@
 import { ArrowBackIcon, ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon } from "@chakra-ui/icons"
 import { MutableRefObject, useRef, useState } from "react"
-import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, INTERACTION_COOLDOWN, KEY_A, KEY_D, KEY_S, KEY_W } from "../../constants"
+import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, INTERACTION_COOLDOWN, KEY_A, KEY_D, KEY_S, KEY_SPACE, KEY_W } from "../../constants"
 import { drawHealthbar } from "../../helpers"
 import { handleAnimations } from "../../services/game-service"
 import { Drop, DropSprite, Player, Positions, Warrior } from "../../types/rogue-types"
@@ -183,6 +183,7 @@ const RogueLike = (): JSX.Element => {
       KEY_W,
       KEY_D,
       KEY_S,
+      KEY_SPACE,
     ]
 
     if (!validKeys.includes(key)) return

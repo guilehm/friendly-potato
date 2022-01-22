@@ -1,3 +1,4 @@
+type ProjectileType = string
 type CharacterType = string
 type TileSet = string
 
@@ -12,6 +13,15 @@ type Animation = {
   spriteHeight: number
   xOffset: number
   yOffset: number
+}
+
+export type ProjectileSprite = {
+  name: ProjectileType
+  tileSet: TileSet
+  spriteX: number
+  spriteY: number
+  spriteWidth: number
+  spriteHeight: number
 }
 
 export type DropSprite = {
@@ -78,4 +88,13 @@ export type Drop = {
   positionX: number
   positionY: number
   consumed: boolean
+}
+
+export type Projectile = {
+  sprite: ProjectileSprite
+  angle: number
+  positionX: number
+  positionY: number
+  velocityX: number
+  velocityY: number
 }

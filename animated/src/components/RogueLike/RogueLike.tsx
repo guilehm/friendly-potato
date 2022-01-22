@@ -3,7 +3,7 @@ import { MutableRefObject, useRef, useState } from "react"
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, INTERACTION_COOLDOWN, KEY_A, KEY_D, KEY_S, KEY_SPACE, KEY_W } from "../../constants"
 import { drawHealthbar } from "../../helpers"
 import { handleAnimations } from "../../services/game-service"
-import { Drop, DropSprite, Player, Positions, Warrior } from "../../types/rogue-types"
+import { Drop, DropSprite, Player, Positions, Projectile, ProjectileSprite, Warrior } from "../../types/rogue-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RogueLike.styles"
 
@@ -20,6 +20,7 @@ const RogueLike = (): JSX.Element => {
   let PLAYERS_DATA: Array<Player> = []
   let ENEMIES_DATA: Array<Player> = []
   let DROPS_DATA: Array<Drop> = []
+  let PROJECTILES_DATA: Array<Projectile> = []
   let LAST_INTERACTION = Date.now()
 
   const connect = () => {
@@ -42,6 +43,7 @@ const RogueLike = (): JSX.Element => {
         PLAYERS_DATA = data.players
         ENEMIES_DATA = data.enemies
         DROPS_DATA = data.drops
+        PROJECTILES_DATA = data.projectiles
       }
     }
 
@@ -197,6 +199,9 @@ const RogueLike = (): JSX.Element => {
     })
     DROPS_DATA?.forEach((drop) => {
       drawDrop(ctx, drop, drop.sprite, p1.positionX, p1.positionY)
+    })
+    PROJECTILES_DATA.forEach((projectile) => {
+      drawProjectile(ctx, projectile, projectile.sprite, p1.positionX, p1.positionY)
     })
   }
 

@@ -200,7 +200,7 @@ const RogueLike = (): JSX.Element => {
     DROPS_DATA?.forEach((drop) => {
       drawDrop(ctx, drop, drop.sprite, p1.positionX, p1.positionY)
     })
-    PROJECTILES_DATA.forEach((projectile) => {
+    PROJECTILES_DATA?.forEach((projectile) => {
       drawProjectile(ctx, projectile, projectile.sprite, p1.positionX, p1.positionY)
     })
   }

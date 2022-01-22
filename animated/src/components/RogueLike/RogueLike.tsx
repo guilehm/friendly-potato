@@ -81,16 +81,16 @@ const RogueLike = (): JSX.Element => {
 
   const drawProjectile = (
     ctx: CanvasRenderingContext2D,
-    drop: Projectile,
+    projectile: Projectile,
     sprite: ProjectileSprite,
     dw: number,
     dh: number,
   ) => {
     const image = new Image()
-    image.src = `${window.location.origin}/img/assets/rogue/sprites/${drop.sprite.tileSet}.png`
+    image.src = `${window.location.origin}/img/assets/rogue/sprites/${projectile.sprite.tileSet}.png`
 
-    const posX = drop.positionX + CANVAS_WIDTH / 2
-    const posY = drop.positionY + CANVAS_HEIGHT / 2
+    const posX = projectile.positionX + CANVAS_WIDTH / 2
+    const posY = projectile.positionY + CANVAS_HEIGHT / 2
 
     // TODO: consider end of map
     const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw)

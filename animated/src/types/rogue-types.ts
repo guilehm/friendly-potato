@@ -83,6 +83,8 @@ export type Player = {
   moving: boolean
   movingPosition: Position
   lastMovingTime: number
+  xp: number
+  level: number
 }
 
 export type Drop = {

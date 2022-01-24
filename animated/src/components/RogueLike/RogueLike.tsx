@@ -7,8 +7,8 @@ import { Drop, DropSprite, Player, Positions, Projectile, ProjectileSprite, Warr
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RogueLike.styles"
 
-const CANVAS_WIDTH = 8 * 16
-const CANVAS_HEIGHT = 8 * 10
+const CANVAS_WIDTH = 8 * 16 * 2
+const CANVAS_HEIGHT = 8 * 10 * 2
 const FPS = 60
 
 const RogueLike = (): JSX.Element => {
@@ -67,14 +67,14 @@ const RogueLike = (): JSX.Element => {
     ctx.drawImage(
       background,
       // TODO: set limit for x+ and y+
-      dw >= CANVAS_WIDTH / 2 ? dw - CANVAS_WIDTH / 2 : 0,
-      dh >= CANVAS_HEIGHT / 2 ? dh - CANVAS_HEIGHT / 2 : 0,
+      dw * 2 >= CANVAS_WIDTH / 2 ? dw + CANVAS_WIDTH / 4 - CANVAS_WIDTH / 2 : 0,
+      dh * 2 >= CANVAS_HEIGHT / 2 ? dh + CANVAS_HEIGHT / 4 - CANVAS_HEIGHT / 2 : 0,
       canvas.width,
       canvas.height,
       0,
       0,
-      canvas.width,
-      canvas.height,
+      canvas.width * 2,
+      canvas.height * 2,
     )
 
   }
@@ -93,8 +93,8 @@ const RogueLike = (): JSX.Element => {
     const posY = projectile.positionY + CANVAS_HEIGHT / 2
 
     // TODO: consider end of map
-    const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw) + projectile.sprite.xOffset
-    const py = (dh <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh) + projectile.sprite.yOffset
+    const px = (dw * 2 <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw - CANVAS_WIDTH / 4) + projectile.sprite.xOffset
+    const py = (dh * 2 <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh - CANVAS_HEIGHT / 4) + projectile.sprite.yOffset
 
     ctx.drawImage(
       image,
@@ -102,10 +102,10 @@ const RogueLike = (): JSX.Element => {
       sprite.spriteY,
       sprite.spriteWidth,
       sprite.spriteHeight,
-      px,
-      py,
-      sprite.spriteWidth,
-      sprite.spriteHeight,
+      px * 2,
+      py * 2,
+      sprite.spriteWidth * 2,
+      sprite.spriteHeight * 2,
     )
   }
 
@@ -123,8 +123,8 @@ const RogueLike = (): JSX.Element => {
     const posY = drop.positionY + CANVAS_HEIGHT / 2
 
     // TODO: consider end of map
-    const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw) + drop.sprite.xOffset
-    const py = (dh <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh) + drop.sprite.yOffset
+    const px = (dw * 2 <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw - CANVAS_WIDTH / 4) + drop.sprite.xOffset
+    const py = (dh * 2 <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh - CANVAS_HEIGHT / 4) + drop.sprite.yOffset
 
     ctx.drawImage(
       image,
@@ -132,10 +132,10 @@ const RogueLike = (): JSX.Element => {
       sprite.spriteY,
       sprite.spriteWidth,
       sprite.spriteHeight,
-      px,
-      py,
-      sprite.spriteWidth,
-      sprite.spriteHeight,
+      px * 2,
+      py * 2,
+      sprite.spriteWidth * 2,
+      sprite.spriteHeight * 2,
     )
   }
 
@@ -152,21 +152,22 @@ const RogueLike = (): JSX.Element => {
     const posY = (player.positionY + sprite.yOffset || 0) + CANVAS_HEIGHT / 2
 
     // TODO: consider end of map
-    const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw)
-    const py = (dh <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh)
+    const px = (dw * 2 <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw - CANVAS_WIDTH / 4)
+    const py = (dh * 2 <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh - CANVAS_HEIGHT / 4)
     ctx.drawImage(
       image,
       sprite.spriteX,
       sprite.spriteY,
       sprite.spriteWidth,
       sprite.spriteHeight,
-      px,
-      py,
-      sprite.spriteWidth,
-      sprite.spriteHeight,
+      px * 2,
+      py * 2,
+      sprite.spriteWidth * 2,
+      sprite.spriteHeight * 2,
     )
 
-    drawHealthbar(ctx, px, py - 1, (player.health / player.sprite.hp) * 100, player.sprite.spriteWidth, 1)
+    drawHealthbar(ctx, px * 2, py * 2 - 1, (player.health / player.sprite.hp) * 100, player.sprite.spriteWidth * 2, 1)
+    ctx.font = "10px Georgia"
 
   }
 

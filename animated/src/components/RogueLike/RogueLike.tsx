@@ -237,6 +237,7 @@ const RogueLike = (): JSX.Element => {
     ws && ws.send(JSON.stringify(msg))
   }
 
+
   return (
     <S.Container>
       {gameState === "waiting" && <button onClick={connect}>start</button>}

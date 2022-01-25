@@ -1,5 +1,5 @@
 import { ArrowBackIcon, ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon, SmallCloseIcon } from "@chakra-ui/icons"
-import { MutableRefObject, useRef, useState } from "react"
+import { MutableRefObject, useEffect, useRef, useState } from "react"
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, INTERACTION_COOLDOWN, KEY_A, KEY_D, KEY_S, KEY_SPACE, KEY_W } from "../../constants"
 import { drawHealthbar } from "../../helpers"
 import { handleAnimations } from "../../services/game-service"
@@ -17,11 +17,20 @@ const RogueLike = (): JSX.Element => {
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
   const [gameState, setGameState] = useState("waiting")
 
+  const [playerLevel, setPlayerLevel] = useState(0)
+  const playerLevelRef = useRef(playerLevel)
+
+  useEffect(() => {
+    console.log("atualizando")
+  }, [playerLevel])
+
   let PLAYERS_DATA: Array<Player> = []
   let ENEMIES_DATA: Array<Player> = []
   let DROPS_DATA: Array<Drop> = []
   let PROJECTILES_DATA: Array<Projectile> = []
   let LAST_INTERACTION = Date.now()
+
+
 
   const connect = () => {
     const location = process.env.REACT_APP_ROGUE_WS_LOCATION || "ws://localhost:8080/ws/rogue/"
@@ -186,6 +195,7 @@ const RogueLike = (): JSX.Element => {
 
     const p1 = PLAYERS_DATA.find(p => p.id === userId)
     if (!p1) return
+    if (playerLevelRef.current !== p1.level) setPlayerLevel(p1.level)
 
     drawBackground(canvas, ctx, p1.positionX, p1.positionY)
 
@@ -233,6 +243,7 @@ const RogueLike = (): JSX.Element => {
   return (
     <S.Container>
       {gameState === "waiting" && <button onClick={connect}>start</button>}
+      <span>level: {playerLevel}</span>
       <S.Canvas
         tabIndex={0}
         width={CANVAS_WIDTH}

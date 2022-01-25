@@ -20,9 +20,7 @@ const RogueLike = (): JSX.Element => {
   const [playerLevel, setPlayerLevel] = useState(0)
   const playerLevelRef = useRef(playerLevel)
 
-  useEffect(() => {
-    console.log("atualizando")
-  }, [playerLevel])
+  useEffect(() => { return }, [playerLevel])
 
   let PLAYERS_DATA: Array<Player> = []
   let ENEMIES_DATA: Array<Player> = []

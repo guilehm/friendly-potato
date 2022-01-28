@@ -85,6 +85,7 @@ export type Player = {
   lastMovingTime: number
   xp: number
   level: number
+  maxHP: number
 }
 
 export type Drop = {

@@ -26,3 +26,12 @@ export const ArrowContainer = styled.div`
   text-align: center;
   cursor: pointer;
 `
+
+export const StatsList = styled.ul`
+  display: flex;
+
+  & li {
+    list-style-type: none;
+    padding: 5px;
+  }
+`

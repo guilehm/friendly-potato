@@ -86,6 +86,7 @@ export type Player = {
   xp: number
   level: number
   maxHP: number
+  xpToNextLevel: number
 }
 
 export type Drop = {

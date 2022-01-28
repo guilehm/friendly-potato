@@ -23,13 +23,16 @@ const RogueLike = (): JSX.Element => {
   const [playerXP, setPlayerXP] = useState(0)
   const playerXPRef = useRef(playerXP)
 
+  const [playerXPToNextLevel, setPlayerXPToNextLevel] = useState(0)
+  const playerXPToNextLevelRef = useRef(playerXPToNextLevel)
+
   const [playerHP, setPlayerHP] = useState(0)
   const playerHPRef = useRef(playerHP)
 
   const [playerMaxHP, setPlayerMaxHP] = useState(0)
   const playerMaxHPRef = useRef(playerMaxHP)
 
-  useEffect(() => { return }, [playerLevel, playerXP, playerHP, playerMaxHP])
+  useEffect(() => { return }, [playerLevel, playerXP, playerHP, playerMaxHP, playerXPToNextLevel])
 
   let PLAYERS_DATA: Array<Player> = []
   let ENEMIES_DATA: Array<Player> = []
@@ -202,10 +205,13 @@ const RogueLike = (): JSX.Element => {
     const p1 = PLAYERS_DATA.find(p => p.id === userId)
     if (!p1) return
     if (playerLevelRef.current !== p1.level) setPlayerLevel(p1.level)
-    if (playerXPRef.current !== p1.xp) setPlayerXP(p1.xp)
     if (playerHPRef.current !== p1.health) setPlayerHP(p1.health)
     if (playerMaxHPRef.current !== p1.maxHP) setPlayerMaxHP(p1.maxHP)
     if (playerHPRef.current !== p1.level) setPlayerHP(p1.health)
+    if (playerXPRef.current !== p1.xp || playerXPToNextLevelRef.current !== p1.xpToNextLevel) {
+      setPlayerXP(p1.xp)
+      setPlayerXPToNextLevel(p1.xpToNextLevel)
+    }
 
     drawBackground(canvas, ctx, p1.positionX, p1.positionY)
 
@@ -256,7 +262,7 @@ const RogueLike = (): JSX.Element => {
         {gameState === "waiting" && <li><button onClick={connect}>start</button></li>}
         {gameState === "started" && <li>level: {playerLevel}</li>}
         {gameState === "started" && <li>hp: {playerHP}/{playerMaxHP}</li>}
-        {gameState === "started" && <li>xp: {playerXP}</li>}
+        {gameState === "started" && <li>xp: {playerXP}/{playerXPToNextLevel}</li>}
       </S.StatsList>
       <S.Canvas
         tabIndex={0}

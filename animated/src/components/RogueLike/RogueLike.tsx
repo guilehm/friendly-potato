@@ -23,8 +23,11 @@ const RogueLike = (): JSX.Element => {
   const [playerXP, setPlayerXP] = useState(0)
   const playerXPRef = useRef(playerXP)
 
-  const [playerXPToNextLevel, setPlayerXPToNextLevel] = useState(0)
-  const playerXPToNextLevelRef = useRef(playerXPToNextLevel)
+  const [playerXPNextLevel, setPlayerXPNextLevel] = useState(0)
+  const playerXPNextLevelRef = useRef(playerXPNextLevel)
+
+  const [playerXPCurrentLevel, setPlayerXPCurrentLevel] = useState(0)
+  const playerXPCurrentLevelRef = useRef(playerXPCurrentLevel)
 
   const [playerHP, setPlayerHP] = useState(0)
   const playerHPRef = useRef(playerHP)
@@ -32,7 +35,7 @@ const RogueLike = (): JSX.Element => {
   const [playerMaxHP, setPlayerMaxHP] = useState(0)
   const playerMaxHPRef = useRef(playerMaxHP)
 
-  useEffect(() => { return }, [playerLevel, playerXP, playerHP, playerMaxHP, playerXPToNextLevel])
+  useEffect(() => { return }, [playerLevel, playerXP, playerHP, playerMaxHP, playerXPNextLevel, playerXPCurrentLevel])
 
   let PLAYERS_DATA: Array<Player> = []
   let ENEMIES_DATA: Array<Player> = []
@@ -185,7 +188,7 @@ const RogueLike = (): JSX.Element => {
       sprite.spriteHeight,
     )
 
-    drawHealthbar(ctx, px, py - 1, (player.health / player.sprite.hp) * 100, player.sprite.spriteWidth, 1)
+    drawHealthbar(ctx, px, py - 1, (player.health / (player.maxHP ? player.maxHP : player.sprite.hp)) * 100, player.sprite.spriteWidth, 1)
 
   }
 
@@ -208,9 +211,14 @@ const RogueLike = (): JSX.Element => {
     if (playerHPRef.current !== p1.health) setPlayerHP(p1.health)
     if (playerMaxHPRef.current !== p1.maxHP) setPlayerMaxHP(p1.maxHP)
     if (playerHPRef.current !== p1.level) setPlayerHP(p1.health)
-    if (playerXPRef.current !== p1.xp || playerXPToNextLevelRef.current !== p1.xpToNextLevel) {
+    if (
+      playerXPRef.current !== p1.xp ||
+      playerXPNextLevelRef.current !== p1.xpNextLevel ||
+      playerXPCurrentLevelRef.current !== p1.xpCurrentLevel
+    ) {
       setPlayerXP(p1.xp)
-      setPlayerXPToNextLevel(p1.xpToNextLevel)
+      setPlayerXPNextLevel(p1.xpNextLevel)
+      setPlayerXPCurrentLevel(p1.xpCurrentLevel)
     }
 
     drawBackground(canvas, ctx, p1.positionX, p1.positionY)

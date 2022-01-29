@@ -6,6 +6,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
 `
 
 export const Canvas = styled.canvas`
@@ -34,4 +35,39 @@ export const StatsList = styled.ul`
     list-style-type: none;
     padding: 5px;
   }
+`
+
+export const ProgressContainer = styled.div`
+  progress::-webkit-progress-bar {
+    background-color: white;
+  }
+`
+
+export const Progress = styled.progress`
+  background-color: white;
+  border: 1px solid black;
+  height: 24px;
+`
+
+export const LifeLabel = styled.label`
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+`
+
+
+export const ProgressXPContainer = styled.div`
+  margin: 0;
+  padding: 0;
+  progress::-webkit-progress-bar {
+    background-color: white;
+  }
+  progress::-webkit-progress-value {
+    background-color: yellow;
+  }
+`
+export const ProgressXP = styled.progress`
+  height: 5px;
+  background-color: yellow;
+  border: 1px solid black;
 `

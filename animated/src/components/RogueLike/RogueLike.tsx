@@ -255,15 +255,21 @@ const RogueLike = (): JSX.Element => {
     ws && ws.send(JSON.stringify(msg))
   }
 
-
   return (
     <S.Container>
-      <S.StatsList>
-        {gameState === "waiting" && <li><button onClick={connect}>start</button></li>}
-        {gameState === "started" && <li>level: {playerLevel}</li>}
-        {gameState === "started" && <li>hp: {playerHP}/{playerMaxHP}</li>}
-        {gameState === "started" && <li>xp: {playerXP}/{playerXPToNextLevel}</li>}
-      </S.StatsList>
+      {gameState === "waiting" && <button onClick={connect}>start</button>}
+      {gameState == "started" && <>
+        <S.StatsList>
+          {gameState === "started" && <li>level: {playerLevel}</li>}
+        </S.StatsList>
+        <S.ProgressContainer>
+          <S.LifeLabel htmlFor="health">{playerHP}/{playerMaxHP}</S.LifeLabel>
+          <S.Progress id="health" value={playerHP} max={playerMaxHP}></S.Progress>
+        </S.ProgressContainer>
+        <S.ProgressXPContainer>
+          <S.ProgressXP value={playerXP - playerXPCurrentLevel} max={playerXPNextLevel}></S.ProgressXP>
+        </S.ProgressXPContainer>
+      </>}
       <S.Canvas
         tabIndex={0}
         width={CANVAS_WIDTH}

@@ -101,81 +101,16 @@ const RogueLike = (): JSX.Element => {
 
   }
 
-  const drawProjectile = (
+  const drawObject = (
     ctx: CanvasRenderingContext2D,
-    projectile: Projectile,
-    sprite: ProjectileSprite,
-    dw: number,
-    dh: number,
-  ) => {
-    const image = new Image()
-    image.src = `${window.location.origin}/img/assets/rogue/sprites/${projectile.sprite.tileSet}.png`
-
-    const posX = projectile.positionX + CANVAS_WIDTH / 2
-    const posY = projectile.positionY + CANVAS_HEIGHT / 2
-
-    // TODO: consider end of map
-    const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw) + projectile.sprite.xOffset
-    const py = (dh <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh) + projectile.sprite.yOffset
-
-    ctx.drawImage(
-      image,
-      sprite.spriteX,
-      sprite.spriteY,
-      sprite.spriteWidth,
-      sprite.spriteHeight,
-      px,
-      py,
-      sprite.spriteWidth,
-      sprite.spriteHeight,
-    )
-  }
-
-  const drawDrop = (
-    ctx: CanvasRenderingContext2D,
-    drop: Drop,
-    sprite: DropSprite,
-    dw: number,
-    dh: number,
-  ) => {
-    const image = new Image()
-    image.src = `${window.location.origin}/img/assets/rogue/sprites/${drop.sprite.tileSet}.png`
-
-    const posX = drop.positionX + CANVAS_WIDTH / 2
-    const posY = drop.positionY + CANVAS_HEIGHT / 2
-
-    // TODO: consider end of map
-    const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw) + drop.sprite.xOffset
-    const py = (dh <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh) + drop.sprite.yOffset
-
-    ctx.drawImage(
-      image,
-      sprite.spriteX,
-      sprite.spriteY,
-      sprite.spriteWidth,
-      sprite.spriteHeight,
-      px,
-      py,
-      sprite.spriteWidth,
-      sprite.spriteHeight,
-    )
-  }
-
-  const drawPlayer = (
-    ctx: CanvasRenderingContext2D,
-    player: Player,
     sprite: Positions,
-    dw: number,
-    dh: number,
+    tileset: string,
+    px: number,
+    py: number,
   ) => {
     const image = new Image()
-    image.src = `${window.location.origin}/img/assets/rogue/sprites/${player.sprite.tileSet}.png`
-    const posX = (player.positionX + sprite.xOffset || 0) + CANVAS_WIDTH / 2
-    const posY = (player.positionY + sprite.yOffset || 0) + CANVAS_HEIGHT / 2
+    image.src = `${window.location.origin}/img/assets/rogue/sprites/${tileset}.png`
 
-    // TODO: consider end of map
-    const px = (dw <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - dw)
-    const py = (dh <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - dh)
     ctx.drawImage(
       image,
       sprite.spriteX,
@@ -187,8 +122,6 @@ const RogueLike = (): JSX.Element => {
       sprite.spriteWidth,
       sprite.spriteHeight,
     )
-
-    drawHealthbar(ctx, px, py - 1, (player.health / (player.maxHP ? player.maxHP : player.sprite.hp)) * 100, player.sprite.spriteWidth, 1)
 
   }
 
@@ -198,7 +131,6 @@ const RogueLike = (): JSX.Element => {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
     ctx.imageSmoothingEnabled = false
-
 
     const now = Date.now()
     requestAnimationFrame(() => animate(userId, fpsInterval, startTime, then))
@@ -225,17 +157,42 @@ const RogueLike = (): JSX.Element => {
 
     PLAYERS_DATA.forEach((player) => {
       const sprite = handleAnimations(player, now)
-      drawPlayer(ctx, player, sprite, p1.positionX, p1.positionY)
+      const posX = (player.positionX + sprite.xOffset || 0) + CANVAS_WIDTH / 2
+      const posY = (player.positionY + sprite.yOffset || 0) + CANVAS_HEIGHT / 2
+
+      const px = (p1.positionX <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - p1.positionX)
+      const py = (p1.positionY <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - p1.positionY)
+
+      drawObject(ctx, sprite, player.sprite.tileSet, px, py)
+      drawHealthbar(ctx, px, py - 1, (player.health / (player.maxHP ? player.maxHP : player.sprite.hp)) * 100, player.sprite.spriteWidth, 1)
     })
     ENEMIES_DATA?.forEach((enemy) => {
       const sprite = handleAnimations(enemy, now)
-      drawPlayer(ctx, enemy, sprite, p1.positionX, p1.positionY)
+      const posX = (enemy.positionX + sprite.xOffset || 0) + CANVAS_WIDTH / 2
+      const posY = (enemy.positionY + sprite.yOffset || 0) + CANVAS_HEIGHT / 2
+
+      const px = (p1.positionX <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - p1.positionX)
+      const py = (p1.positionY <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - p1.positionY)
+
+      drawObject(ctx, sprite, enemy.sprite.tileSet, px, py)
+      drawHealthbar(ctx, px, py - 1, (enemy.health / (enemy.maxHP ? enemy.maxHP : enemy.sprite.hp)) * 100, enemy.sprite.spriteWidth, 1)
     })
     DROPS_DATA?.forEach((drop) => {
-      drawDrop(ctx, drop, drop.sprite, p1.positionX, p1.positionY)
+      const posX = drop.positionX + CANVAS_WIDTH / 2
+      const posY = drop.positionY + CANVAS_HEIGHT / 2
+      const px = (p1.positionX <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - p1.positionX) + drop.sprite.xOffset
+      const py = (p1.positionY <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - p1.positionY) + drop.sprite.yOffset
+      drawObject(ctx, drop.sprite, drop.sprite.tileSet, px, py)
     })
     PROJECTILES_DATA?.forEach((projectile) => {
-      drawProjectile(ctx, projectile, projectile.sprite, p1.positionX, p1.positionY)
+      const posX = projectile.positionX + CANVAS_WIDTH / 2
+      const posY = projectile.positionY + CANVAS_HEIGHT / 2
+
+      // TODO: consider end of map
+      const px = (p1.positionX <= CANVAS_WIDTH / 2 ? posX - CANVAS_WIDTH / 2 : posX - p1.positionX) + projectile.sprite.xOffset
+      const py = (p1.positionY <= CANVAS_HEIGHT / 2 ? posY - CANVAS_HEIGHT / 2 : posY - p1.positionY) + projectile.sprite.yOffset
+
+      drawObject(ctx, projectile.sprite, projectile.sprite.tileSet, px, py)
     })
   }
 

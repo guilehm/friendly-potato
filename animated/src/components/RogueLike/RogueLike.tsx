@@ -1,9 +1,10 @@
 import { ArrowBackIcon, ArrowDownIcon, ArrowForwardIcon, ArrowUpIcon, SmallCloseIcon } from "@chakra-ui/icons"
+import axios, { Axios } from "axios"
 import { MutableRefObject, useEffect, useRef, useState } from "react"
 import { ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT, ARROW_UP, INTERACTION_COOLDOWN, KEY_A, KEY_D, KEY_S, KEY_SPACE, KEY_W } from "../../constants"
 import { drawHealthbar } from "../../helpers"
 import { handleAnimations } from "../../services/game-service"
-import { Drop, Player, Positions, Projectile, Warrior } from "../../types/rogue-types"
+import { Archer, Drop, Mage, Player, Positions, Projectile, Sprite, Warrior } from "../../types/rogue-types"
 import { WSMessage } from "../../types/ws-types"
 import * as S from "./RogueLike.styles"
 

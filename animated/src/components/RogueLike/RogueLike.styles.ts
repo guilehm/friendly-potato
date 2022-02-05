@@ -71,3 +71,42 @@ export const ProgressXP = styled.progress`
   background-color: yellow;
   border: 1px solid black;
 `
+
+export const SpriteContainer = styled.section`
+  text-align: center;
+`
+
+export const SpriteList = styled.ul`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+type SpriteItemType = {
+  img: string
+  x: number
+  y: number
+  ox: number
+  oy: number
+
+  w: number
+  h: number
+}
+
+export const SpriteListItem = styled.li<SpriteItemType>`
+  list-style-type: none;
+  cursor: pointer;
+  width: ${props => props.w * 10}px;
+  height: ${props => props.h * 10}px;
+  margin: 2px;
+  background-image: ${props => `url(${props.img})`};
+  background-position: ${props => `${((props.x) * -10)}px ${((props.y) * -10)}px}`};
+  background-size: 1280px 1280px;
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -o-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: pixelated;
+  image-rendering: optimize-contrast;
+  -ms-interpolation-mode: nearest-neighbor;
+`

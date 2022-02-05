@@ -250,7 +250,7 @@ const RogueLike = (): JSX.Element => {
               img={`${window.location.origin}/img/assets/rogue/sprites/${sprite.tileSet}.png`}>
             </S.SpriteListItem>)}
         </S.SpriteList>
-      </S.SpriteContainer>}
+      </S.SpriteContainer> || ""}
       {/* {gameState === "waiting" && <button onClick={connect}>start</button>} */}
       {gameState == "started" && <>
         <S.StatsList>

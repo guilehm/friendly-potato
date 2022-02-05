@@ -233,7 +233,24 @@ const RogueLike = (): JSX.Element => {
 
   return (
     <S.Container>
-      {gameState === "waiting" && <button onClick={connect}>start</button>}
+      {gameState === "waiting" && sprites.length && <S.SpriteContainer>
+        <h2>choose your player</h2>
+        <S.SpriteList>
+          {sprites.map((sprite) =>
+            <S.SpriteListItem
+              onClick={() => connect(sprite.name)}
+              key={sprite.name}
+              x={sprite.spriteX}
+              y={sprite.spriteY}
+              w={sprite.spriteWidth}
+              h={sprite.spriteHeight}
+              ox={sprite.xOffset}
+              oy={sprite.yOffset}
+              img={`${window.location.origin}/img/assets/rogue/sprites/${sprite.tileSet}.png`}>
+            </S.SpriteListItem>)}
+        </S.SpriteList>
+      </S.SpriteContainer>}
+      {/* {gameState === "waiting" && <button onClick={connect}>start</button>} */}
       {gameState == "started" && <>
         <S.StatsList>
           {gameState === "started" && <li>level: {playerLevel}</li>}

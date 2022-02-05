@@ -2,7 +2,11 @@ type ProjectileType = string
 type CharacterType = string
 type TileSet = string
 
+export const Templar: CharacterType = "templar"
 export const Warrior: CharacterType = "warrior"
+export const Archer: CharacterType = "archer"
+export const Mage: CharacterType = "mage"
+
 export const Background: TileSet = "background"
 export const Characters: TileSet = "characters"
 

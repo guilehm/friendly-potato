@@ -56,7 +56,7 @@ const RogueLike = (): JSX.Element => {
 
 
 
-  const connect = () => {
+  const connect = (sprite: string) => {
     const location = process.env.REACT_APP_ROGUE_WS_LOCATION || "ws://localhost:8080/ws/rogue/"
     const webSocket = new WebSocket(location)
     setWs(webSocket)
@@ -264,6 +264,7 @@ const RogueLike = (): JSX.Element => {
         </S.ProgressXPContainer>
       </>}
       <S.Canvas
+        style={{ display: gameState === "waiting" ? "none" : "block" }}
         tabIndex={0}
         width={CANVAS_WIDTH}
         height={CANVAS_HEIGHT}

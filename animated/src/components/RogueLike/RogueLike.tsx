@@ -66,7 +66,7 @@ const RogueLike = (): JSX.Element => {
     webSocket.onopen = () => {
       webSocket.send(JSON.stringify({
         type: "user-joins",
-        data: { "sprite": Warrior, "id": userId },
+        data: { "sprite": sprite, "id": userId },
       }))
     }
 

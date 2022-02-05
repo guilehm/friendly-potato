@@ -13,6 +13,8 @@ const FPS = 60
 
 const RogueLike = (): JSX.Element => {
 
+  const [sprites, setSprites] = useState<Array<Sprite>>([])
+
   const [ws, setWs] = useState<WebSocket | null>(null)
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>
   const [gameState, setGameState] = useState("waiting")
@@ -34,6 +36,15 @@ const RogueLike = (): JSX.Element => {
 
   const [playerMaxHP, setPlayerMaxHP] = useState(0)
   const playerMaxHPRef = useRef(playerMaxHP)
+
+  useEffect(() => {
+    const getSprites = async () => {
+      const location = process.env.REACT_APP_ROGUE_LOCATION || "http://localhost:8080/sprites/"
+      const response = await axios.get(location)
+      setSprites(response.data)
+    }
+    getSprites()
+  }, [])
 
   useEffect(() => { return }, [playerLevel, playerXP, playerHP, playerMaxHP, playerXPNextLevel, playerXPCurrentLevel])
 

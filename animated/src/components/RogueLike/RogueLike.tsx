@@ -14,6 +14,8 @@ const FPS = 60
 
 const RogueLike = (): JSX.Element => {
 
+  const [loading, setLoading] = useState(true)
+
   const [sprites, setSprites] = useState<Array<Sprite>>([])
 
   const [ws, setWs] = useState<WebSocket | null>(null)

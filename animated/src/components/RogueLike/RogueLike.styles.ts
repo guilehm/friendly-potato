@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import Spinner from "../Spinner"
 
 export const Container = styled.div`
   display: flex;

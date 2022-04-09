@@ -45,6 +45,7 @@ const RogueLike = (): JSX.Element => {
       const location = process.env.REACT_APP_ROGUE_LOCATION || "http://localhost:8080/sprites/"
       const response = await axios.get(location)
       setSprites(response.data)
+      setLoading(false)
     }
     getSprites()
   }, [])
